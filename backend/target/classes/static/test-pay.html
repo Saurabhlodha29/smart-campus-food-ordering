@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+<button id="pay">Pay Now</button>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  document.getElementById('pay').onclick = function() {
+    var rzp = new Razorpay({
+      key: 'rzp_test_ScD6TVc5DrdlOJ',          // ← paste your key_id
+      order_id: 'order_ScXNVj7ftKDu2N',   // ← paste the razorpayOrderId from /initiate
+      amount: 25000,                         // ← paise (₹250 = 25000)
+      currency: 'INR',
+      name: 'Smart Campus',
+      handler: function(response) {
+        document.body.innerHTML =
+          '<pre>' + JSON.stringify(response, null, 2) + '</pre>';
+      }
+    });
+    rzp.open();
+  };
+</script>
+</body>
+</html>

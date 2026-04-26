@@ -1,0 +1,47 @@
+# Smart Campus — ML Service v2.0
+# Python 3.11+
+#
+# Original dependencies (UNCHANGED — do not remove)
+# ─────────────────────────────────────────────────
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+psycopg2-binary==2.9.10
+scikit-learn==1.6.0
+pandas==2.2.3
+numpy==2.2.0
+APScheduler==3.10.4
+python-dotenv==1.0.1
+
+# New dependencies for v2.0 ML features
+# ─────────────────────────────────────────────────
+
+# Model serialisation (Feature: model_registry)
+joblib==1.4.2
+
+# Time-series forecasting (Feature 3: slot demand)
+# Statsmodels is used for SARIMA — much easier to install than Prophet
+statsmodels==0.14.4
+
+# Association rule mining (Feature 5: menu combos)
+# mlxtend is OPTIONAL — falls back to simple co-occurrence if not installed
+# Uncomment this line to enable proper Apriori algorithm:
+# mlxtend==0.23.1
+
+# Sentiment analysis (Feature 6: feedback)
+# Option A — HuggingFace DistilBERT (recommended, ~260MB download on first run)
+# Uncomment for production — works great on free tier with model caching:
+# transformers==4.47.1
+# torch==2.5.1          # CPU-only torch is fine; GPU not needed for inference
+
+# Option B — VADER (lightweight, no model download, slightly less accurate)
+# Uncomment if disk/memory is constrained:
+# nltk==3.9.1
+
+# The service gracefully falls back through:
+# DistilBERT → VADER → keyword matching
+# So ALL THREE are optional. Comment out what you don't want.
+
+# Dev/testing utilities (optional — comment out for production image)
+# pytest==8.3.4
+# httpx==0.28.1    # for FastAPI TestClient

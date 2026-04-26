@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Campus Food</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Epilogue:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #fdf6ec;
+      --surface:   #ffffff;
+      --border:    #e8ddd0;
+      --border2:   #d4c8b8;
+      --text:      #1b1309;
+      --muted:     #7a6e62;
+      --primary:   #c03a25;
+      --primary-h: #a62e1c;
+      --gold:      #d4921a;
+      --gold-bg:   #fef3d0;
+      --green:     #2d6a4f;
+      --green-bg:  #d8f3dc;
+      --blue:      #1a4a8a;
+      --blue-bg:   #d6e8ff;
+      --red-bg:    #fde8e4;
+      --shadow-sm: 0 1px 3px rgba(26,18,8,0.10);
+      --shadow:    0 4px 16px rgba(26,18,8,0.10);
+      --shadow-lg: 0 8px 32px rgba(26,18,8,0.14);
+      --radius:    12px;
+      --radius-sm: 8px;
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'Epilogue', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────── */
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
+
+    /* ─── LAYOUT ────────────────────────────────── */
+    .app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ─── TOPBAR ─────────────────────────────────── */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1.5px solid var(--border);
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem; font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .topbar-logo span { color: var(--gold); }
+    .topbar-user {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.85rem;
+    }
+    .topbar-badge {
+      background: var(--primary); color: #fff;
+      border-radius: 20px; padding: 2px 10px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+    .topbar-badge.manager { background: var(--green); }
+    .topbar-badge.admin   { background: var(--blue); }
+    .btn-ghost {
+      background: none; border: 1.5px solid var(--border2);
+      padding: 5px 14px; border-radius: 20px;
+      font-size: 0.82rem; font-family: 'Epilogue', sans-serif;
+      cursor: pointer; color: var(--muted);
+      transition: all .15s;
+    }
+    .btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ─── TABS ───────────────────────────────────── */
+    .tab-row {
+      display: flex; gap: 0;
+      border-bottom: 1.5px solid var(--border);
+      background: var(--surface);
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .tab-item {
+      padding: 14px 20px;
+      font-size: 0.88rem; font-weight: 500;
+      cursor: pointer;
+      border: none; background: none; color: var(--muted);
+      border-bottom: 2.5px solid transparent;
+      margin-bottom: -1.5px;
+      transition: all .15s; white-space: nowrap;
+      font-family: 'Epilogue', sans-serif;
+    }
+    .tab-item.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .tab-item:hover:not(.active) { color: var(--text); }
+
+    /* ─── MAIN CONTENT ───────────────────────────── */
+    .main { flex: 1; padding: 28px 24px; max-width: 960px; margin: 0 auto; width: 100%; }
+
+    /* ─── CARDS ──────────────────────────────────── */
+    .card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .card-body { padding: 20px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+    /* ─── OUTLET CARD ────────────────────────────── */
+    .outlet-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 20px;
+      cursor: pointer;
+      transition: all .2s;
+      position: relative;
+    }
+    .outlet-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-2px); }
+    .outlet-card.selected { border-color: var(--primary); background: #fff8f6; box-shadow: 0 0 0 2px var(--primary); }
+    .outlet-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
+    .outlet-meta { font-size: 0.8rem; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; }
+    .dot { color: var(--border2); }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: .3px;
+    }
+    .status-pill.ACTIVE   { background: var(--green-bg); color: var(--green); }
+    .status-pill.PENDING  { background: var(--gold-bg);  color: var(--gold);  }
+    .status-pill.PLACED   { background: var(--blue-bg);  color: var(--blue);  }
+    .status-pill.PREPARING{ background: var(--gold-bg);  color: var(--gold);  }
+    .status-pill.READY    { background: var(--green-bg); color: var(--green); }
+    .status-pill.PICKED   { background: #e8e0f4; color: #5b21b6; }
+    .status-pill.EXPIRED  { background: var(--red-bg);   color: var(--primary); }
+    .status-pill.CANCELLED{ background: #f3f4f6; color: #6b7280; }
+    .status-pill.WARNING  { background: var(--red-bg);   color: var(--primary); }
+
+    /* ─── MENU ITEM CARD ─────────────────────────── */
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .menu-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 18px;
+      display: flex; flex-direction: column; gap: 10px;
+      transition: border-color .15s;
+    }
+    .menu-card:hover { border-color: var(--border2); }
+    .menu-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .menu-item-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; }
+    .menu-price { font-size: 1.05rem; font-weight: 700; color: var(--primary); }
+    .menu-prep { font-size: 0.78rem; color: var(--muted); }
+    .qty-ctrl { display: flex; align-items: center; gap: 10px; }
+    .qty-btn {
+      width: 30px; height: 30px; border-radius: 50%;
+      border: 1.5px solid var(--border2);
+      background: var(--bg); cursor: pointer;
+      font-size: 1.1rem; font-weight: 600; color: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      transition: all .15s;
+    }
+    .qty-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .qty-btn.add { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .qty-btn.add:hover { background: var(--primary-h); }
+    .qty-num { font-weight: 600; min-width: 20px; text-align: center; }
+
+    /* ─── BUTTONS ────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 600; font-family: 'Epilogue', sans-serif;
+      border: none; cursor: pointer; transition: all .15s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-h); }
+    .btn-primary:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-outline {
+      background: transparent; border: 1.5px solid var(--border2);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-sm { padding: 6px 14px; font-size: 0.82rem; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { background: #245a40; }
+    .btn-gold  { background: var(--gold); color: #fff; }
+    .btn-gold:hover { background: #b87c14; }
+
+    /* ─── FORM ───────────────────────────────────── */
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    label { font-size: 0.82rem; font-weight: 600; color: var(--muted); letter-spacing: .3px; text-transform: uppercase; }
+    input, select {
+      padding: 10px 14px;
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem; font-family: 'Epilogue', sans-serif;
+      background: var(--bg); color: var(--text);
+      outline: none; transition: border-color .15s;
+    }
+    input:focus, select:focus { border-color: var(--primary); background: var(--surface); }
+    input::placeholder { color: var(--muted); }
+
+    /* ─── LOGIN PAGE ─────────────────────────────── */
+    .login-shell {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+      padding: 20px;
+    }
+    .login-card {
+      width: 100%; max-width: 420px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      padding: 48px 40px 40px;
+    }
+    .login-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.4rem; font-weight: 700;
+      color: var(--primary); text-align: center;
+      margin-bottom: 6px;
+    }
+    .login-logo span { color: var(--gold); }
+    .login-sub {
+      text-align: center; color: var(--muted);
+      font-size: 0.85rem; margin-bottom: 36px;
+    }
+    .login-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0; color: var(--muted); font-size: 0.78rem;
+    }
+    .login-divider::before, .login-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .demo-row { display: flex; gap: 8px; }
+    .demo-btn {
+      flex: 1; padding: 9px 8px;
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius-sm);
+      background: var(--bg); cursor: pointer;
+      font-size: 0.78rem; font-family: 'Epilogue', sans-serif;
+      color: var(--text); transition: all .15s; text-align: center; font-weight: 500;
+    }
+    .demo-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ─── ORDER CARD ─────────────────────────────── */
+    .order-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 20px;
+      margin-bottom: 14px;
+    }
+    .order-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+    .order-id { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; }
+    .order-meta { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+    .order-items-list { margin: 12px 0; padding: 12px; background: var(--bg); border-radius: var(--radius-sm); }
+    .order-item-row { display: flex; justify-content: space-between; font-size: 0.85rem; padding: 3px 0; }
+    .order-total {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 12px; border-top: 1px solid var(--border);
+    }
+    .order-total-label { font-size: 0.85rem; color: var(--muted); }
+    .order-total-amt { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
+    .order-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .order-times { font-size: 0.78rem; color: var(--muted); margin-top: 8px; display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* ─── SLOT CARD ──────────────────────────────── */
+    .slots-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+    .slot-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px; cursor: pointer;
+      transition: all .15s; background: var(--surface);
+    }
+    .slot-card:hover:not(.full):not(.selected) { border-color: var(--border2); }
+    .slot-card.selected { border-color: var(--primary); background: #fff8f6; box-shadow: 0 0 0 2px var(--primary); }
+    .slot-card.full { opacity: .45; cursor: not-allowed; }
+    .slot-time { font-weight: 600; font-size: 0.92rem; }
+    .slot-cap { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+    /* ─── CART SIDEBAR / STEP ────────────────────── */
+    .cart-section {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 20px; margin-bottom: 20px;
+    }
+    .cart-section h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; margin-bottom: 14px; }
+    .cart-row { display: flex; justify-content: space-between; font-size: 0.88rem; padding: 4px 0; }
+    .cart-total { border-top: 1.5px solid var(--border); margin-top: 10px; padding-top: 10px; font-weight: 700; }
+
+    /* ─── STEP INDICATOR ─────────────────────────── */
+    .steps { display: flex; align-items: center; gap: 0; margin-bottom: 28px; }
+    .step {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.82rem; font-weight: 600; color: var(--muted);
+    }
+    .step.active { color: var(--primary); }
+    .step.done { color: var(--green); }
+    .step-num {
+      width: 26px; height: 26px; border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+    }
+    .step.done .step-num { background: var(--green); color: #fff; border-color: var(--green); }
+    .step.active .step-num { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .step-line { flex: 1; height: 1.5px; background: var(--border); margin: 0 8px; min-width: 20px; }
+
+    /* ─── SECTION HEADING ────────────────────────── */
+    .sec-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem; font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .sec-sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 22px; }
+
+    /* ─── ALERTS ─────────────────────────────────── */
+    .alert {
+      padding: 12px 16px; border-radius: var(--radius-sm);
+      font-size: 0.87rem; margin-bottom: 18px;
+    }
+    .alert-error { background: var(--red-bg); color: #9b1c1c; border: 1px solid #fca5a5; }
+    .alert-success { background: var(--green-bg); color: #1a4731; border: 1px solid #86efac; }
+    .alert-warn { background: var(--gold-bg); color: #92400e; border: 1px solid #fcd34d; }
+
+    /* ─── SKELETON / LOADING ─────────────────────── */
+    .skeleton { background: linear-gradient(90deg, var(--border) 25%, var(--bg) 50%, var(--border) 75%); background-size: 200%; animation: shimmer 1.5s infinite; border-radius: 6px; }
+    @keyframes shimmer { to { background-position: -200% center; } }
+    .spinner {
+      display: inline-block; width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,.35);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── PENALTY BANNER ─────────────────────────── */
+    .penalty-banner {
+      background: linear-gradient(135deg, #7f1d1d, #991b1b);
+      color: #fff; padding: 14px 20px;
+      border-radius: var(--radius); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .penalty-icon { font-size: 1.5rem; }
+    .penalty-text h4 { font-size: 0.9rem; font-weight: 700; }
+    .penalty-text p { font-size: 0.8rem; opacity: .85; margin-top: 2px; }
+
+    /* ─── ACCOUNT CARD ───────────────────────────── */
+    .account-stat {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .account-stat:last-child { border-bottom: none; }
+    .account-stat-label { font-size: 0.85rem; color: var(--muted); }
+    .account-stat-value { font-weight: 600; font-size: 0.95rem; }
+
+    /* ─── MISC ───────────────────────────────────── */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+    .empty-state-icon { font-size: 3rem; margin-bottom: 12px; }
+    .empty-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--text); margin-bottom: 8px; }
+    .flex-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .ml-auto { margin-left: auto; }
+    .mb-16 { margin-bottom: 16px; }
+    .mb-24 { margin-bottom: 24px; }
+    .text-sm { font-size: 0.85rem; }
+    .text-muted { color: var(--muted); }
+    .font-bold { font-weight: 700; }
+    .payment-opt { display: flex; gap: 10px; }
+    .payment-btn {
+      flex: 1; padding: 12px;
+      border: 2px solid var(--border2); border-radius: var(--radius-sm);
+      background: var(--bg); cursor: pointer;
+      font-size: 0.88rem; font-weight: 600; font-family: 'Epilogue', sans-serif;
+      color: var(--muted); transition: all .15s; text-align: center;
+    }
+    .payment-btn.selected { border-color: var(--primary); color: var(--primary); background: #fff8f6; }
+    .payment-btn:hover:not(.selected) { border-color: var(--border2); color: var(--text); }
+
+    @media (max-width: 600px) {
+      .main { padding: 16px; }
+      .login-card { padding: 32px 24px; }
+      .tab-item { padding: 12px 14px; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useCallback } = React;
+
+const API = 'http://localhost:8080/api';
+
+// ─── API Helper ─────────────────────────────────────────────────────────────
+async function apiFetch(path, { method = 'GET', body, token } = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const res = await fetch(`${API}${path}`, {
+    method, headers,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  if (!res.ok) {
+    let msg = `HTTP ${res.status}`;
+    try { const e = await res.json(); msg = e.message || e.error || msg; } catch {}
+    throw new Error(msg);
+  }
+  return res.json();
+}
+
+// ─── Util ────────────────────────────────────────────────────────────────────
+function fmtTime(dt) {
+  if (!dt) return '—';
+  try {
+    const d = new Date(dt);
+    return d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  } catch { return dt; }
+}
+function fmtDate(dt) {
+  if (!dt) return '—';
+  try {
+    const d = new Date(dt);
+    return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+  } catch { return dt; }
+}
+function fmtDateTime(dt) { return dt ? `${fmtDate(dt)}, ${fmtTime(dt)}` : '—'; }
+function fmtRupee(n) { return `₹${Number(n).toFixed(2)}`; }
+
+const STATUS_NEXT = { PLACED: 'PREPARING', PREPARING: 'READY', READY: 'PICKED' };
+const STATUS_LABEL = { PLACED: 'Mark Preparing', PREPARING: 'Mark Ready', READY: 'Mark Picked' };
+const STATUS_BTN_CLASS = { PLACED: 'btn-gold', PREPARING: 'btn-green', READY: 'btn-primary' };
+
+// ─── StatusPill ──────────────────────────────────────────────────────────────
+function StatusPill({ status }) {
+  const dots = { PLACED:'🔵', PREPARING:'🟡', READY:'🟢', PICKED:'🟣', EXPIRED:'🔴', CANCELLED:'⚫', ACTIVE:'🟢', WARNING:'🔴', PENDING:'🟡' };
+  return <span className={`status-pill ${status}`}>{dots[status] || '⚪'} {status}</span>;
+}
+
+// ─── LOGIN ───────────────────────────────────────────────────────────────────
+function LoginPage({ onLogin }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    setLoading(true); setError('');
+    try {
+      const data = await apiFetch('/auth/login', { method: 'POST', body: { email, password } });
+      onLogin(data);
+    } catch (err) {
+      setError(err.message);
+    } finally { setLoading(false); }
+  }
+
+  function fillDemo(role) {
+    if (role === 'student') { setEmail('saurabh@bennett.edu.in'); setPassword('123456'); }
+    if (role === 'manager') { setEmail('manager@bennett.edu.in'); setPassword('123456'); }
+  }
+
+  return (
+    <div className="login-shell">
+      <div className="login-card">
+        <div className="login-logo">Smart<span>Campus</span><br />Food</div>
+        <p className="login-sub">Bennett University — Campus Ordering</p>
+
+        {error && <div className="alert alert-error">{error}</div>}
+
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>Email</label>
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)}
+              placeholder="you@bennett.edu.in" required />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)}
+              placeholder="••••••" required />
+          </div>
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: 4 }} disabled={loading}>
+            {loading ? <><span className="spinner" /> Signing in…</> : 'Sign In'}
+          </button>
+        </form>
+
+        <div className="login-divider">Quick demo login</div>
+        <div className="demo-row">
+          <button className="demo-btn" onClick={() => fillDemo('student')}>🎓 Student</button>
+          <button className="demo-btn" onClick={() => fillDemo('manager')}>👨‍🍳 Manager</button>
+        </div>
+        <p style={{ fontSize: '0.75rem', color: 'var(--muted)', textAlign: 'center', marginTop: 10 }}>
+          Password for both: 123456 — click a role to pre-fill, then Sign In
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── OUTLET PICKER ────────────────────────────────────────────────────────────
+function OutletPicker({ token, onSelect }) {
+  const [outlets, setOutlets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    apiFetch('/outlets', { token })
+      .then(data => setOutlets(data))
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <p className="text-muted text-sm">Loading outlets…</p>;
+  if (error) return <div className="alert alert-error">{error}</div>;
+  if (!outlets.length) return <div className="empty-state"><p>No outlets found.</p></div>;
+
+  return (
+    <div className="card-grid">
+      {outlets.filter(o => o.status === 'ACTIVE').map(o => (
+        <div key={o.id} className="outlet-card" onClick={() => onSelect(o)}>
+          <div className="outlet-name">{o.name}</div>
+          <div className="outlet-meta">
+            <StatusPill status={o.status} />
+            <span className="dot">·</span>
+            <span>⏱ {o.avgPrepTime} min avg prep</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ─── MENU BROWSER ─────────────────────────────────────────────────────────────
+function MenuBrowser({ token, outlet, cart, onCartChange, onNext }) {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    apiFetch(`/menu-items?outletId=${outlet.id}`, { token })
+      .then(data => setItems(data.filter(i => i.isAvailable !== false && i.available !== false)))
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [outlet.id]);
+
+  function getQty(id) { return cart[id] || 0; }
+  function setQty(item, qty) {
+    const next = { ...cart };
+    if (qty <= 0) delete next[item.id];
+    else next[item.id] = qty;
+    onCartChange(next, item);
+  }
+
+  const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
+  const cartItems = items.filter(i => cart[i.id]);
+
+  if (loading) return <p className="text-muted text-sm">Loading menu…</p>;
+  if (error) return <div className="alert alert-error">{error}</div>;
+  if (!items.length) return <div className="empty-state"><div className="empty-state-icon">🍽</div><h3>Menu coming soon</h3><p>No items found for this outlet.</p></div>;
+
+  return (
+    <>
+      <div className="flex-row mb-16">
+        <div>
+          <div className="sec-heading">{outlet.name}</div>
+          <div className="sec-sub">Select items to add to your order</div>
+        </div>
+      </div>
+
+      <div className="menu-grid mb-24">
+        {items.map(item => {
+          const qty = getQty(item.id);
+          return (
+            <div key={item.id} className="menu-card">
+              <div className="menu-card-top">
+                <div className="menu-item-name">{item.name}</div>
+                <div className="menu-price">{fmtRupee(item.price)}</div>
+              </div>
+              <div className="menu-prep">⏱ {item.prepTime} min prep time</div>
+              <div className="qty-ctrl">
+                {qty > 0 ? <>
+                  <button className="qty-btn" onClick={() => setQty(item, qty - 1)}>−</button>
+                  <span className="qty-num">{qty}</span>
+                  <button className="qty-btn add" onClick={() => setQty(item, qty + 1)}>+</button>
+                </> : (
+                  <button className="qty-btn add" style={{ width: '100%', borderRadius: '8px', padding: '6px 12px', fontSize: '0.85rem' }}
+                    onClick={() => setQty(item, 1)}>+ Add</button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {totalItems > 0 && (
+        <div className="cart-section">
+          <h3>Your Cart ({totalItems} {totalItems === 1 ? 'item' : 'items'})</h3>
+          {cartItems.map(item => (
+            <div className="cart-row" key={item.id}>
+              <span>{item.name} × {cart[item.id]}</span>
+              <span className="font-bold">{fmtRupee(item.price * cart[item.id])}</span>
+            </div>
+          ))}
+          <div className="cart-row cart-total">
+            <span>Total</span>
+            <span>{fmtRupee(cartItems.reduce((s, i) => s + i.price * cart[i.id], 0))}</span>
+          </div>
+          <button className="btn btn-primary" style={{ width: '100%', marginTop: 14 }} onClick={onNext}>
+            Proceed to Pickup Slot →
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
+// ─── SLOT PICKER ──────────────────────────────────────────────────────────────
+function SlotPicker({ token, outlet, selectedSlot, onSelect }) {
+  const [slots, setSlots] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    apiFetch('/slots', { token })
+      .then(data => {
+        const filtered = data.filter(s => s.outlet?.id === outlet.id || s.outlet === outlet.id);
+        setSlots(filtered.length ? filtered : data); // fallback: show all if none match outlet
+      })
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [outlet.id]);
+
+  if (loading) return <p className="text-muted text-sm">Loading slots…</p>;
+  if (error) return <div className="alert alert-error">{error}</div>;
+  if (!slots.length) return <div className="alert alert-warn">No pickup slots available for this outlet.</div>;
+
+  return (
+    <div className="slots-grid">
+      {slots.map(slot => {
+        const full = slot.currentOrders >= slot.maxOrders;
+        const sel = selectedSlot?.id === slot.id;
+        return (
+          <div key={slot.id}
+            className={`slot-card ${sel ? 'selected' : ''} ${full ? 'full' : ''}`}
+            onClick={() => !full && onSelect(slot)}>
+            <div className="slot-time">{fmtTime(slot.startTime)} – {fmtTime(slot.endTime)}</div>
+            <div className="slot-cap">
+              {full ? '🔴 Slot Full' : `${slot.currentOrders}/${slot.maxOrders} orders`}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── ORDER FOOD TAB (STUDENT) ────────────────────────────────────────────────
+function OrderFoodTab({ auth }) {
+  const [step, setStep] = useState(1); // 1:outlet  2:menu  3:slot+pay  4:confirm
+  const [outlet, setOutlet] = useState(null);
+  const [cart, setCart] = useState({});
+  const [menuItems, setMenuItems] = useState([]);
+  const [slot, setSlot] = useState(null);
+  const [payMode, setPayMode] = useState('ONLINE');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(null);
+
+  function updateCart(newCart, allItems) {
+    setCart(newCart);
+    if (allItems && !Array.isArray(allItems)) {
+      // keep a ref to all items for summary
+    }
+  }
+
+  async function placeOrder() {
+    setLoading(true); setError('');
+    try {
+      const items = Object.entries(cart).map(([menuItemId, quantity]) => ({
+        menuItemId: Number(menuItemId), quantity
+      }));
+      const order = await apiFetch('/orders', {
+        method: 'POST', token: auth.token,
+        body: {
+          studentId: Number(auth.id),
+          outletId: outlet.id,
+          slotId: slot.id,
+          paymentMode: payMode,
+          items,
+        }
+      });
+      setSuccess(order);
+      setStep(5);
+    } catch (err) {
+      setError(err.message);
+    } finally { setLoading(false); }
+  }
+
+  function reset() {
+    setStep(1); setOutlet(null); setCart({}); setMenuItems([]);
+    setSlot(null); setPayMode('ONLINE'); setError(''); setSuccess(null);
+  }
+
+  const cartCount = Object.values(cart).reduce((a, b) => a + b, 0);
+
+  // Step labels
+  const steps = [
+    { n: 1, label: 'Outlet' },
+    { n: 2, label: 'Menu' },
+    { n: 3, label: 'Pickup & Pay' },
+  ];
+
+  if (step === 5 && success) {
+    return (
+      <div>
+        <div className="alert alert-success" style={{ fontSize: '1rem', padding: '20px 24px' }}>
+          <strong>🎉 Order Placed Successfully!</strong>
+          <div style={{ marginTop: 8, fontSize: '0.88rem' }}>
+            Order #{success.id} · Ready by {fmtTime(success.readyAt)} · Total {fmtRupee(success.totalAmount)}
+          </div>
+        </div>
+        <div className="order-card">
+          <div className="flex-row">
+            <div className="order-id">Order #{success.id}</div>
+            <StatusPill status={success.status} />
+          </div>
+          <div className="order-times">
+            <span>🕐 Ready at: <strong>{fmtDateTime(success.readyAt)}</strong></span>
+            <span>⏳ Expires: <strong>{fmtDateTime(success.expiresAt)}</strong></span>
+          </div>
+          <div className="order-total" style={{ marginTop: 12 }}>
+            <span className="order-total-label">Total · {success.paymentMode}</span>
+            <span className="order-total-amt">{fmtRupee(success.totalAmount)}</span>
+          </div>
+        </div>
+        <button className="btn btn-outline" onClick={reset}>← Place Another Order</button>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {step <= 3 && (
+        <div className="steps mb-24">
+          {steps.map((s, i) => (
+            <React.Fragment key={s.n}>
+              <div className={`step ${step > s.n ? 'done' : step === s.n ? 'active' : ''}`}>
+                <div className="step-num">{step > s.n ? '✓' : s.n}</div>
+                <span>{s.label}</span>
+              </div>
+              {i < steps.length - 1 && <div className="step-line" />}
+            </React.Fragment>
+          ))}
+        </div>
+      )}
+
+      {error && <div className="alert alert-error">{error}</div>}
+
+      {step === 1 && (
+        <>
+          <div className="sec-heading">Choose an Outlet</div>
+          <div className="sec-sub">Select where you'd like to order from</div>
+          <OutletPicker token={auth.token} onSelect={o => { setOutlet(o); setStep(2); }} />
+        </>
+      )}
+
+      {step === 2 && outlet && (
+        <>
+          <button className="btn btn-ghost btn-sm mb-16" onClick={() => { setStep(1); setCart({}); }}>← Back</button>
+          <MenuBrowser
+            token={auth.token} outlet={outlet}
+            cart={cart} onCartChange={(c) => setCart(c)}
+            onNext={() => setStep(3)}
+          />
+        </>
+      )}
+
+      {step === 3 && (
+        <>
+          <button className="btn btn-ghost btn-sm mb-16" onClick={() => setStep(2)}>← Back to Menu</button>
+
+          <div className="sec-heading mb-16">Pickup Slot</div>
+          <div className="sec-sub">Choose a time slot for pickup</div>
+          <SlotPicker token={auth.token} outlet={outlet} selectedSlot={slot} onSelect={setSlot} />
+
+          <div className="sec-heading" style={{ marginTop: 28, marginBottom: 8 }}>Payment Method</div>
+          <div className="payment-opt mb-24">
+            <button className={`payment-btn ${payMode === 'ONLINE' ? 'selected' : ''}`} onClick={() => setPayMode('ONLINE')}>
+              💳 Online (Pay Now)
+            </button>
+            <button className={`payment-btn ${payMode === 'CASH' ? 'selected' : ''}`} onClick={() => setPayMode('CASH')}>
+              💵 Cash at Counter
+            </button>
+          </div>
+
+          {/* Cart summary */}
+          <div className="cart-section">
+            <h3>Order Summary</h3>
+            <div className="cart-row"><span>Items</span><span>{cartCount}</span></div>
+            <div className="cart-row"><span>Pickup slot</span><span>{slot ? `${fmtTime(slot.startTime)} – ${fmtTime(slot.endTime)}` : '—'}</span></div>
+            <div className="cart-row"><span>Payment</span><span>{payMode}</span></div>
+            <div className="cart-row cart-total">
+              <span>Estimated Total</span>
+              <span>—</span>
+            </div>
+          </div>
+
+          <button className="btn btn-primary" style={{ width: '100%' }}
+            disabled={!slot || loading} onClick={placeOrder}>
+            {loading ? <><span className="spinner" /> Placing order…</> : '🧾 Place Order'}
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── MY ORDERS TAB (STUDENT) ─────────────────────────────────────────────────
+function MyOrdersTab({ auth }) {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  const load = useCallback(() => {
+    setLoading(true);
+    apiFetch(`/orders/student/${auth.id}`, { token: auth.token })
+      .then(data => setOrders([...data].reverse()))
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [auth.id, auth.token]);
+
+  useEffect(() => { load(); }, [load]);
+
+  if (loading) return <p className="text-muted text-sm">Loading orders…</p>;
+  if (error) return <div className="alert alert-error">{error}</div>;
+  if (!orders.length) return (
+    <div className="empty-state">
+      <div className="empty-state-icon">🧾</div>
+      <h3>No orders yet</h3>
+      <p>Head to Order Food to place your first order!</p>
+    </div>
+  );
+
+  return (
+    <>
+      <div className="flex-row mb-24">
+        <div>
+          <div className="sec-heading">My Orders</div>
+          <div className="sec-sub">{orders.length} order{orders.length !== 1 ? 's' : ''} total</div>
+        </div>
+        <button className="btn btn-ghost btn-sm ml-auto" onClick={load}>↻ Refresh</button>
+      </div>
+      {orders.map(o => (
+        <div key={o.id} className="order-card">
+          <div className="order-header">
+            <div>
+              <div className="order-id">Order #{o.id}</div>
+              <div className="order-meta">{o.outlet?.name || 'Outlet'} · {fmtDate(o.createdAt)}</div>
+            </div>
+            <StatusPill status={o.status} />
+          </div>
+          <div className="order-times">
+            <span>Ready at: <strong>{fmtTime(o.readyAt)}</strong></span>
+            <span>Expires: <strong>{fmtTime(o.expiresAt)}</strong></span>
+            <span>Payment: <strong>{o.paymentMode} · {o.paymentStatus}</strong></span>
+          </div>
+          <div className="order-total">
+            <span className="order-total-label">{o.pickupSlot ? `Slot ${fmtTime(o.pickupSlot.startTime)}–${fmtTime(o.pickupSlot.endTime)}` : ''}</span>
+            <span className="order-total-amt">{fmtRupee(o.totalAmount)}</span>
+          </div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+// ─── ACCOUNT TAB (STUDENT) ────────────────────────────────────────────────────
+function AccountTab({ auth, onLogout }) {
+  const penalty = parseFloat(auth.pendingPenalty || 0);
+  const noShows = parseInt(auth.noShowCount || 0);
+  const acctStatus = auth.accountStatus || 'ACTIVE';
+
+  return (
+    <div style={{ maxWidth: 500 }}>
+      <div className="sec-heading">My Account</div>
+      <div className="sec-sub">{auth.email}</div>
+
+      {penalty > 0 && (
+        <div className="penalty-banner mb-24">
+          <div className="penalty-icon">⚠️</div>
+          <div className="penalty-text">
+            <h4>Pending Penalty: {fmtRupee(penalty)}</h4>
+            <p>You have {noShows} no-show{noShows !== 1 ? 's' : ''} on record. Please clear your penalty to avoid account restrictions.</p>
+          </div>
+        </div>
+      )}
+
+      <div className="card">
+        <div className="card-body">
+          <div className="account-stat">
+            <span className="account-stat-label">Full Name</span>
+            <span className="account-stat-value">{auth.name}</span>
+          </div>
+          <div className="account-stat">
+            <span className="account-stat-label">Email</span>
+            <span className="account-stat-value">{auth.email}</span>
+          </div>
+          <div className="account-stat">
+            <span className="account-stat-label">Role</span>
+            <span className="account-stat-value">{auth.role}</span>
+          </div>
+          <div className="account-stat">
+            <span className="account-stat-label">Account Status</span>
+            <span className="account-stat-value"><StatusPill status={acctStatus} /></span>
+          </div>
+          <div className="account-stat">
+            <span className="account-stat-label">No-show Count</span>
+            <span className="account-stat-value" style={{ color: noShows >= 3 ? 'var(--primary)' : undefined }}>
+              {noShows} {noShows >= 3 ? '⚠️' : ''}
+            </span>
+          </div>
+          <div className="account-stat">
+            <span className="account-stat-label">Pending Penalty</span>
+            <span className="account-stat-value" style={{ color: penalty > 0 ? 'var(--primary)' : 'var(--green)' }}>
+              {penalty > 0 ? fmtRupee(penalty) : '₹0 — clear!'}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <button className="btn btn-outline" style={{ marginTop: 20 }} onClick={onLogout}>Sign Out</button>
+    </div>
+  );
+}
+
+// ─── STUDENT DASHBOARD ────────────────────────────────────────────────────────
+function StudentDashboard({ auth, onLogout }) {
+  const [tab, setTab] = useState('order');
+  const tabs = [
+    { id: 'order', label: '🍽 Order Food' },
+    { id: 'orders', label: '🧾 My Orders' },
+    { id: 'account', label: '👤 Account' },
+  ];
+
+  return (
+    <div className="app-shell">
+      <div className="topbar">
+        <div className="topbar-logo">Smart<span>Campus</span> Food</div>
+        <div className="topbar-user">
+          <span style={{ fontSize: '0.85rem' }}>Hi, {auth.name.split(' ')[0]}</span>
+          <span className="topbar-badge">Student</span>
+        </div>
+      </div>
+      <div className="tab-row">
+        {tabs.map(t => (
+          <button key={t.id} className={`tab-item ${tab === t.id ? 'active' : ''}`}
+            onClick={() => setTab(t.id)}>{t.label}</button>
+        ))}
+      </div>
+      <div className="main">
+        {tab === 'order'   && <OrderFoodTab auth={auth} />}
+        {tab === 'orders'  && <MyOrdersTab auth={auth} />}
+        {tab === 'account' && <AccountTab auth={auth} onLogout={onLogout} />}
+      </div>
+    </div>
+  );
+}
+
+// ─── ACTIVE ORDERS TAB (MANAGER) ──────────────────────────────────────────────
+function ActiveOrdersTab({ auth }) {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [updating, setUpdating] = useState(null);
+
+  const load = useCallback(() => {
+    setLoading(true);
+    apiFetch('/orders', { token: auth.token })
+      .then(data => setOrders([...data].reverse()))
+      .catch(e => setError(e.message))
+      .finally(() => setLoading(false));
+  }, [auth.token]);
+
+  useEffect(() => { load(); }, [load]);
+
+  async function advance(order) {
+    const next = STATUS_NEXT[order.status];
+    if (!next) return;
+    setUpdating(order.id);
+    try {
+      await apiFetch(`/orders/${order.id}/status`, {
+        method: 'PATCH', token: auth.token,
+        body: { status: next }
+      });
+      setOrders(prev => prev.map(o => o.id === order.id ? { ...o, status: next } : o));
+    } catch (err) {
+      alert('Failed: ' + err.message);
+    } finally { setUpdating(null); }
+  }
+
+  const activeOrders = orders.filter(o => ['PLACED','PREPARING','READY'].includes(o.status));
+  const pastOrders   = orders.filter(o => !['PLACED','PREPARING','READY'].includes(o.status));
+
+  if (loading) return <p className="text-muted text-sm">Loading orders…</p>;
+  if (error) return <div className="alert alert-error">{error}</div>;
+
+  return (
+    <>
+      <div className="flex-row mb-24">
+        <div>
+          <div className="sec-heading">Active Orders</div>
+          <div className="sec-sub">{activeOrders.length} active · {pastOrders.length} past</div>
+        </div>
+        <button className="btn btn-ghost btn-sm ml-auto" onClick={load}>↻ Refresh</button>
+      </div>
+
+      {!activeOrders.length && (
+        <div className="empty-state" style={{ marginBottom: 32 }}>
+          <div className="empty-state-icon">✅</div>
+          <h3>All caught up!</h3>
+          <p>No active orders right now.</p>
+        </div>
+      )}
+
+      {activeOrders.map(o => (
+        <div key={o.id} className="order-card">
+          <div className="order-header">
+            <div>
+              <div className="order-id">Order #{o.id}</div>
+              <div className="order-meta">
+                {o.student?.fullName || 'Student'} · {fmtDateTime(o.createdAt)}
+              </div>
+            </div>
+            <StatusPill status={o.status} />
+          </div>
+          <div className="order-times">
+            <span>Ready by: <strong>{fmtTime(o.readyAt)}</strong></span>
+            <span>Slot: <strong>{o.pickupSlot ? `${fmtTime(o.pickupSlot.startTime)}–${fmtTime(o.pickupSlot.endTime)}` : '—'}</strong></span>
+            <span>Payment: <strong>{o.paymentMode} · {o.paymentStatus}</strong></span>
+          </div>
+          <div className="order-total">
+            <span className="order-total-label">Total</span>
+            <span className="order-total-amt">{fmtRupee(o.totalAmount)}</span>
+          </div>
+          {STATUS_NEXT[o.status] && (
+            <div className="order-actions">
+              <button
+                className={`btn btn-sm ${STATUS_BTN_CLASS[o.status]}`}
+                disabled={updating === o.id}
+                onClick={() => advance(o)}>
+                {updating === o.id ? <><span className="spinner" /> Updating…</> : STATUS_LABEL[o.status]}
+              </button>
+            </div>
+          )}
+        </div>
+      ))}
+
+      {pastOrders.length > 0 && (
+        <>
+          <div className="sec-heading" style={{ marginTop: 32, marginBottom: 16, fontSize: '1.3rem' }}>Order History</div>
+          {pastOrders.slice(0, 15).map(o => (
+            <div key={o.id} className="order-card" style={{ opacity: 0.7 }}>
+              <div className="order-header">
+                <div>
+                  <div className="order-id">Order #{o.id}</div>
+                  <div className="order-meta">{o.student?.fullName || 'Student'} · {fmtDateTime(o.createdAt)}</div>
+                </div>
+                <StatusPill status={o.status} />
+              </div>
+              <div className="order-total">
+                <span className="order-total-label">{o.paymentMode}</span>
+                <span className="order-total-amt">{fmtRupee(o.totalAmount)}</span>
+              </div>
+            </div>
+          ))}
+        </>
+      )}
+    </>
+  );
+}
+
+// ─── ADD MENU ITEM TAB (MANAGER) ──────────────────────────────────────────────
+function AddMenuItemTab({ auth }) {
+  const [outlets, setOutlets] = useState([]);
+  const [form, setForm] = useState({ outletId: '', name: '', price: '', prepTime: '' });
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    apiFetch('/outlets', { token: auth.token })
+      .then(data => { setOutlets(data); if (data.length) setForm(f => ({ ...f, outletId: data[0].id })); })
+      .catch(e => setError(e.message));
+  }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true); setError(''); setMsg(null);
+    try {
+      const item = await apiFetch('/menu-items', {
+        method: 'POST', token: auth.token,
+        body: {
+          outletId: Number(form.outletId),
+          name: form.name,
+          price: parseFloat(form.price),
+          prepTime: parseInt(form.prepTime),
+        }
+      });
+      setMsg(`✅ "${item.name}" added successfully at ₹${item.price}!`);
+      setForm(f => ({ ...f, name: '', price: '', prepTime: '' }));
+    } catch (err) {
+      setError(err.message);
+    } finally { setLoading(false); }
+  }
+
+  return (
+    <div style={{ maxWidth: 480 }}>
+      <div className="sec-heading">Add Menu Item</div>
+      <div className="sec-sub">Create a new item for your outlet's menu</div>
+
+      {error && <div className="alert alert-error">{error}</div>}
+      {msg && <div className="alert alert-success">{msg}</div>}
+
+      <div className="card">
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Outlet</label>
+              <select value={form.outletId} onChange={e => setForm(f => ({ ...f, outletId: e.target.value }))}>
+                {outlets.map(o => <option key={o.id} value={o.id}>{o.name}</option>)}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Item Name</label>
+              <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                placeholder="e.g. Paneer Tikka" required />
+            </div>
+            <div className="form-group">
+              <label>Price (₹)</label>
+              <input type="number" step="0.01" min="0" value={form.price}
+                onChange={e => setForm(f => ({ ...f, price: e.target.value }))}
+                placeholder="e.g. 80" required />
+            </div>
+            <div className="form-group">
+              <label>Prep Time (minutes)</label>
+              <input type="number" min="1" value={form.prepTime}
+                onChange={e => setForm(f => ({ ...f, prepTime: e.target.value }))}
+                placeholder="e.g. 10" required />
+            </div>
+            <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
+              {loading ? <><span className="spinner" /> Adding…</> : '+ Add Menu Item'}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── MANAGER DASHBOARD ────────────────────────────────────────────────────────
+function ManagerDashboard({ auth, onLogout }) {
+  const [tab, setTab] = useState('orders');
+  const tabs = [
+    { id: 'orders', label: '📋 Active Orders' },
+    { id: 'menu', label: '➕ Add Menu Item' },
+    { id: 'account', label: '👤 Account' },
+  ];
+
+  return (
+    <div className="app-shell">
+      <div className="topbar">
+        <div className="topbar-logo">Smart<span>Campus</span> Food</div>
+        <div className="topbar-user">
+          <span style={{ fontSize: '0.85rem' }}>{auth.name.split(' ')[0]}</span>
+          <span className="topbar-badge manager">Manager</span>
+        </div>
+      </div>
+      <div className="tab-row">
+        {tabs.map(t => (
+          <button key={t.id} className={`tab-item ${tab === t.id ? 'active' : ''}`}
+            onClick={() => setTab(t.id)}>{t.label}</button>
+        ))}
+      </div>
+      <div className="main">
+        {tab === 'orders'  && <ActiveOrdersTab auth={auth} />}
+        {tab === 'menu'    && <AddMenuItemTab auth={auth} />}
+        {tab === 'account' && <AccountTab auth={auth} onLogout={onLogout} />}
+      </div>
+    </div>
+  );
+}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+function App() {
+  const [auth, setAuth] = useState(() => {
+    try { return JSON.parse(localStorage.getItem('scf_auth')); } catch { return null; }
+  });
+
+  function handleLogin(data) {
+    localStorage.setItem('scf_auth', JSON.stringify(data));
+    setAuth(data);
+  }
+  function handleLogout() {
+    localStorage.removeItem('scf_auth');
+    setAuth(null);
+  }
+
+  if (!auth) return <LoginPage onLogin={handleLogin} />;
+
+  if (auth.role === 'STUDENT') return <StudentDashboard auth={auth} onLogout={handleLogout} />;
+  if (auth.role === 'MANAGER') return <ManagerDashboard auth={auth} onLogout={handleLogout} />;
+
+  return (
+    <div className="login-shell">
+      <div className="card" style={{ padding: 32, textAlign: 'center', maxWidth: 360 }}>
+        <h2 style={{ fontFamily: 'Cormorant Garamond', fontSize: '1.5rem', marginBottom: 12 }}>
+          Role: {auth.role}
+        </h2>
+        <p className="text-muted text-sm" style={{ marginBottom: 20 }}>No dashboard for this role yet.</p>
+        <button className="btn btn-outline" onClick={handleLogout}>Sign Out</button>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

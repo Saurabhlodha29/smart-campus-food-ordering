@@ -1,0 +1,128 @@
+superadmin:
+  email: superadmin@smartcampus.dev
+  password: SuperAdmin@123
+  fullname: Platform SuperAdmin
+
+ml:
+  service:
+    # URL of the Python FastAPI demand-score microservice
+    url: http://localhost:8000
+
+    # Set true once the ML service is running.
+    # When false, PenaltyService uses the rule-based Java fallback only.
+    enabled: true
+
+    # Max time to wait for a response from the ML service (milliseconds).
+    # Keep this SHORT — penalty processing is time-sensitive.
+    timeout-ms: 3000
+
+# ── Razorpay ──────────────────────────────────────────────────────────────────
+razorpay:
+  # Paste your Test Mode keys from https://dashboard.razorpay.com → Settings → API Keys
+  key-id: rzp_test_ScD6TVc5DrdlOJ
+  key-secret: 3OqSZy4mgG33j4H1EEar51MR
+
+  # Set true ONLY when you have a live Razorpay X account and want real bank transfers.
+  # For all development and testing keep this false — payouts will be SIMULATED.
+  payouts-enabled: false
+
+  # Webhook secret — copy from Razorpay Dashboard → Settings → Webhooks → your webhook → Secret
+  # Set this before going live. Leave as NOT_SET during local dev (signature check is skipped).
+  webhook-secret: NOT_SET
+
+  # Your Razorpay X current account number (only needed when payouts-enabled=true)
+  payout-account-number: NOT_SET
+
+spring:
+  application:
+    name: smart-campus-food-ordering
+
+  profiles:
+    active: dev
+
+server:
+  port: 8080
+
+otp:
+  expiry-minutes: 10   # OTP expires after 10 minutes
+
+jwt:
+  secret: smartcampus2024supersecretkeyforjwttokengenerationonly
+  expiration: 86400000
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true&options=-c%20search_path%3Dpublic&prepareThreshold=0
+    username: postgres.nbcgzmjzmgemqvwygidm
+    # The $ in the password must be escaped as $$ in YAML only when using
+    # certain tools. In Spring Boot's application.yml, a plain $ is fine —
+    # write the password exactly as it is, no escaping needed.
+    password: "Saurabh291106"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000        # 30s — max wait to get a connection from pool
+      maximum-pool-size: 5             # Supabase free tier max ~60 total; keep pool small
+      minimum-idle: 1
+      idle-timeout: 300000             # release idle connections after 5 min
+      keepalive-time: 30000            # send keepalive every 30s — prevents Supabase dropping idle
+      max-lifetime: 1800000            # recycle connections after 30 min
+
+  jpa:
+    hibernate:
+      ddl-auto: update                 # auto-creates/updates tables from @Entity on first boot
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: smartcampus291106@gmail.com   # ← replace this
+    password: frrouwmawhhtgiue      # ← replace this (see instructions below)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.smartcampus.backend.service.DocumentVerificationService: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+  datasource:
+    url: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true&options=-c%20search_path%3Dpublic&prepareThreshold=0
+    username: postgres.nbcgzmjzmgemqvwygidm
+    password: "Saurabh291106"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10            # slightly higher for prod traffic
+      minimum-idle: 2
+      idle-timeout: 300000
+      keepalive-time: 30000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: validate               # NEVER auto-alter schema in production
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
