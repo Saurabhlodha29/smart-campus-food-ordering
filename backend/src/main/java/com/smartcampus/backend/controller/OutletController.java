@@ -9,6 +9,8 @@ import com.smartcampus.backend.repository.MenuItemRepository;
 import com.smartcampus.backend.repository.OrderRepository;
 import com.smartcampus.backend.repository.OutletRepository;
 import com.smartcampus.backend.repository.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
@@ -78,6 +80,7 @@ public class OutletController {
     // ─────────────────────────────────────────────────────────────────────────
 
     @GetMapping("/campus/{campusId}")
+    @Cacheable(value = "campus-outlets", key = "#campusId", unless = "#result.isEmpty()")
     public List<Outlet> getActiveOutletsForCampus(@PathVariable Long campusId) {
         return outletRepo.findByCampusIdAndStatus(campusId, Outlet.STATUS_ACTIVE);
     }
@@ -184,6 +187,7 @@ public class OutletController {
     // ─────────────────────────────────────────────────────────────────────────
 
     @PostMapping("/{id}/toggle")
+    @CacheEvict(value = "campus-outlets", key = "#result['campusId']")
     public Map<String, Object> toggleOutlet(@PathVariable Long id, Authentication auth) {
 
         User manager = resolveUser(auth);
@@ -213,6 +217,7 @@ public class OutletController {
         return Map.of(
                 "message", message,
                 "outletId", outlet.getId(),
+                "campusId", outlet.getCampus().getId(),
                 "status", newStatus);
     }
 

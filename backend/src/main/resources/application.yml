@@ -40,11 +40,28 @@ spring:
   profiles:
     active: dev
 
+  cache:
+    type: redis
+    redis:
+      time-to-live: 30000ms
+
+  data:
+    redis:
+      host: localhost       # change to your Redis host in prod (Redis Cloud free tier works)
+      port: 6379
+      timeout: 2000ms
+      repositories:
+        enabled: false
+
+# For production, use Redis Cloud free tier (30MB free) or Railway Redis.
+# Replace host with: redis-xxxxx.c1.us-east-1-2.ec2.cloud.redislabs.com
+
 server:
   port: 8080
 
 otp:
   expiry-minutes: 10   # OTP expires after 10 minutes
+  secret: "replace-this-with-a-32-char-random-string-in-production"
 
 jwt:
   secret: smartcampus2024supersecretkeyforjwttokengenerationonly

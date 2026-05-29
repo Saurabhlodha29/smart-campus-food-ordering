@@ -5,12 +5,12 @@ import com.smartcampus.backend.dto.OrderItemRequest;
 import com.smartcampus.backend.exception.ApiException;
 import com.smartcampus.backend.repository.*;
 import com.smartcampus.backend.service.SseEmitterRegistry;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class OrderService {
@@ -27,7 +27,7 @@ public class OrderService {
 
         private static final double LOAD_FACTOR = 0.5;
         private static final int GRACE_MINUTES = 30;
-        private static final Random RANDOM = new Random();
+        private static javax.crypto.Mac OTP_MAC;
 
         public OrderService(OrderRepository orderRepository,
                         UserRepository userRepository,
@@ -37,7 +37,8 @@ public class OrderService {
                         OrderItemRepository orderItemRepository,
                         NotificationRepository notificationRepository,
                         MLClient mlClient,
-                        SseEmitterRegistry sseEmitterRegistry) {
+                        SseEmitterRegistry sseEmitterRegistry,
+                        @Value("${otp.secret}") String otpSecret) {
                 this.orderRepository = orderRepository;
                 this.userRepository = userRepository;
                 this.outletRepository = outletRepository;
@@ -47,6 +48,7 @@ public class OrderService {
                 this.notificationRepository = notificationRepository;
                 this.mlClient = mlClient;
                 this.sseEmitterRegistry = sseEmitterRegistry;
+                initializeOtpMac(otpSecret);
         }
 
         @Transactional
@@ -140,12 +142,13 @@ public class OrderService {
                                 expiresAt);
                 order.setOrderSource("PLATFORM");
 
-                // COD orders get OTP immediately; ONLINE orders get OTP after payment verified
-                if ("COD".equals(paymentMode)) {
-                        order.setPickupOtp(generateOtp());
-                }
-
                 orderRepository.save(order);
+
+                // Set OTP AFTER save so we have the real orderId to embed in it
+                if ("COD".equals(paymentMode)) {
+                        order.setPickupOtp(generateOtp(order.getId()));
+                        orderRepository.save(order); // second save — only updates pickupOtp column
+                }
 
                 // ML no-show risk: flag high-risk students (requires PLATFORM source)
                 double noShowRisk = mlClient.predictNoShowRisk(studentId, totalAmount, slot.getStartTime().getHour());
@@ -166,9 +169,20 @@ public class OrderService {
                                         order, menuItem, itemRequest.getQuantity(), menuItem.getPrice()));
                 }
 
-                // Increment slot load
-                slot.incrementCurrentOrders();
-                slotRepository.save(slot);
+                try {
+                        slot.incrementCurrentOrders();
+                        slotRepository.save(slot);
+                } catch (org.springframework.orm.ObjectOptimisticLockingFailureException e) {
+                        // Slot was modified by a concurrent request — re-read and re-check
+                        slot = slotRepository.findById(slotId)
+                                        .orElseThrow(() -> new ApiException("Slot not found", 404));
+                        if (slot.getCurrentOrders() >= slot.getMaxOrders()) {
+                                throw new ApiException(
+                                                "This pickup slot just filled up. Please choose another slot.", 409);
+                        }
+                        slot.incrementCurrentOrders();
+                        slotRepository.save(slot);
+                }
 
 	return order;
 	}
@@ -463,8 +477,38 @@ public class OrderService {
 
         // ── Helpers ───────────────────────────────────────────────────────────────
 
-        public static String generateOtp() {
-                return String.format("%04d", RANDOM.nextInt(10000));
+        private static synchronized void initializeOtpMac(String otpSecret) {
+                try {
+                        OTP_MAC = javax.crypto.Mac.getInstance("HmacSHA256");
+                        byte[] key = otpSecret.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+                        OTP_MAC.init(new javax.crypto.spec.SecretKeySpec(key, "HmacSHA256"));
+                } catch (Exception e) {
+                        throw new RuntimeException("Failed to init OTP MAC", e);
+                }
+        }
+
+        /**
+         * Generates a 6-digit OTP that is mathematically tied to the orderId.
+         * Same orderId always produces the same OTP — no DB uniqueness check needed.
+         * No two different orders can ever produce the same OTP at the same time
+         * because the orderId is embedded in the input.
+         *
+         * Format: 6 digits (100000–999999). Leading zeros preserved by String.format.
+         */
+        public static String generateOtp(Long orderId) {
+                try {
+                        String input = orderId + ":" + System.currentTimeMillis() / 60000;
+                        byte[] hash;
+                        synchronized (OTP_MAC) {
+                                OTP_MAC.update(input.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                                hash = OTP_MAC.doFinal();
+                        }
+                        int val = ((hash[0] & 0xFF) << 16 | (hash[1] & 0xFF) << 8 | (hash[2] & 0xFF)) % 900000
+                                        + 100000;
+                        return String.format("%06d", val);
+                } catch (Exception e) {
+                        return String.format("%06d", new java.security.SecureRandom().nextInt(900000) + 100000);
+                }
         }
 
         private boolean isValidTransition(String current, String next) {

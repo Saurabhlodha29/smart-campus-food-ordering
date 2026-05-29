@@ -1,5 +1,6 @@
 package com.smartcampus.backend.security;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,9 +23,11 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final RateLimitFilter rateLimitFilter;
 
-    public SecurityConfig(JwtFilter jwtFilter) {
+    public SecurityConfig(JwtFilter jwtFilter, RateLimitFilter rateLimitFilter) {
         this.jwtFilter = jwtFilter;
+        this.rateLimitFilter = rateLimitFilter;
     }
 
     @Bean
@@ -127,7 +130,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/slots").authenticated()
 
                         .anyRequest().authenticated())
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(rateLimitFilter, JwtFilter.class);
 
         return http.build();
     }
@@ -144,6 +148,13 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public FilterRegistrationBean<RateLimitFilter> rateLimitFilterRegistration(RateLimitFilter filter) {
+        FilterRegistrationBean<RateLimitFilter> registration = new FilterRegistrationBean<>(filter);
+        registration.setEnabled(false);
+        return registration;
     }
 
     @Bean

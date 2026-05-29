@@ -147,7 +147,7 @@ public class PaymentService {
         Order order = payment.getOrder();
         order.setPaymentStatus("PAID");
 
-        String otp = OrderService.generateOtp();
+        String otp = OrderService.generateOtp(order.getId());
         order.setPickupOtp(otp);
         orderRepo.save(order);
 
@@ -172,7 +172,7 @@ public class PaymentService {
         paymentRepo.save(payment);
 
         order.setPaymentStatus("PAID");
-        String otp = OrderService.generateOtp();
+        String otp = OrderService.generateOtp(order.getId());
         order.setPickupOtp(otp);
         orderRepo.save(order);
 

@@ -1,6 +1,7 @@
 package com.smartcampus.backend.domain;
 
 import jakarta.persistence.*;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,6 +47,12 @@ public class PickupSlot {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Version
+    @Column(nullable = false)
+    private Long version = 0L;
+
+    public Long getVersion() { return version; }
 
     protected PickupSlot() {
         // JPA only
