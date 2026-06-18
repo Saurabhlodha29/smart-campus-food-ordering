@@ -31,7 +31,7 @@ public class DataInitializer {
     @Value("${superadmin.email:superadmin@smartcampus.dev}")
     private String superadminEmail;
 
-    @Value("${superadmin.password:SuperAdmin@123}")
+    @Value("${superadmin.password}")
     private String superadminPassword;
 
     @Value("${superadmin.fullname:Platform SuperAdmin}")

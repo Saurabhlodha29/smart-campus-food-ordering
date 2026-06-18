@@ -91,7 +91,7 @@ def _get_conn():
         port=int(os.getenv("DB_PORT", "5432")),
         dbname=os.getenv("DB_NAME", "campus_food_dev"),
         user=os.getenv("DB_USER", "postgres"),
-        password=os.getenv("DB_PASSWORD", "Project@291231"),
+        password=os.environ.get("DB_PASSWORD", ""),
     )
 
 

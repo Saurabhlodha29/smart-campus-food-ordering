@@ -82,6 +82,13 @@
 			<scope>runtime</scope>
 		</dependency>
 
+		<!-- ── dotenv-java (loads .env automatically) ───────────────────────── -->
+		<dependency>
+			<groupId>me.paulschwarz</groupId>
+			<artifactId>spring-dotenv</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+
 		<!-- ── Razorpay Java SDK ──────────────────────────────────────────── -->
 		<dependency>
 			<groupId>com.razorpay</groupId>

@@ -1,37 +1,21 @@
 superadmin:
-  email: superadmin@smartcampus.dev
-  password: SuperAdmin@123
-  fullname: Platform SuperAdmin
+  email: ${SUPERADMIN_EMAIL}
+  password: ${SUPERADMIN_PASSWORD}
+  fullname: ${SUPERADMIN_FULLNAME}
 
 ml:
   service:
-    # URL of the Python FastAPI demand-score microservice
-    url: http://localhost:8000
-
-    # Set true once the ML service is running.
-    # When false, PenaltyService uses the rule-based Java fallback only.
-    enabled: true
-
-    # Max time to wait for a response from the ML service (milliseconds).
-    # Keep this SHORT — penalty processing is time-sensitive.
-    timeout-ms: 3000
+    url: ${ML_SERVICE_URL:http://localhost:8000}
+    enabled: ${ML_SERVICE_ENABLED:true}
+    timeout-ms: ${ML_SERVICE_TIMEOUT_MS:3000}
 
 # ── Razorpay ──────────────────────────────────────────────────────────────────
 razorpay:
-  # Paste your Test Mode keys from https://dashboard.razorpay.com → Settings → API Keys
-  key-id: rzp_test_ScD6TVc5DrdlOJ
-  key-secret: 3OqSZy4mgG33j4H1EEar51MR
-
-  # Set true ONLY when you have a live Razorpay X account and want real bank transfers.
-  # For all development and testing keep this false — payouts will be SIMULATED.
-  payouts-enabled: false
-
-  # Webhook secret — copy from Razorpay Dashboard → Settings → Webhooks → your webhook → Secret
-  # Set this before going live. Leave as NOT_SET during local dev (signature check is skipped).
-  webhook-secret: NOT_SET
-
-  # Your Razorpay X current account number (only needed when payouts-enabled=true)
-  payout-account-number: NOT_SET
+  key-id: ${RAZORPAY_KEY_ID}
+  key-secret: ${RAZORPAY_KEY_SECRET}
+  payouts-enabled: ${RAZORPAY_PAYOUTS_ENABLED:false}
+  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET:NOT_SET}
+  payout-account-number: ${RAZORPAY_PAYOUT_ACCOUNT:NOT_SET}
 
 spring:
   application:
@@ -47,25 +31,22 @@ spring:
 
   data:
     redis:
-      host: localhost       # change to your Redis host in prod (Redis Cloud free tier works)
-      port: 6379
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
       timeout: 2000ms
       repositories:
         enabled: false
-
-# For production, use Redis Cloud free tier (30MB free) or Railway Redis.
-# Replace host with: redis-xxxxx.c1.us-east-1-2.ec2.cloud.redislabs.com
 
 server:
   port: 8080
 
 otp:
-  expiry-minutes: 10   # OTP expires after 10 minutes
-  secret: "replace-this-with-a-32-char-random-string-in-production"
+  expiry-minutes: ${OTP_EXPIRY_MINUTES:10}
+  secret: ${OTP_SECRET}
 
 jwt:
-  secret: smartcampus2024supersecretkeyforjwttokengenerationonly
-  expiration: 86400000
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRY_MS:86400000}
 
 ---
 spring:
@@ -74,24 +55,21 @@ spring:
       on-profile: dev
 
   datasource:
-    url: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true&options=-c%20search_path%3Dpublic&prepareThreshold=0
-    username: postgres.nbcgzmjzmgemqvwygidm
-    # The $ in the password must be escaped as $$ in YAML only when using
-    # certain tools. In Spring Boot's application.yml, a plain $ is fine —
-    # write the password exactly as it is, no escaping needed.
-    password: "Saurabh291106"
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
-      connection-timeout: 30000        # 30s — max wait to get a connection from pool
-      maximum-pool-size: 5             # Supabase free tier max ~60 total; keep pool small
+      connection-timeout: 30000
+      maximum-pool-size: 5
       minimum-idle: 1
-      idle-timeout: 300000             # release idle connections after 5 min
-      keepalive-time: 30000            # send keepalive every 30s — prevents Supabase dropping idle
-      max-lifetime: 1800000            # recycle connections after 30 min
+      idle-timeout: 300000
+      keepalive-time: 30000
+      max-lifetime: 1800000
 
   jpa:
     hibernate:
-      ddl-auto: update                 # auto-creates/updates tables from @Entity on first boot
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
@@ -101,8 +79,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: smartcampus291106@gmail.com   # ← replace this
-    password: frrouwmawhhtgiue      # ← replace this (see instructions below)
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -124,13 +102,13 @@ spring:
       on-profile: prod
 
   datasource:
-    url: jdbc:postgresql://aws-1-ap-south-1.pooler.supabase.com:6543/postgres?pgbouncer=true&options=-c%20search_path%3Dpublic&prepareThreshold=0
-    username: postgres.nbcgzmjzmgemqvwygidm
-    password: "Saurabh291106"
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
     hikari:
       connection-timeout: 30000
-      maximum-pool-size: 10            # slightly higher for prod traffic
+      maximum-pool-size: 10
       minimum-idle: 2
       idle-timeout: 300000
       keepalive-time: 30000
@@ -138,7 +116,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate               # NEVER auto-alter schema in production
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
