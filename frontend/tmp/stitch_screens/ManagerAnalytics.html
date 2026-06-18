@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Outlet Manager Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Poppins:wght@700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0E0801;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #f0e0ca;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .font-poppins { font-family: 'Poppins', sans-serif; }
+        .glass-tooltip {
+            background: rgba(42, 26, 10, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+        .card-glow {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#3d3324",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#e3bfb1",
+                        "card-input": "#2A1A0A",
+                        "surface": "#1C1108",
+                        "outline": "#aa8a7d",
+                        "primary-container": "#ff6500",
+                        "primary": "#ffb596",
+                        "on-primary": "#581e00",
+                        "background": "#0E0801",
+                        "muted-text": "#7A6045",
+                        "border-glow": "rgba(255, 101, 0, 0.18)",
+                        "accent-rating": "#FFB347",
+                    },
+                    spacing: {
+                        "margin-mobile": "20px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "stack-md": "16px",
+                        "base": "4px"
+                    },
+                    fontFamily: {
+                        "label-md": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "display-lg": ["Be Vietnam Pro"]
+                    },
+                    fontSize: {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-mobile h-[64px]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a campus restaurant manager, smiling warmly, wearing a neat kitchen apron, set against a blurred background of a high-end modern industrial kitchen with warm copper lighting and dark wood accents. Minimalist and premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC47ati-oIwJAyE4ewKkXl4vxgRHqdvbXZhfVjltB1ghb7_Lwk4k_f1qFRaTSMNtIz7JEUPc4CRAVrtKsdzXCQzQAt_HNNf48s_TuFfgwkuIOnHsajX7ZvsBp5aluLlXAs2RZMBo4MTFqn0rr4mhEgUKz_CHMjozifIucuv5kOE1QdHSeDP6gA88o5h2tJTy436Q75TIIaoRREOl8LiBgBm8lOfEi43_Z8jJvPoQ5kWXQ0gMpzDdueha5pQYy-TMsO9LJhLBYzZuRk"/>
+</div>
+<h1 class="font-poppins text-[24px] font-[700] text-primary">Analytics</h1>
+</div>
+<div class="flex bg-surface-container-high rounded-full p-1 border border-outline-variant/30">
+<button class="px-3 py-1 text-label-sm font-bold bg-primary-container text-on-primary rounded-full transition-all">Today</button>
+<button class="px-3 py-1 text-label-sm font-medium text-muted-text hover:text-on-surface transition-all">Week</button>
+<button class="px-3 py-1 text-label-sm font-medium text-muted-text hover:text-on-surface transition-all">Month</button>
+</div>
+</header>
+<main class="px-margin-mobile pt-stack-lg space-y-stack-lg">
+<!-- Revenue Summary Grid -->
+<section class="grid grid-cols-2 gap-4">
+<!-- Total Revenue -->
+<div class="bg-card-input card-glow p-4 rounded-[14px] flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#4CAF50]">payments</span>
+<span class="text-[10px] font-bold text-[#4CAF50] bg-[#4CAF50]/10 px-2 py-0.5 rounded-full">+12%</span>
+</div>
+<div>
+<p class="text-muted-text text-[12px] font-medium">Total Revenue</p>
+<h3 class="text-[20px] font-bold text-on-surface">₹42,850</h3>
+</div>
+</div>
+<!-- Total Orders -->
+<div class="bg-card-input card-glow p-4 rounded-[14px] flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#FF6500]">shopping_bag</span>
+<span class="text-[10px] font-bold text-[#FF6500] bg-[#FF6500]/10 px-2 py-0.5 rounded-full">+8%</span>
+</div>
+<div>
+<p class="text-muted-text text-[12px] font-medium">Total Orders</p>
+<h3 class="text-[20px] font-bold text-on-surface">842</h3>
+</div>
+</div>
+<!-- Avg Rating -->
+<div class="bg-card-input card-glow p-4 rounded-[14px] flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-accent-rating" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div>
+<p class="text-muted-text text-[12px] font-medium">Avg Rating</p>
+<h3 class="text-[20px] font-bold text-on-surface">⭐ 4.8</h3>
+</div>
+</div>
+<!-- Completion Rate -->
+<div class="bg-card-input card-glow p-4 rounded-[14px] flex flex-col justify-between h-32">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-[#4CAF50]">check_circle</span>
+</div>
+<div>
+<p class="text-muted-text text-[12px] font-medium">Completion Rate</p>
+<h3 class="text-[20px] font-bold text-on-surface">98%</h3>
+</div>
+</div>
+</section>
+<!-- Revenue Chart -->
+<section class="bg-card-input card-glow p-5 rounded-[14px]">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-body-lg font-bold">Revenue Over Time</h2>
+<span class="material-symbols-outlined text-muted-text text-sm">more_horiz</span>
+</div>
+<div class="relative h-48 flex items-end justify-between gap-2">
+<!-- Bar 1 (Mon) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 60%;"></div>
+<span class="text-[10px] text-muted-text font-medium">M</span>
+</div>
+<!-- Bar 2 (Tue) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 45%;"></div>
+<span class="text-[10px] text-muted-text font-medium">T</span>
+</div>
+<!-- Bar 3 (Wed) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 85%;"></div>
+<span class="text-[10px] text-muted-text font-medium">W</span>
+</div>
+<!-- Bar 4 (Thu) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 70%;"></div>
+<span class="text-[10px] text-muted-text font-medium">T</span>
+<!-- Glass Tooltip Example on Active day -->
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 glass-tooltip px-3 py-1.5 rounded-lg whitespace-nowrap z-10 animate-bounce">
+<p class="text-[10px] font-bold text-on-surface">₹6,420 • 124 Orders</p>
+</div>
+</div>
+<!-- Bar 5 (Fri) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 95%;"></div>
+<span class="text-[10px] text-muted-text font-medium">F</span>
+</div>
+<!-- Bar 6 (Sat) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 80%;"></div>
+<span class="text-[10px] text-muted-text font-medium">S</span>
+</div>
+<!-- Bar 7 (Sun) -->
+<div class="flex-1 group relative flex flex-col items-center gap-2">
+<div class="w-full bg-[#FF6500]/10 rounded-t-sm h-full absolute bottom-0"></div>
+<div class="w-full bg-primary-container rounded-t-sm relative transition-all duration-500" style="height: 55%;"></div>
+<span class="text-[10px] text-muted-text font-medium">S</span>
+</div>
+</div>
+</section>
+<!-- Order Breakdown -->
+<section class="bg-card-input card-glow p-5 rounded-[14px]">
+<h2 class="text-body-lg font-bold mb-6">Order Breakdown</h2>
+<div class="flex flex-col items-center gap-8">
+<div class="relative w-40 h-40">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<!-- Grey (Cancelled) -->
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#3d3324" stroke-dasharray="100 100" stroke-width="3"></circle>
+<!-- Red (Expired) -->
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#93000a" stroke-dasharray="8 100" stroke-dashoffset="-92" stroke-width="3"></circle>
+<!-- Green (Picked) -->
+<circle cx="18" cy="18" fill="transparent" r="16" stroke="#4CAF50" stroke-dasharray="92 100" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[24px] font-bold text-on-surface leading-none">842</span>
+<span class="text-[10px] text-muted-text uppercase tracking-widest font-bold mt-1">Total</span>
+</div>
+</div>
+<div class="grid grid-cols-3 w-full gap-2">
+<div class="text-center">
+<div class="flex items-center justify-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#4CAF50]"></span>
+<span class="text-[11px] font-bold">92%</span>
+</div>
+<p class="text-[10px] text-muted-text">Picked</p>
+</div>
+<div class="text-center">
+<div class="flex items-center justify-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#93000a]"></span>
+<span class="text-[11px] font-bold">5%</span>
+</div>
+<p class="text-[10px] text-muted-text">Expired</p>
+</div>
+<div class="text-center">
+<div class="flex items-center justify-center gap-1.5 mb-1">
+<span class="w-2 h-2 rounded-full bg-[#3d3324]"></span>
+<span class="text-[11px] font-bold">3%</span>
+</div>
+<p class="text-[10px] text-muted-text">Cancelled</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Top Performing Items -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h2 class="text-body-lg font-bold">🤖 Top Items This Week</h2>
+<button class="text-primary text-[12px] font-bold">View Menu</button>
+</div>
+<div class="space-y-3">
+<!-- Item 1 -->
+<div class="bg-card-input card-glow p-3 rounded-[14px] flex items-center gap-4">
+<div class="relative">
+<div class="w-12 h-12 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A macro shot of creamy Paneer Butter Masala in a copper handi, topped with fresh coriander and a dollop of cream. The lighting is warm and golden, highlighting the rich tomato gravy texture. Dark premium aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUqZQQDtvQwitYqbWyc4mJq-iN2J3VwCMa2px1V3Rs0i7-F5JTbAfo7q8JZr3k1N-9Jkfa03_J9pZrH_2ySmgSscVGbyNfrQOvANBALQ_3e1oiHYhTpULs1K3RwZvkvSS5tZZOqA1TogGuUJvV5CFG45PUeskH0iF6WeOxmU8saeHq1q_7zumd2HuAo0wbzGZ4BK9z0Aa2nRH0TlD1Suju972HMtD2Ia-KgnZEnyYL_ot20z5MlPnv9umMwZOlLpDmEyXT1LxclC4"/>
+</div>
+<div class="absolute -top-2 -left-2 w-5 h-5 bg-primary-container text-on-primary text-[10px] font-bold flex items-center justify-center rounded-full border border-surface">1</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1.5">
+<h4 class="text-body-md font-bold text-on-surface">Paneer Butter Masala</h4>
+<span class="text-body-md font-bold text-on-surface">₹18,400</span>
+</div>
+<div class="w-full bg-surface-variant/30 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full w-[95%]"></div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-card-input card-glow p-3 rounded-[14px] flex items-center gap-4">
+<div class="relative">
+<div class="w-12 h-12 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A beautiful plate of Chicken Biryani with aromatic basmati rice, caramelized onions, and fresh mint leaves. Steam gently rises from the plate. Warm dark kitchen setting with dramatic contrast and deep shadows. Premium food photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhVV7FdJFGkMbLHR0R1PhpBJcUumJ1fLSD1JT3m7QFz7D_oVrWQsbopVcEvM_9siy13uKb22H7LSQXOFrTxH1ZLb57RpwCdOjb8B2cidoIlgqLNmlXP_EFEx4-7OYNgBzC0ufyfdxAngtFgRjvwHOjEvopfVH3AcxkfTz8Z1M02mZf-GxhOcYZQUW8QOVArAfJfNkWvuaUEtpFG70_1AQm_KR_KV0fuHXMdnttDfrnETYlP9wtQNmp_Y85OeYll99-6p1-yw_Whic"/>
+</div>
+<div class="absolute -top-2 -left-2 w-5 h-5 bg-surface-container-highest text-on-surface text-[10px] font-bold flex items-center justify-center rounded-full border border-surface">2</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1.5">
+<h4 class="text-body-md font-bold text-on-surface">Chicken Biryani</h4>
+<span class="text-body-md font-bold text-on-surface">₹15,200</span>
+</div>
+<div class="w-full bg-surface-variant/30 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full w-[82%]"></div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-card-input card-glow p-3 rounded-[14px] flex items-center gap-4">
+<div class="relative">
+<div class="w-12 h-12 rounded-xl overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A close-up of steaming hot Masala Chai being poured into a traditional clay kulhad. Spices like cinnamon and star anise are visible next to the glass. Warm, cozy evening atmosphere in a premium cafe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5edC2TJkR8leyg3LFqi_ZjBY_vYCVJihhXHbYpusbEs1CHCukpNqopUhrz42WYLJhzEdxdyPTOcwbj68pUgLDXzv10iLNNMg5qi4sO-cLuRaloJmOHA-1Lwk0Wdp1Cg6OqCR0mZTo2irgnbcjPQCC-xZfkE7x69Vt7zWgTry98WHlSG9KtGtgbpO7_6NM-1M-KY-qpjPVUtWu45xuZSKCZxRbdrSpiv08jPCC0mjT9eibe1RQjYzmC32xp_F9s1UzLt7X89iH0ww"/>
+</div>
+<div class="absolute -top-2 -left-2 w-5 h-5 bg-surface-container-highest text-on-surface text-[10px] font-bold flex items-center justify-center rounded-full border border-surface">3</div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between mb-1.5">
+<h4 class="text-body-md font-bold text-on-surface">Masala Tea</h4>
+<span class="text-body-md font-bold text-on-surface">₹4,200</span>
+</div>
+<div class="w-full bg-surface-variant/30 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full w-[45%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- No-Show Insights -->
+<section class="bg-card-input card-glow p-5 rounded-[14px]">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-body-lg font-bold">No-Show Report</h2>
+<span class="bg-[#4CAF50]/10 text-[#4CAF50] px-3 py-1 rounded-full text-[12px] font-bold">No-show rate: 4.2%</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-muted-text">payments</span>
+</div>
+<div>
+<p class="text-[12px] font-bold">COD No-shows</p>
+<p class="text-[10px] text-muted-text">Higher risk identified</p>
+</div>
+</div>
+<span class="text-body-md font-bold text-error">24 Orders</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-muted-text">language</span>
+</div>
+<div>
+<p class="text-[12px] font-bold">Online Prepaid</p>
+<p class="text-[10px] text-muted-text">Zero loss (Non-refundable)</p>
+</div>
+</div>
+<span class="text-body-md font-bold text-[#4CAF50]">11 Orders</span>
+</div>
+</div>
+</section>
+<!-- Peak Hours Heatmap -->
+<section class="bg-card-input card-glow p-5 rounded-[14px]">
+<h2 class="text-body-lg font-bold mb-6">Peak Hours</h2>
+<div class="grid grid-cols-5 gap-2">
+<div class="col-start-2 text-center text-[10px] text-muted-text font-bold">Morning</div>
+<div class="text-center text-[10px] text-muted-text font-bold">Noon</div>
+<div class="text-center text-[10px] text-muted-text font-bold">Afternoon</div>
+<div class="text-center text-[10px] text-muted-text font-bold">Evening</div>
+<!-- Mon -->
+<div class="text-[10px] text-muted-text font-bold flex items-center">Mon</div>
+<div class="h-10 rounded bg-[#FF6500]/10 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/40 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/20 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/80 border border-border-glow"></div>
+<!-- Tue -->
+<div class="text-[10px] text-muted-text font-bold flex items-center">Tue</div>
+<div class="h-10 rounded bg-[#FF6500]/20 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/50 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/30 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/90 border border-border-glow"></div>
+<!-- Wed -->
+<div class="text-[10px] text-muted-text font-bold flex items-center">Wed</div>
+<div class="h-10 rounded bg-[#FF6500]/10 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/90 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/40 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/60 border border-border-glow"></div>
+<!-- Thu -->
+<div class="text-[10px] text-muted-text font-bold flex items-center">Thu</div>
+<div class="h-10 rounded bg-[#FF6500]/30 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/70 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/20 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/100 border border-border-glow"></div>
+<!-- Fri -->
+<div class="text-[10px] text-muted-text font-bold flex items-center">Fri</div>
+<div class="h-10 rounded bg-[#FF6500]/40 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/60 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/50 border border-border-glow"></div>
+<div class="h-10 rounded bg-[#FF6500]/100 border border-border-glow shadow-[0_0_15px_rgba(255,101,0,0.3)]"></div>
+</div>
+</section>
+<!-- Weekly Payout Preview -->
+<section class="bg-primary-container rounded-[24px] p-6 text-on-primary mb-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-20">
+<span class="material-symbols-outlined text-[100px]">account_balance_wallet</span>
+</div>
+<div class="relative z-10">
+<p class="text-[14px] font-bold uppercase tracking-wider opacity-90 mb-1">Expected Payout This Week</p>
+<h2 class="font-poppins text-[32px] font-[800] leading-tight mb-1">₹38,565</h2>
+<p class="text-[11px] font-medium opacity-80 mb-6">Payout scheduled for Sunday, 12th May</p>
+<div class="space-y-2 border-t border-white/20 pt-4">
+<div class="flex justify-between text-[13px]">
+<span>Total Revenue</span>
+<span class="font-bold">₹42,850</span>
+</div>
+<div class="flex justify-between text-[13px]">
+<span>Platform Fee (10%)</span>
+<span class="font-bold">-₹4,285</span>
+</div>
+<div class="flex justify-between text-[15px] pt-1 font-extrabold">
+<span>Net Payout</span>
+<span>₹38,565</span>
+</div>
+</div>
+<button class="w-full mt-6 bg-white text-primary-container font-bold py-3 rounded-full flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                    View Transaction Ledger
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full z-50 h-[80px] bg-surface border-t border-outline-variant flex justify-around items-center px-base pb-safe">
+<button class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-md text-label-md">Menu</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-label-md text-label-md">Slots</span>
+</button>
+<button class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Ledger</span>
+</button>
+<button class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for the chart
+        const bars = document.querySelectorAll('.group');
+        bars.forEach(bar => {
+            bar.addEventListener('mouseenter', () => {
+                bar.querySelector('.bg-primary-container').classList.add('brightness-125');
+            });
+            bar.addEventListener('mouseleave', () => {
+                bar.querySelector('.bg-primary-container').classList.remove('brightness-125');
+            });
+        });
+
+        // Pill toggle interaction
+        const buttons = document.querySelectorAll('.flex.bg-surface-container-high button');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => {
+                    b.classList.remove('bg-primary-container', 'text-on-primary', 'font-bold');
+                    b.classList.add('text-muted-text', 'font-medium');
+                });
+                btn.classList.add('bg-primary-container', 'text-on-primary', 'font-bold');
+                btn.classList.remove('text-muted-text', 'font-medium');
+            });
+        });
+    </script>
+</body></html>

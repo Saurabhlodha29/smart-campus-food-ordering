@@ -7,6 +7,7 @@ export const ROUTES = {
   STUDENT_OUTLET:    "/student/outlet/:id",
   STUDENT_CART:      "/student/cart",
   STUDENT_CHECKOUT:  "/student/checkout",
+  STUDENT_CONFIRM:   "/student/order/:id/confirmation",
   STUDENT_TRACKING:  "/student/order/:id/tracking",
   STUDENT_ORDERS:    "/student/orders",
   STUDENT_PROFILE:   "/student/profile",

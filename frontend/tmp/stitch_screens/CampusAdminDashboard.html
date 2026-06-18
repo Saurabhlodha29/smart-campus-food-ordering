@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>North Campus Admin Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #0E0801;
+            color: #f0e0ca;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .border-glow {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-24">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 left-0 w-full z-50 h-[64px] bg-surface flex justify-between items-center px-margin-mobile border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">North Campus Admin</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-primary-container text-[10px] flex items-center justify-center rounded-full text-white font-bold">3</span>
+</div>
+<button class="flex items-center gap-1 text-primary hover:bg-surface-container-high transition-colors p-1 rounded-lg active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md hidden sm:block">Logout</span>
+</button>
+</div>
+</header>
+<main class="pt-[80px] px-margin-mobile">
+<!-- KPI Cards Row -->
+<section class="mb-stack-lg">
+<div class="flex gap-stack-sm overflow-x-auto hide-scrollbar pb-2">
+<!-- Card 1: Total -->
+<div class="flex-shrink-0 w-[120px] bg-card-input p-4 rounded-[14px] border-glow">
+<span class="material-symbols-outlined text-tertiary-container mb-2" data-icon="storefront">storefront</span>
+<div class="text-headline-md font-bold text-on-surface">12</div>
+<div class="text-label-sm text-muted-text">Total Outlets</div>
+</div>
+<!-- Card 2: Active -->
+<div class="flex-shrink-0 w-[120px] bg-card-input p-4 rounded-[14px] border-glow">
+<span class="material-symbols-outlined text-accent-rating mb-2" data-icon="check_circle">check_circle</span>
+<div class="text-headline-md font-bold text-on-surface">10</div>
+<div class="text-label-sm text-muted-text">Active</div>
+</div>
+<!-- Card 3: Pending -->
+<div class="flex-shrink-0 w-[120px] bg-card-input p-4 rounded-[14px] border-glow relative">
+<div class="absolute top-3 right-3 w-2 h-2 bg-primary-container rounded-full"></div>
+<span class="material-symbols-outlined text-primary mb-2" data-icon="schedule">schedule</span>
+<div class="text-headline-md font-bold text-on-surface">2</div>
+<div class="text-label-sm text-muted-text">Pending Apps</div>
+</div>
+<!-- Card 4: Suspended -->
+<div class="flex-shrink-0 w-[120px] bg-card-input p-4 rounded-[14px] border-glow">
+<span class="material-symbols-outlined text-error mb-2" data-icon="cancel">cancel</span>
+<div class="text-headline-md font-bold text-on-surface">0</div>
+<div class="text-label-sm text-muted-text">Suspended</div>
+</div>
+</div>
+</section>
+<!-- Action Required Section -->
+<section class="mb-stack-lg">
+<div class="bg-[#ff65001a] border border-primary-container p-4 rounded-xl flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="text-primary-container font-bold text-body-lg">⚡</span>
+<h3 class="font-headline-md text-primary-container text-body-md">2 Outlet Applications Awaiting Review</h3>
+</div>
+<a class="text-primary-container font-bold text-label-md flex items-center gap-1" href="#">Review Now <span class="material-symbols-outlined text-[16px]" data-icon="arrow_forward">arrow_forward</span></a>
+</div>
+<div class="bg-surface-container rounded-lg p-3 border border-primary-container/20">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-bold text-body-md text-on-surface">The Coffee Bean</div>
+<div class="text-label-md text-muted-text">Manager: Rahul S.</div>
+</div>
+<div class="text-right">
+<div class="text-label-sm text-muted-text">Applied: 12 Jun</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions Grid -->
+<section class="mb-stack-lg">
+<h2 class="font-headline-md text-on-surface mb-stack-sm">Quick Actions</h2>
+<div class="grid grid-cols-2 gap-stack-md">
+<button class="bg-card-input p-5 rounded-2xl border-glow flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px] text-primary" data-icon="manage_search">manage_search</span>
+<span class="text-label-md text-center text-on-surface">Review Applications</span>
+</button>
+<button class="bg-card-input p-5 rounded-2xl border-glow flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px] text-tertiary-container" data-icon="store">store</span>
+<span class="text-label-md text-center text-on-surface">Manage Outlets</span>
+</button>
+<button class="bg-card-input p-5 rounded-2xl border-glow flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px] text-error" data-icon="warning">warning</span>
+<span class="text-label-md text-center text-on-surface">Penalty Management</span>
+</button>
+<button class="bg-card-input p-5 rounded-2xl border-glow flex flex-col items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[32px] text-accent-rating" data-icon="bar_chart">bar_chart</span>
+<span class="text-label-md text-center text-on-surface">View Analytics</span>
+</button>
+</div>
+</section>
+<!-- Outlet Status Overview -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-center mb-stack-sm">
+<h2 class="font-headline-md text-on-surface">All Outlets <span class="text-muted-text font-normal text-body-md">(12)</span></h2>
+<span class="material-symbols-outlined text-muted-text" data-icon="filter_list">filter_list</span>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<!-- Row 1 -->
+<div class="bg-card-input p-4 rounded-xl border-glow flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up professional overhead shot of a vibrant gourmet bistro bowl with fresh greens, grilled chicken, and colorful vegetables, set against a dark rustic wooden background to match the premium warm-dark aesthetic of the campus admin dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvyHb7c2pqias2dELwpaVxR6ginNgrGW1tC8Jk6r8cv3RufJoyf6FDdXWEavWYsk3XFKGX4afobEmnjD1eDvKc-UwTXcFfHcy2e0Bg0gnNCPNxv6kZSemh5gpAo5tTaCMSMPjOZfrH86ty03RmbTd6CKmlEZGbRhPOio5eHtaJzOCoYsTLIT66HUV7xkBRtDHPKUtuxRCj_zFeE7tWg-O7_ZUPl42FFhgzRyDAxq4NeXJEIZ1jQlcHc8OYp-6mLjeoU3pDbcvtTIw"/>
+</div>
+<div>
+<div class="font-bold text-body-md text-on-surface">Campus Bistro</div>
+<div class="text-label-md text-muted-text">Manager: Amit K.</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-2 py-1 bg-secondary-container/30 text-accent-rating text-[10px] font-bold rounded uppercase tracking-wider">Active</span>
+<span class="material-symbols-outlined text-muted-text" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="bg-card-input p-4 rounded-xl border-glow flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Macro photography of two artisanal tacos with colorful toppings like pickled onions and cilantro, presented on a dark textured slate plate under warm amber lighting to emphasize the premium nocturnal atmosphere of the food management app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOHzhdH91ECVmgrphj_WRp2TUniZvjlQxkfS2LaHicOUCYk4cAifWbc2J6z7bbdQfkhflJFRDP0DEeA2aQVvvI6ZQY57-e9WiqOh0wD3siu9HVyUm-S9oPoqPJy0aPzTrwrV0VEYE4PB4pues0z35LN6Iiv7NB30PuWW2yAy6ZZYsyqRT4DmlQdIz3WR9x4s_F-CJAiW8uuOEe99wR0Psd_e4NMiWk5lSAbkSuVl4V0vEVrx6AHFm4WQevM-slnggwueUXfFMW-ug"/>
+</div>
+<div>
+<div class="font-bold text-body-md text-on-surface">Taco Town</div>
+<div class="text-label-md text-muted-text">Manager: Sarah J.</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-2 py-1 bg-secondary-container/30 text-accent-rating text-[10px] font-bold rounded uppercase tracking-wider">Active</span>
+<span class="material-symbols-outlined text-muted-text" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="bg-card-input p-4 rounded-xl border-glow flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated healthy salmon salad bowl with avocado and quinoa in a dark ceramic bowl, soft warm side lighting highlighting the textures and vibrant colors against the dark chocolate and charcoal theme of the smart campus food interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAel22HogXTLFkyq2pMwA7TBXH2AfziGEWprOsUl58EMnNPhCBAV0WS-elmJnOVDoqKJLrbLxlfXIH39jZsfQ9N602fCEwyARwkl6_V49gQbJty88LebquXi6lMJ6DJ_KnjvmX7hUUzCTC0Vc9yftjSr_NfMVxhYniCoITs1zYH2d-oa0UmEu9ocZySikowzOGtWtrOn6bT7wemilhyOV7SYsI2bK7Wu1M-75uqheVkC1uC0pKUzT-uiGE4ZexNxGPuYgmOpaFEr_g"/>
+</div>
+<div>
+<div class="font-bold text-body-md text-on-surface">Healthy Bites</div>
+<div class="text-label-md text-muted-text">Manager: Priya R.</div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-2 py-1 bg-secondary-container/30 text-accent-rating text-[10px] font-bold rounded uppercase tracking-wider">Active</span>
+<span class="material-symbols-outlined text-muted-text" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Pending Violations -->
+<section class="mb-stack-lg">
+<div class="flex justify-between items-end mb-stack-sm">
+<div>
+<h2 class="font-headline-md text-on-surface">Pending COD Penalties</h2>
+<p class="text-label-md text-error">5 active violations recorded</p>
+</div>
+<a class="text-primary font-bold text-label-md mb-1" href="#">View All</a>
+</div>
+<div class="bg-card-input rounded-2xl border-glow overflow-hidden">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-bold text-body-md text-on-surface">Arjun V.</span>
+<span class="text-label-md text-muted-text">Campus Bistro • 14 Jun</span>
+</div>
+<div class="text-right">
+<div class="text-primary font-bold text-body-md">₹45</div>
+<button class="text-label-sm bg-surface-container px-2 py-1 rounded text-on-surface mt-1 active:scale-95 transition-transform">Resolve</button>
+</div>
+</div>
+<div class="p-4 flex justify-between items-center opacity-70">
+<div class="flex flex-col">
+<span class="font-bold text-body-md text-on-surface">Meera K.</span>
+<span class="text-label-md text-muted-text">Taco Town • 13 Jun</span>
+</div>
+<div class="text-right">
+<div class="text-primary font-bold text-body-md">₹20</div>
+<button class="text-label-sm bg-surface-container px-2 py-1 rounded text-on-surface mt-1">Resolve</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Component -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[56px] px-2 pb-safe bg-surface border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-primary font-bold relative after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1" href="#">
+<span class="material-symbols-outlined" data-icon="home" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-text hover:text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+<span class="font-label-sm text-label-sm">Live Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-text hover:text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-label-sm text-label-sm">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-text hover:text-on-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for cards
+        document.querySelectorAll('.active\\:scale-95').forEach(button => {
+            button.addEventListener('touchstart', () => {
+                button.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('touchend', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

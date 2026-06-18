@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Amber Hearth - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-fixed": "#001d36",
+            "tertiary": "#9dcaff",
+            "on-primary-fixed-variant": "#7d2d00",
+            "card-input": "#2A1A0A",
+            "inverse-on-surface": "#382f20",
+            "surface-container-high": "#31291a",
+            "tertiary-fixed-dim": "#9dcaff",
+            "on-secondary": "#412c0d",
+            "primary": "#ffb596",
+            "error-container": "#93000a",
+            "surface-bright": "#413828",
+            "on-error-container": "#ffdad6",
+            "surface-container-low": "#221a0d",
+            "on-primary-fixed": "#360f00",
+            "on-background": "#f0e0ca",
+            "on-secondary-fixed": "#291800",
+            "muted-text": "#7A6045",
+            "outline-variant": "#5a4136",
+            "accent-rating": "#FFB347",
+            "on-tertiary": "#003257",
+            "tertiary-fixed": "#d1e4ff",
+            "on-secondary-fixed-variant": "#5a4321",
+            "secondary-container": "#5a4321",
+            "surface-tint": "#ffb596",
+            "primary-fixed-dim": "#ffb596",
+            "outline": "#aa8a7d",
+            "on-surface": "#f0e0ca",
+            "surface-container-highest": "#3d3324",
+            "secondary-fixed": "#ffddb2",
+            "on-error": "#690005",
+            "inverse-surface": "#f0e0ca",
+            "on-tertiary-fixed-variant": "#00497c",
+            "secondary-fixed-dim": "#e3c195",
+            "background": "#0E0801",
+            "on-surface-variant": "#e3bfb1",
+            "error": "#ffb4ab",
+            "on-primary-container": "#551d00",
+            "surface-variant": "#3d3324",
+            "surface-dim": "#191206",
+            "inverse-primary": "#a33e00",
+            "surface": "#1C1108",
+            "surface-container": "#261e10",
+            "on-primary": "#581e00",
+            "secondary": "#e3c195",
+            "border-glow": "rgba(255, 101, 0, 0.18)",
+            "on-secondary-container": "#d0b085",
+            "primary-container": "#ff6500",
+            "on-tertiary-container": "#003155",
+            "tertiary-container": "#009bfe",
+            "surface-container-lowest": "#140d03",
+            "primary-fixed": "#ffdbcd"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "20px": "20px",
+            "12px": "12px",
+            "full": "9999px"
+          },
+          "spacing": {
+            "stack-lg": "24px",
+            "gutter-grid": "12px",
+            "stack-sm": "8px",
+            "stack-md": "16px",
+            "margin-mobile": "20px",
+            "base": "4px"
+          },
+          "fontFamily": {
+            "body-md": ["Be Vietnam Pro"],
+            "label-sm": ["Be Vietnam Pro"],
+            "display-lg": ["Be Vietnam Pro"],
+            "body-lg": ["Be Vietnam Pro"],
+            "headline-lg": ["Be Vietnam Pro"],
+            "label-md": ["Be Vietnam Pro"],
+            "headline-md": ["Be Vietnam Pro"]
+          },
+          "fontSize": {
+            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+            "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+            "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+            "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "800"}],
+            "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+            "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #0E0801;
+      color: #f0e0ca;
+      font-family: 'Be Vietnam Pro', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .border-glow-subtle {
+      border: 1px solid rgba(255, 101, 0, 0.18);
+    }
+
+    .orange-gradient {
+      background: linear-gradient(135deg, #FF6500 0%, #CC5200 100%);
+    }
+
+    .pill-button {
+      background-color: #ff6500;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .pill-button:active {
+      transform: scale(0.96);
+      background-color: #e65c00;
+    }
+
+    .input-focus:focus-within {
+      border-color: rgba(255, 101, 0, 0.5);
+      box-shadow: 0 0 0 1px rgba(255, 101, 0, 0.2);
+    }
+
+    /* Hide scrollbar for clean look */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- Main Canvas -->
+<main class="w-full max-w-[390px] mx-auto min-h-screen relative flex flex-col">
+<!-- TOP SECTION (35% height) -->
+<section class="h-[309px] min-h-[280px] flex flex-col items-center justify-center relative px-margin-mobile">
+<!-- Animated Background Subtle Texture -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+
+</div>
+<!-- App Logo Mark -->
+<div class="w-16 h-16 orange-gradient rounded-20px flex items-center justify-center shadow-lg mb-stack-md z-10">
+<span class="material-symbols-outlined text-white text-[32px]">restaurant</span>
+</div>
+<!-- Welcome Text -->
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-white tracking-tight z-10">
+        Welcome Back
+      </h1>
+<p class="font-body-md text-muted-text mt-base z-10">
+        Sign in to your campus account
+      </p>
+</section>
+<!-- FORM SECTION -->
+<section class="flex-1 px-margin-mobile pt-stack-lg pb-stack-lg space-y-stack-md">
+<!-- Email Field -->
+<div class="space-y-stack-sm">
+<label class="font-body-lg text-[13px] text-muted-text font-medium ml-1">College Email</label>
+<div class="flex items-center w-full h-[52px] bg-card-input rounded-12px border-glow-subtle px-4 input-focus group transition-all">
+<span class="material-symbols-outlined text-muted-text text-[20px] mr-3">mail</span>
+<input class="bg-transparent border-none outline-none ring-0 w-full text-on-surface placeholder:text-muted-text text-body-md" placeholder="you@college.edu" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-stack-sm">
+<label class="font-body-lg text-[13px] text-muted-text font-medium ml-1">Password</label>
+<div class="flex items-center w-full h-[52px] bg-card-input rounded-12px border-glow-subtle px-4 input-focus transition-all">
+<span class="material-symbols-outlined text-muted-text text-[20px] mr-3">lock</span>
+<input class="bg-transparent border-none outline-none ring-0 w-full text-on-surface placeholder:text-muted-text text-body-md" id="password-input" placeholder="Enter your password" type="password"/>
+<button class="ml-2 flex items-center justify-center" onclick="togglePassword()" type="button">
+<span class="material-symbols-outlined text-muted-text text-[20px]" id="password-toggle-icon">visibility</span>
+</button>
+</div>
+<div class="flex justify-end">
+<a class="font-body-lg text-[13px] text-primary-container font-medium hover:underline" href="#">Forgot Password?</a>
+</div>
+</div>
+<!-- Sign In Button -->
+<div class="pt-base">
+<button class="w-full h-[52px] pill-button rounded-full text-white font-headline-md flex items-center justify-center">
+          Sign In
+        </button>
+</div>
+<!-- Divider -->
+<div class="flex items-center py-stack-md">
+<div class="flex-1 h-[1px] bg-white/10"></div>
+<span class="mx-4 text-muted-text text-[13px] font-medium">or</span>
+<div class="flex-1 h-[1px] bg-white/10"></div>
+</div>
+<!-- Register Options Section -->
+<div class="space-y-stack-md">
+<h3 class="text-center font-body-lg text-[14px] text-muted-text font-medium">New to the platform?</h3>
+<div class="space-y-stack-sm">
+<!-- Card 1: Student -->
+<div class="w-full bg-card-input border-glow-subtle rounded-12px p-[14px] px-[16px] flex items-center justify-between active:scale-95 transition-transform duration-150 cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-primary-container/10">
+<span class="material-symbols-outlined text-primary-container text-[20px]">school</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[14px] text-white">Register as Student</h4>
+<p class="font-body-md text-[12px] text-muted-text">Use your college email</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-muted-text">chevron_right</span>
+</div>
+<!-- Card 2: Outlet Manager -->
+<div class="w-full bg-card-input border-glow-subtle rounded-12px p-[14px] px-[16px] flex items-center justify-between active:scale-95 transition-transform duration-150 cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-on-surface-variant/10">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">work</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[14px] text-white">Apply as Outlet Manager</h4>
+<p class="font-body-md text-[12px] text-muted-text">Open your food stall</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-muted-text">chevron_right</span>
+</div>
+<!-- Card 3: Campus Admin -->
+<div class="w-full bg-card-input border-glow-subtle rounded-12px p-[14px] px-[16px] flex items-center justify-between active:scale-95 transition-transform duration-150 cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg flex items-center justify-center bg-on-surface-variant/10">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">corporate_fare</span>
+</div>
+<div>
+<h4 class="font-headline-md text-[14px] text-white">Apply as Campus Admin</h4>
+<p class="font-body-md text-[12px] text-muted-text">Manage your institution</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-muted-text">chevron_right</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom Safe Area -->
+<footer class="h-stack-lg flex items-center justify-center py-stack-lg">
+<div class="w-[120px] h-1.5 bg-white/20 rounded-full"></div>
+</footer>
+</main>
+<script>
+    function togglePassword() {
+      const input = document.getElementById('password-input');
+      const icon = document.getElementById('password-toggle-icon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility_off';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility';
+      }
+    }
+
+    // Micro-interaction for cards
+    document.querySelectorAll('.rounded-12px').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.borderColor = 'rgba(255, 101, 0, 0.4)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.borderColor = 'rgba(255, 101, 0, 0.18)';
+      });
+    });
+  </script>
+</body></html>

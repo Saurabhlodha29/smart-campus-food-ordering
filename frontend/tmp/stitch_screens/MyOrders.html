@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0" name="viewport"/>
+<title>My Orders - Smart Campus Food</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Using the provided Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#3d3324",
+                    "on-surface-variant": "#e3bfb1",
+                    "on-secondary-fixed-variant": "#5a4321",
+                    "error-container": "#93000a",
+                    "surface": "#1C1108",
+                    "card-input": "#2A1A0A",
+                    "outline": "#aa8a7d",
+                    "surface-tint": "#ffb596",
+                    "primary-container": "#ff6500",
+                    "primary": "#ffb596",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "on-tertiary-fixed": "#001d36",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "on-tertiary": "#003257",
+                    "on-primary-fixed": "#360f00",
+                    "on-primary-fixed-variant": "#7d2d00",
+                    "inverse-surface": "#f0e0ca",
+                    "error": "#ffb4ab",
+                    "border-glow": "rgba(255, 101, 0, 0.18)",
+                    "on-error": "#690005",
+                    "surface-container-lowest": "#140d03",
+                    "tertiary": "#9dcaff",
+                    "on-tertiary-container": "#003155",
+                    "inverse-on-surface": "#382f20",
+                    "primary-fixed": "#ffdbcd",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-secondary-fixed": "#291800",
+                    "muted-text": "#7A6045",
+                    "on-surface": "#f0e0ca",
+                    "on-background": "#f0e0ca",
+                    "on-primary": "#581e00",
+                    "surface-container-highest": "#3d3324",
+                    "accent-rating": "#FFB347",
+                    "surface-container-high": "#31291a",
+                    "surface-dim": "#191206",
+                    "primary-fixed-dim": "#ffb596",
+                    "on-secondary-container": "#d0b085",
+                    "background": "#0E0801",
+                    "secondary-fixed": "#ffddb2",
+                    "secondary-container": "#5a4321",
+                    "on-secondary": "#412c0d",
+                    "surface-container-low": "#221a0d",
+                    "outline-variant": "#5a4136",
+                    "tertiary-container": "#009bfe",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#e3c195",
+                    "on-primary-container": "#551d00",
+                    "surface-container": "#261e10",
+                    "surface-bright": "#413828",
+                    "secondary-fixed-dim": "#e3c195",
+                    "inverse-primary": "#a33e00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "8px",
+                    "xl": "12px",
+                    "2xl": "16px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-md": "16px",
+                    "base": "4px",
+                    "stack-lg": "24px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "20px",
+                    "gutter-grid": "12px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Be Vietnam Pro"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-lg": ["Be Vietnam Pro"],
+                    "display-lg": ["Be Vietnam Pro"],
+                    "label-sm": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-md-mobile": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md-mobile": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0E0801;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: #f0e0ca;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .card-glow {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .bottom-sheet {
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .bottom-sheet-hidden {
+            transform: translateY(100%);
+        }
+        .bottom-sheet-visible {
+            transform: translateY(0%);
+        }
+        .overlay {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex justify-center">
+<!-- Mobile Frame Simulation (390x844px) -->
+<div class="relative w-[390px] h-[844px] bg-background overflow-hidden flex flex-col shadow-2xl">
+<!-- TopAppBar (JSON Mapping) -->
+<header class="flex justify-between items-center px-margin-mobile h-[64px] w-full z-50 bg-surface">
+<div class="flex items-center gap-4">
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md-mobile font-bold text-primary">My Orders</h1>
+</div>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-primary" data-icon="filter_list">filter_list</span>
+</button>
+</header>
+<!-- Sticky Filter Tabs -->
+<div class="sticky top-0 bg-surface z-40 px-margin-mobile pb-4">
+<div class="flex gap-2 overflow-x-auto no-scrollbar py-2">
+<button class="px-6 py-2 rounded-full bg-primary-container text-white font-label-md text-label-md-mobile whitespace-nowrap">All</button>
+<button class="px-6 py-2 rounded-full bg-card-input text-muted-text card-glow font-label-md text-label-md-mobile whitespace-nowrap">Active</button>
+<button class="px-6 py-2 rounded-full bg-card-input text-muted-text card-glow font-label-md text-label-md-mobile whitespace-nowrap">Completed</button>
+<button class="px-6 py-2 rounded-full bg-card-input text-muted-text card-glow font-label-md text-label-md-mobile whitespace-nowrap">Cancelled</button>
+</div>
+</div>
+<!-- Scrollable Order History -->
+<main class="flex-1 overflow-y-auto px-margin-mobile space-y-stack-md pb-32 pt-2">
+<!-- Card 1 (Active) -->
+<div class="bg-card-input rounded-2xl p-4 card-glow flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden" data-alt="A warm, high-contrast overhead shot of a premium Indian canteen interior with copper serving bowls and warm yellow lighting, showcasing a high-end Smart Campus Food experience. Deep mahogany tones and soft shadows create a cozy and appetizing atmosphere." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBleRGoBzB_T3m_KYGfScvZzLKqwfCs2RSS5gGxOwEE2mPXI2TpbzyN6WvsyFrnMIBT5OWzbVG-pzzEi0oZO8aYwVhy9LcaOuIOr42HdNaPJx4iL6MmBbztgALMcR5iEIwbmsJelQY8GqbbOH8mnXqq_UWhHrNnPtwwOfEtRvZpOi3i5F1GDZGiiaqDx4L8YMIz7Ag46KZ6Ww1sAgJpAhRhZr6_93WC9gxAl0KJWgXQB37x0Mo7RiADoibta-zKKV6G8XFD0jBrExo')"></div>
+<div>
+<h3 class="font-body-lg text-on-surface">Central Canteen</h3>
+<p class="font-label-sm text-muted-text">Today, 12:45 PM</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-green-900/30 text-green-400 font-label-md text-[10px] tracking-wider uppercase border border-green-400/20">READY</span>
+</div>
+<div class="space-y-1">
+<p class="font-body-md text-on-surface-variant text-sm">Paneer Butter Masala x1, Garlic Naan x2</p>
+<p class="font-headline-md text-primary text-base">₹280</p>
+</div>
+<button class="w-full py-3 rounded-full border border-primary text-primary font-label-md uppercase tracking-widest active:scale-95 transition-transform">
+                    Track Order
+                </button>
+</div>
+<!-- Card 2 (Completed) -->
+<div class="bg-card-input rounded-2xl p-4 card-glow flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden" data-alt="A vibrant, minimalist close-up of a modern healthy juice bar setting featuring a glass of fresh cold coffee and artisanal toast on a matte black ceramic plate. The aesthetic is clean and premium with warm orange and charcoal brown color accents." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDxGHT3VM6Ayn7m7jyoL22Eyid1UN1qQSFWYbwARQf6CsQHAM5CnWJYs163GVzE2p5WNOd_xQf2i5_YTdNCbCZ7lGEUfQcP-LJQCx4u8Q5pBqOZFlipZDrkod2bR9hBmtHwMUBDDBfLxGFwsrQbJiwudZGU1CjwMpucXeAYx6y_2ARPDEaZjrwFPrbHvGWxAfsnj4cSI2htN-zShiANmK4SKV_bDiLAjfCROlT6rKQg67IO7B1UXXAaQaKOr5agknWo7tNRsShBC48')"></div>
+<div>
+<h3 class="font-body-lg text-on-surface">The Juice Hub</h3>
+<p class="font-label-sm text-muted-text">Yesterday, 4:20 PM</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-surface-container-highest text-muted-text font-label-md text-[10px] tracking-wider uppercase">PICKED</span>
+</div>
+<div class="space-y-1">
+<p class="font-body-md text-on-surface-variant text-sm">Avocado Toast x1, Cold Coffee x1</p>
+<p class="font-headline-md text-on-surface text-base">₹195</p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 py-3 rounded-full bg-primary-container text-white font-label-md uppercase tracking-widest active:scale-95 transition-transform">
+                        Reorder
+                    </button>
+<button class="px-6 py-3 rounded-full border border-muted-text text-muted-text font-label-md uppercase tracking-widest active:scale-95 transition-transform" onclick="toggleBottomSheet(true)">
+                        Rate
+                    </button>
+</div>
+</div>
+<!-- Card 3 (Cancelled) -->
+<div class="bg-card-input rounded-2xl p-4 card-glow flex flex-col gap-3 opacity-80">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden" data-alt="A moody, atmospheric shot of an traditional Indian kitchen with iron tavas and steam rising, stylized with a modern dark premium overlay. Deep amber highlights punctuate the charcoal background, evoking a sense of heritage food in a tech-driven campus environment." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDqx2WqAV3kHhgi7n0Z0A6Uc4kA5f7qwXgcL41ifi61Ku8tdtyKszpSls8A0nrGLdJgJmIGpCEo57F6Y6E8irG21A1AEl2r1e7O9Nf2ytAFkMWMLEwghGqwDDWMuJTbxYWbGvcwIa6Jc4_QzI7ctO_vSpUL-ZlKWfRqz9Nx4yKb2AHklu_xs6pA6NrvMqVmk-HmD4irCZqBQ3a6XnT-OE67fjxp7_SrHjyA8pnc5WOlo14eBzkG1339JK5Li9UWGCG5hlxpEbnyvs0')"></div>
+<div>
+<h3 class="font-body-lg text-on-surface">Anna's Kitchen</h3>
+<p class="font-label-sm text-muted-text">Oct 12, 8:15 PM</p>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-error-container/20 text-error font-label-md text-[10px] tracking-wider uppercase border border-error/20">EXPIRED</span>
+</div>
+<div class="space-y-1">
+<p class="font-body-md text-on-surface-variant text-sm">Masala Dosa x2</p>
+<p class="font-headline-md text-on-surface text-base">₹140</p>
+</div>
+<div class="bg-error-container/10 p-2 rounded-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm" data-icon="warning">warning</span>
+<p class="text-[10px] text-error font-medium uppercase tracking-tight">COD penalty: ₹20 assessed</p>
+</div>
+<button class="w-full py-3 rounded-full bg-surface-container-high text-muted-text font-label-md uppercase tracking-widest active:scale-95 transition-transform">
+                    View Details
+                </button>
+</div>
+</main>
+<!-- BottomNavBar (JSON Mapping) -->
+<nav class="fixed bottom-0 left-0 w-[390px] z-50 flex justify-around items-center bg-surface-container px-4 h-[80px] pb-safe">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center text-muted-text hover:text-primary-container transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-label-md text-label-md-mobile">Home</span>
+</button>
+<!-- Explore -->
+<button class="flex flex-col items-center justify-center text-muted-text hover:text-primary-container transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="explore">explore</span>
+<span class="font-label-md text-label-md-mobile">Explore</span>
+</button>
+<!-- Orders (Active State Logic) -->
+<button class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:absolute after:-bottom-1 after:w-1 after:h-1 after:bg-primary after:rounded-full active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-label-md text-label-md-mobile">Orders</span>
+</button>
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-muted-text hover:text-primary-container transition-colors active:scale-90 transition-transform duration-150">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md-mobile">Profile</span>
+</button>
+</nav>
+<!-- Rating Bottom Sheet -->
+<div class="overlay fixed inset-0 bg-black/60 z-[60] hidden opacity-0" id="sheet-overlay" onclick="toggleBottomSheet(false)"></div>
+<div class="bottom-sheet bottom-sheet-hidden fixed bottom-0 left-0 w-[390px] bg-surface rounded-t-[32px] p- margin-mobile z-[70] pb-10 flex flex-col items-center px-margin-mobile" id="rating-sheet">
+<!-- Drag Handle -->
+<div class="w-12 h-1.5 bg-surface-container-highest rounded-full my-4"></div>
+<div class="text-center mt-4">
+<h2 class="font-headline-lg text-on-surface">How was your order?</h2>
+<p class="font-body-md text-muted-text mt-1">Share your experience with The Juice Hub</p>
+</div>
+<div class="flex gap-2 my-8">
+<span class="material-symbols-outlined text-[40px] text-accent-rating cursor-pointer" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[40px] text-accent-rating cursor-pointer" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[40px] text-accent-rating cursor-pointer" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[40px] text-accent-rating cursor-pointer" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[40px] text-surface-container-highest cursor-pointer" data-icon="star">star</span>
+</div>
+<textarea class="w-full bg-card-input border border-outline-variant rounded-2xl p-4 text-on-surface placeholder:text-muted-text focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none h-32 mb-8" placeholder="Tell us more..."></textarea>
+<button class="w-full h-[52px] bg-primary-container text-white font-headline-md rounded-full active:scale-95 transition-transform mb-4 shadow-lg shadow-primary-container/20" onclick="toggleBottomSheet(false)">
+                Submit Rating
+            </button>
+<button class="text-muted-text font-label-md uppercase tracking-widest hover:text-on-surface" onclick="toggleBottomSheet(false)">
+                Skip
+            </button>
+</div>
+</div>
+<script>
+        function toggleBottomSheet(show) {
+            const sheet = document.getElementById('rating-sheet');
+            const overlay = document.getElementById('sheet-overlay');
+            
+            if (show) {
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.add('opacity-100');
+                    sheet.classList.remove('bottom-sheet-hidden');
+                    sheet.classList.add('bottom-sheet-visible');
+                }, 10);
+            } else {
+                sheet.classList.remove('bottom-sheet-visible');
+                sheet.classList.add('bottom-sheet-hidden');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 400);
+            }
+        }
+
+        // Star rating micro-interaction
+        document.querySelectorAll('#rating-sheet .material-symbols-outlined').forEach((star, index) => {
+            star.addEventListener('click', () => {
+                const stars = document.querySelectorAll('#rating-sheet .material-symbols-outlined');
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.style.fontVariationSettings = "'FILL' 1";
+                        s.classList.replace('text-surface-container-highest', 'text-accent-rating');
+                    } else {
+                        s.style.fontVariationSettings = "'FILL' 0";
+                        s.classList.replace('text-accent-rating', 'text-surface-container-highest');
+                    }
+                });
+            });
+        });
+    </script>
+</body></html>

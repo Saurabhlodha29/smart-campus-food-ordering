@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#5a4321",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-tertiary": "#003257",
+                    "secondary-container": "#5a4321",
+                    "on-secondary-fixed": "#291800",
+                    "on-primary-fixed": "#360f00",
+                    "on-background": "#f0e0ca",
+                    "accent-rating": "#FFB347",
+                    "outline-variant": "#5a4136",
+                    "muted-text": "#7A6045",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "on-secondary": "#412c0d",
+                    "inverse-on-surface": "#382f20",
+                    "surface-container-high": "#31291a",
+                    "surface-bright": "#413828",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-low": "#221a0d",
+                    "error-container": "#93000a",
+                    "primary": "#ffb596",
+                    "on-tertiary-fixed": "#001d36",
+                    "card-input": "#2A1A0A",
+                    "tertiary": "#9dcaff",
+                    "on-primary-fixed-variant": "#7d2d00",
+                    "surface-container-lowest": "#140d03",
+                    "tertiary-container": "#009bfe",
+                    "primary-fixed": "#ffdbcd",
+                    "surface-container": "#261e10",
+                    "on-primary": "#581e00",
+                    "surface": "#1C1108",
+                    "inverse-primary": "#a33e00",
+                    "primary-container": "#ff6500",
+                    "on-tertiary-container": "#003155",
+                    "on-secondary-container": "#d0b085",
+                    "border-glow": "rgba(255, 101, 0, 0.18)",
+                    "secondary": "#e3c195",
+                    "on-surface-variant": "#e3bfb1",
+                    "background": "#0E0801",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "secondary-fixed-dim": "#e3c195",
+                    "surface-variant": "#3d3324",
+                    "surface-dim": "#191206",
+                    "on-primary-container": "#551d00",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#3d3324",
+                    "secondary-fixed": "#ffddb2",
+                    "outline": "#aa8a7d",
+                    "on-surface": "#f0e0ca",
+                    "primary-fixed-dim": "#ffb596",
+                    "surface-tint": "#ffb596",
+                    "inverse-surface": "#f0e0ca",
+                    "on-error": "#690005"
+            },
+            "fontFamily": {
+                    "poppins": ["Poppins", "sans-serif"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "headline-md": ["Be Vietnam Pro"],
+                    "headline-lg": ["Be Vietnam Pro"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "display-lg": ["Be Vietnam Pro"],
+                    "body-lg": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0E0801; color: #f0e0ca; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .slide-container { scroll-snap-type: x mandatory; }
+        .slide { scroll-snap-align: start; min-width: 390px; }
+        .glow-orange { filter: drop-shadow(0 0 15px rgba(255, 101, 0, 0.4)); }
+        .border-orange-glow { border: 1px solid rgba(255, 101, 0, 0.18); }
+        .active-dot { width: 24px; height: 8px; border-radius: 9999px; background-color: #FF6500; transition: all 0.3s ease; }
+        .inactive-dot { width: 8px; height: 8px; border-radius: 9999px; background-color: #2A1A0A; border: 1px solid rgba(255, 101, 0, 0.5); transition: all 0.3s ease; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex items-center justify-center min-h-screen bg-black">
+<!-- Mobile Frame (390x844) -->
+<div class="relative w-[390px] h-[844px] bg-background overflow-hidden shadow-2xl flex flex-col">
+<!-- Persistent Top Bar -->
+<div class="absolute top-0 left-0 w-full z-30 px-margin-mobile pt-14 flex justify-end items-center">
+<button class="font-poppins font-medium text-[14px] text-[#C8A87E] active:opacity-60 transition-opacity" onclick="goToSlide(2)">Skip</button>
+</div>
+<!-- Slides Wrapper -->
+<div class="flex-1 flex overflow-x-auto slide-container hide-scrollbar relative" id="slides-wrapper">
+<!-- Slide 1: Browse & Order -->
+<section class="slide w-full h-full flex flex-col items-center justify-center px-margin-mobile pt-10">
+<div class="relative w-full aspect-square flex items-center justify-center mb-12">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(255,101,0,0.15)_0%,_transparent_70%)]"></div>
+<div class="relative w-64 h-64 flex items-center justify-center animate-float">
+<img class="w-full h-full object-contain glow-orange" data-alt="A highly detailed 3D digital illustration of a steaming bowl of premium Indian Biryani, grains of rice visible with aromatic spices. The bowl is set against a dark chocolate background with floating orange embers and a warm radial orange glow behind it, creating a nocturnal high-end culinary aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfthcL2fKJImoiVdKQ5lGPpojwnKXuXl9sLJA0eXRwMyTT5xqYEsdJSLpnazMZ4Nj_VWhqm79K9a_gA0CsQUX6Krt8YsbFENEcsX0gw4lwg149P9FmBegklEr7B2fvKpG0dFSCjDcjmyMXYZSFt8AEoloC8f2gjUJ7BJTofRBYU1wVdwWHymMNDZXjI4tlMC1lXUeVRPl3R2d2IPfG_P3i7AAW3LNK8hzLm6-2N1aYm4MK8Kh44yU_QpcyvYOZLRePCAB58rVGXuk"/>
+<div class="absolute -top-4 -right-2 bg-primary-container px-3 py-1 rounded-full text-white text-[12px] font-bold shadow-lg">New Outlet!</div>
+</div>
+</div>
+<h1 class="font-poppins font-bold text-[32px] leading-[40px] text-white text-center mb-4 px-4">Discover Campus Flavors</h1>
+<p class="font-poppins font-normal text-[15px] leading-[22px] text-[#C8A87E] text-center max-w-[280px]">Browse every outlet and their menus right from your hostel room.</p>
+</section>
+<!-- Slide 2: Smart Slot System -->
+<section class="slide w-full h-full flex flex-col items-center justify-center px-margin-mobile pt-10">
+<div class="relative w-full aspect-square flex items-center justify-center mb-12">
+<div class="relative w-[180px] h-[180px] rounded-full bg-card-input border-orange-glow flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[64px]" style="font-variation-settings: 'FILL' 0, 'wght' 200;">schedule</span>
+<!-- Orbiting Cards -->
+<div class="absolute -top-6 -right-6 bg-surface-container border-orange-glow p-3 rounded-xl shadow-xl flex items-center gap-2 animate-bounce">
+<span class="material-symbols-outlined text-accent-rating text-sm">lunch_dining</span>
+<span class="text-[12px] font-bold text-on-surface">19:30</span>
+</div>
+<div class="absolute top-1/2 -left-10 -translate-y-1/2 bg-surface-container border-orange-glow p-3 rounded-xl shadow-xl flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-rating text-sm">coffee</span>
+<span class="text-[12px] font-bold text-on-surface">16:15</span>
+</div>
+</div>
+</div>
+<h1 class="font-poppins font-bold text-[32px] leading-[40px] text-white text-center mb-4 px-4">No More Long Queues</h1>
+<p class="font-poppins font-normal text-[15px] leading-[22px] text-[#C8A87E] text-center max-w-[300px]">Pick your pickup time slot. We limit orders per slot so your food is always fresh and ready on time.</p>
+</section>
+<!-- Slide 3: Track Everything -->
+<section class="slide w-full h-full flex flex-col items-center justify-center px-margin-mobile pt-10">
+<div class="relative w-full aspect-square flex items-center justify-center mb-12">
+<div class="w-[240px] h-[320px] bg-card-input border-orange-glow rounded-[32px] p-6 flex flex-col relative overflow-hidden">
+<div class="w-12 h-1 bg-surface-variant self-center rounded-full mb-6"></div>
+<div class="space-y-6">
+<!-- Tracker Steps -->
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[12px] font-bold text-white">Placed</span>
+<span class="text-[10px] text-muted-text">12:45 PM</span>
+</div>
+</div>
+<div class="flex items-center gap-4 relative">
+<div class="absolute -top-6 left-4 w-[2px] h-6 bg-primary-container"></div>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container animate-pulse">
+<span class="material-symbols-outlined text-[18px]">skillet</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[12px] font-bold text-white">Preparing</span>
+<span class="text-[10px] text-primary">In progress</span>
+</div>
+</div>
+<div class="flex items-center gap-4 relative opacity-40">
+<div class="absolute -top-6 left-4 w-[2px] h-6 bg-surface-variant"></div>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-muted-text">
+<span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+</div>
+<span class="text-[12px] font-bold text-muted-text">Ready</span>
+</div>
+<div class="flex items-center gap-4 relative opacity-40">
+<div class="absolute -top-6 left-4 w-[2px] h-6 bg-surface-variant"></div>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-muted-text">
+<span class="material-symbols-outlined text-[18px]">person_check</span>
+</div>
+<span class="text-[12px] font-bold text-muted-text">Picked Up</span>
+</div>
+</div>
+</div>
+</div>
+<h1 class="font-poppins font-bold text-[32px] leading-[40px] text-white text-center mb-4 px-4">Real-Time Order Tracking</h1>
+<p class="font-poppins font-normal text-[15px] leading-[22px] text-[#C8A87E] text-center max-w-[280px]">Know exactly when your order is being prepared and get notified the moment it's ready.</p>
+</section>
+</div>
+<!-- Persistent Bottom Section -->
+<div class="px-margin-mobile pb-12 pt-6 flex flex-col items-center gap-10">
+<!-- Dots -->
+<div class="flex gap-2" id="dot-container">
+<div class="active-dot transition-all duration-300"></div>
+<div class="inactive-dot transition-all duration-300"></div>
+<div class="inactive-dot transition-all duration-300"></div>
+</div>
+<!-- CTA -->
+<button class="w-full h-[52px] rounded-full bg-primary-container text-white font-poppins font-bold text-[16px] flex items-center justify-center active:scale-95 transition-all shadow-[0_8px_24px_rgba(255,101,0,0.3)]" id="cta-button" onclick="nextSlide()">
+                Continue
+            </button>
+</div>
+</div>
+<script>
+        const wrapper = document.getElementById('slides-wrapper');
+        const dots = document.querySelectorAll('#dot-container > div');
+        const cta = document.getElementById('cta-button');
+        let currentIdx = 0;
+
+        function updateUI(idx) {
+            currentIdx = idx;
+            // Update Dots
+            dots.forEach((dot, i) => {
+                if(i === idx) {
+                    dot.className = 'active-dot';
+                } else {
+                    dot.className = 'inactive-dot';
+                }
+            });
+
+            // Update CTA Text
+            if(idx === 2) {
+                cta.textContent = "Get Started";
+            } else {
+                cta.textContent = "Continue";
+            }
+        }
+
+        function nextSlide() {
+            if(currentIdx < 2) {
+                currentIdx++;
+                wrapper.scrollTo({
+                    left: currentIdx * 390,
+                    behavior: 'smooth'
+                });
+                updateUI(currentIdx);
+            } else {
+                // Finale - Redirect or perform action
+                cta.classList.add('opacity-50');
+                cta.disabled = true;
+                setTimeout(() => {
+                    alert('Smart Campus Food Experience Activated!');
+                    cta.classList.remove('opacity-50');
+                    cta.disabled = false;
+                }, 400);
+            }
+        }
+
+        function goToSlide(idx) {
+            currentIdx = idx;
+            wrapper.scrollTo({
+                left: idx * 390,
+                behavior: 'smooth'
+            });
+            updateUI(idx);
+        }
+
+        // Listen to manual scroll
+        wrapper.addEventListener('scroll', () => {
+            const scrollX = wrapper.scrollLeft;
+            const newIdx = Math.round(scrollX / 390);
+            if(newIdx !== currentIdx) {
+                updateUI(newIdx);
+            }
+        });
+
+        // Initialize
+        updateUI(0);
+    </script>
+</body></html>

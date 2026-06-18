@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Outlet Application Review - North Campus Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Poppins:wght@700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<!-- Inline Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#5a4321",
+                    "card-input": "#2A1A0A",
+                    "surface-tint": "#ffb596",
+                    "primary-fixed-dim": "#ffb596",
+                    "inverse-surface": "#f0e0ca",
+                    "error-container": "#93000a",
+                    "tertiary": "#9dcaff",
+                    "background": "#191206",
+                    "secondary": "#e3c195",
+                    "surface": "#1C1108",
+                    "surface-container-low": "#221a0d",
+                    "on-background": "#f0e0ca",
+                    "primary-fixed": "#ffdbcd",
+                    "on-error": "#690005",
+                    "outline-variant": "#5a4136",
+                    "border-glow": "rgba(255, 101, 0, 0.18)",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "surface-variant": "#3d3324",
+                    "inverse-primary": "#a33e00",
+                    "surface-bright": "#413828",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "on-tertiary-container": "#003155",
+                    "on-surface": "#f0e0ca",
+                    "tertiary-container": "#009bfe",
+                    "primary-container": "#ff6500",
+                    "on-error-container": "#ffdad6",
+                    "surface-dim": "#191206",
+                    "surface-container-highest": "#3d3324",
+                    "on-surface-variant": "#e3bfb1",
+                    "on-secondary": "#412c0d",
+                    "on-primary-container": "#551d00",
+                    "accent-rating": "#FFB347",
+                    "outline": "#aa8a7d",
+                    "on-secondary-fixed": "#291800",
+                    "surface-container-lowest": "#140d03",
+                    "on-primary": "#581e00",
+                    "secondary-fixed": "#ffddb2",
+                    "on-secondary-container": "#d0b085",
+                    "secondary-container": "#5a4321",
+                    "surface-container-high": "#31291a",
+                    "on-primary-fixed-variant": "#7d2d00",
+                    "inverse-on-surface": "#382f20",
+                    "on-tertiary": "#003257",
+                    "muted-text": "#7A6045",
+                    "primary": "#ffb596",
+                    "secondary-fixed-dim": "#e3c195",
+                    "surface-container": "#261e10",
+                    "on-tertiary-fixed": "#001d36",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-primary-fixed": "#360f00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter-grid": "12px",
+                    "stack-md": "16px",
+                    "margin-mobile": "20px",
+                    "stack-lg": "24px",
+                    "stack-sm": "8px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "headline-md": ["Be Vietnam Pro"],
+                    "display-lg": ["Be Vietnam Pro"],
+                    "poppins": ["Poppins", "sans-serif"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md-mobile": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .border-glow-custom {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+        .pill-tab-active {
+            background-color: #ff6500;
+            color: white;
+        }
+        .pill-tab-inactive {
+            background-color: #2A1A0A;
+            color: #7A6045;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md-mobile antialiased min-h-screen">
+<!-- Top AppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface h-[64px] flex items-center px-margin-mobile border-b border-outline-variant justify-between">
+<div class="flex items-center gap-4">
+<button class="p-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">Outlet Applications</h1>
+</div>
+<button class="p-1 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">filter_list</span>
+</button>
+</header>
+<main class="pt-[80px] pb-24 px-margin-mobile flex flex-col gap-stack-lg">
+<!-- Tabs -->
+<nav class="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="pill-tab-active px-6 py-2 rounded-full font-label-md transition-colors whitespace-nowrap">Pending</button>
+<button class="pill-tab-inactive px-6 py-2 rounded-full font-label-md transition-colors whitespace-nowrap">Approved</button>
+<button class="pill-tab-inactive px-6 py-2 rounded-full font-label-md transition-colors whitespace-nowrap">Rejected</button>
+</nav>
+<!-- Search Bar -->
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-muted-text">search</span>
+<input class="w-full h-[52px] bg-card-input border-glow-custom rounded-[16px] pl-12 pr-4 text-body-md-mobile placeholder:text-muted-text focus:outline-none focus:ring-1 focus:ring-primary/30" placeholder="Search by outlet name..." type="text"/>
+</div>
+<!-- Application Cards Section -->
+<section class="flex flex-col gap-stack-md">
+<!-- Card 1: Expanded Simulation -->
+<div class="bg-card-input rounded-[16px] border-glow-custom p-4 flex flex-col gap-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-poppins text-[16px] font-bold text-on-surface leading-tight">The Midnight Grill</h3>
+<span class="text-label-sm text-muted-text">Applied: 12 Jun</span>
+</div>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-label-sm font-bold">IN REVIEW</span>
+</div>
+<div class="flex items-center gap-2 text-body-md-mobile text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<span>Rahul Sharma</span>
+</div>
+<!-- Document Chips -->
+<div class="flex gap-2 flex-wrap">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+<span class="text-label-sm text-on-surface">FSSAI Verified</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<div class="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>
+<span class="text-label-sm text-on-surface">GST Pending</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+<span class="text-label-sm text-on-surface">Bank Verified</span>
+</div>
+</div>
+<!-- Verification Notes -->
+<div class="bg-surface-container-lowest p-3 rounded-xl border-l-2 border-primary/40">
+<p class="text-body-md-mobile italic text-on-surface-variant">"All documents match application data. Ready for review."</p>
+</div>
+<!-- Manager Details (Expanded Context) -->
+<div class="pt-2 border-t border-outline-variant flex flex-col gap-2">
+<div class="flex flex-col">
+<span class="text-label-sm text-muted-text">Manager Email</span>
+<span class="text-body-md-mobile text-on-surface">rahul.sharma@campus.edu</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm text-muted-text">Assigned Campus</span>
+<span class="text-body-md-mobile text-on-surface">IIT Madras - North Zone</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<div class="flex gap-2 flex-1 mr-4">
+<button class="flex-1 bg-primary-container text-on-primary-container h-10 rounded-full font-label-md flex items-center justify-center gap-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                            Approve
+                        </button>
+<button class="flex-1 bg-error-container text-on-error-container h-10 rounded-full font-label-md flex items-center justify-center gap-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                            Reject
+                        </button>
+</div>
+<span class="text-label-sm text-muted-text whitespace-nowrap">Attempt 1 of 3</span>
+</div>
+</div>
+<!-- Card 2: Standard State -->
+<div class="bg-card-input rounded-[16px] border-glow-custom p-4 flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<h3 class="font-poppins text-[16px] font-bold text-on-surface leading-tight">Caffeine Hub</h3>
+<span class="text-label-sm text-muted-text">Applied: 10 Jun</span>
+</div>
+<span class="bg-primary-container/20 text-primary px-2 py-1 rounded text-label-sm font-bold">PENDING</span>
+</div>
+<div class="flex items-center gap-2 text-body-md-mobile text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">person</span>
+<span>Anita Desai</span>
+</div>
+<div class="flex gap-2 flex-wrap">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+<span class="text-label-sm text-on-surface">FSSAI Verified</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-high border border-outline-variant">
+<div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+<span class="text-label-sm text-on-surface">GST Verified</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<div class="flex gap-2 flex-1 mr-4">
+<button class="flex-1 bg-primary-container text-on-primary-container h-10 rounded-full font-label-md flex items-center justify-center gap-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">check</span>
+                            Approve
+                        </button>
+<button class="flex-1 bg-error-container text-on-error-container h-10 rounded-full font-label-md flex items-center justify-center gap-1 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">close</span>
+                            Reject
+                        </button>
+</div>
+<span class="text-label-sm text-muted-text whitespace-nowrap">Attempt 2 of 3</span>
+</div>
+</div>
+<!-- Empty State Illustration Placeholder (Hidden by default, used for logic) -->
+<div class="hidden flex-col items-center justify-center py-20 text-center" id="empty-state">
+<div class="w-24 h-24 bg-surface-container rounded-full flex items-center justify-center mb-6 border border-primary/20 relative">
+
+<span class="material-symbols-outlined text-[48px] text-primary relative z-10">check_circle</span>
+</div>
+<h4 class="font-headline-md-mobile text-primary mb-2">All caught up!</h4>
+<p class="text-muted-text max-w-[200px]">No pending applications in your queue.</p>
+</div>
+</section>
+</main>
+<!-- Navigation Drawer (Admin Context) -->
+<aside class="fixed inset-y-0 left-0 z-[60] flex flex-col py-6 bg-surface-container border-r border-outline-variant shadow-lg h-full w-[280px] rounded-r-xl transform -translate-x-full transition-transform duration-300" id="nav-drawer">
+<div class="px-6 mb-8 flex flex-col items-start gap-4">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a South Asian male campus lead in his late 20s, wearing a smart casual blazer. He has a warm, confident expression. The background is a blurred high-end academic campus hallway with warm architectural lighting and dark wooden accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ58LbHzNwx6AFym28s0ik6Vlp-DYjnYS-rAO7Y5Mt9_2LpQHvESPiK7AKIbVksrNVDqaHpRmlpyfZBBnf88GEzb0X3_pI_M6E4Nmgtxg2mtOyj-CCExkW0VkRisgNqr3xyPERH9JTjeiC1jSNdsCtStoQX7FaBM2K3zMtpRukMWRd1zdzDjFQqHyrJgjrc0vYySWwjyQemJB6gt_Z2bk45hRGijLOD9-ArQxlDEkcJ0nZ9SiqZ6tFYreeBeh98DdtNYTj-Flu-Cs"/>
+</div>
+<div>
+<h2 class="font-headline-lg-mobile text-primary leading-tight">Deepak Kumar</h2>
+<p class="text-label-md text-on-surface-variant opacity-80">Campus Lead</p>
+<p class="text-label-sm text-muted-text mt-1">Admin ID: 4022</p>
+</div>
+</div>
+<nav class="flex flex-col flex-1 overflow-y-auto">
+<a class="flex items-center px-4 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined mr-4">dashboard</span>
+<span class="font-label-md">Dashboard</span>
+</a>
+<a class="bg-secondary-container text-on-secondary-container rounded-lg flex items-center px-4 py-3 mx-2" href="#">
+<span class="material-symbols-outlined mr-4">storefront</span>
+<span class="font-label-md">Vendors</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined mr-4">analytics</span>
+<span class="font-label-md">Analytics</span>
+</a>
+<a class="flex items-center px-4 py-3 mx-2 text-on-surface-variant hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined mr-4">settings</span>
+<span class="font-label-md">Settings</span>
+</a>
+</nav>
+<div class="px-6 pt-4 border-t border-outline-variant">
+<button class="flex items-center gap-2 text-primary font-label-md">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</div>
+</aside>
+<!-- Bottom Navigation (Mobile Viewport Context) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-[64px] px-2 pb-safe bg-surface border-t border-outline-variant md:hidden">
+<div class="flex flex-col items-center justify-center text-muted-text hover:text-on-surface-variant transition-all cursor-pointer">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary font-bold relative after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assessment</span>
+<span class="text-label-sm">Reports</span>
+</div>
+<div class="flex flex-col items-center justify-center text-muted-text hover:text-on-surface-variant transition-all cursor-pointer">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="text-label-sm">Live Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-muted-text hover:text-on-surface-variant transition-all cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm">Profile</span>
+</div>
+</nav>
+<!-- Modal Backdrop (Hidden) -->
+<div class="fixed inset-0 bg-black/60 z-[55] hidden opacity-0 transition-opacity duration-300" id="backdrop"></div>
+<script>
+        // Simple Interaction Logic
+        const menuBtn = document.querySelector('header .material-symbols-outlined:first-child');
+        const drawer = document.getElementById('nav-drawer');
+        const backdrop = document.getElementById('backdrop');
+
+        function toggleDrawer() {
+            const isOpen = !drawer.classList.contains('-translate-x-full');
+            if (isOpen) {
+                drawer.classList.add('-translate-x-full');
+                backdrop.classList.add('hidden');
+                backdrop.classList.remove('opacity-100');
+            } else {
+                drawer.classList.remove('-translate-x-full');
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.add('opacity-100'), 10);
+            }
+        }
+
+        // Simulating the menu button as a drawer trigger for demonstration
+        menuBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            // In a real app, the menu icon might be different, 
+            // but we'll use it to show the NavigationDrawer functionality.
+            toggleDrawer();
+        });
+
+        backdrop.addEventListener('click', toggleDrawer);
+
+        // Tab Switching Simulation
+        const tabs = document.querySelectorAll('nav button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('pill-tab-active');
+                    t.classList.add('pill-tab-inactive');
+                });
+                tab.classList.remove('pill-tab-inactive');
+                tab.classList.add('pill-tab-active');
+
+                // Toggle empty state if "Approved" or "Rejected" is clicked for demo
+                const cardContainer = document.querySelector('section');
+                const emptyState = document.getElementById('empty-state');
+                const cards = document.querySelectorAll('section > div:not(#empty-state)');
+                
+                if (tab.innerText === 'Rejected') {
+                    cards.forEach(c => c.classList.add('hidden'));
+                    emptyState.classList.remove('hidden');
+                    emptyState.classList.add('flex');
+                } else {
+                    cards.forEach(c => c.classList.remove('hidden'));
+                    emptyState.classList.add('hidden');
+                    emptyState.classList.remove('flex');
+                }
+            });
+        });
+    </script>
+</body></html>

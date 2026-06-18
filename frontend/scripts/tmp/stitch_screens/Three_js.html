@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_19 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_19" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_19');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// Create a premium "Order Pulse" ring
+const geometry = new THREE.TorusGeometry(1, 0.02, 16, 100);
+const material = new THREE.MeshPhongMaterial({ 
+    color: 0xFF6500,
+    emissive: 0xFF6500,
+    emissiveIntensity: 0.5,
+    transparent: true,
+    opacity: 0.8
+});
+
+const rings = [];
+for (let i = 0; i < 3; i++) {
+    const ring = new THREE.Mesh(geometry, material.clone());
+    ring.scale.set(0.1, 0.1, 0.1);
+    scene.add(ring);
+    rings.push(ring);
+}
+
+const light = new THREE.PointLight(0xFF6500, 1, 10);
+light.position.set(2, 2, 2);
+scene.add(light);
+scene.add(new THREE.AmbientLight(0x404040));
+
+camera.position.z = 3;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    rings.forEach((ring, i) => {
+        const offset = i * (Math.PI * 2 / 3);
+        const progress = (time + offset) % 3;
+        const scale = progress * 1.5;
+        ring.scale.set(scale, scale, scale);
+        ring.material.opacity = 1.0 - (progress / 3);
+        ring.rotation.x = time * 0.5;
+        ring.rotation.y = time * 0.2;
+    });
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_19 -->
+</body>
+</html>

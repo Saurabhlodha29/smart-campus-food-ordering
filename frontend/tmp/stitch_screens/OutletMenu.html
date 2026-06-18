@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#a33e00",
+                    "primary": "#ffb596",
+                    "on-background": "#f0e0ca",
+                    "primary-container": "#ff6500",
+                    "on-surface": "#f0e0ca",
+                    "on-primary": "#581e00",
+                    "secondary-container": "#5a4321",
+                    "primary-fixed": "#ffdbcd",
+                    "muted-text": "#7A6045",
+                    "on-secondary-fixed-variant": "#5a4321",
+                    "secondary-fixed": "#ffddb2",
+                    "on-tertiary-fixed": "#001d36",
+                    "on-error": "#690005",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-secondary-fixed": "#291800",
+                    "on-primary-fixed": "#360f00",
+                    "on-secondary": "#412c0d",
+                    "accent-rating": "#FFB347",
+                    "tertiary-container": "#009bfe",
+                    "surface-container-low": "#221a0d",
+                    "on-surface-variant": "#e3bfb1",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "surface-bright": "#413828",
+                    "on-tertiary": "#003257",
+                    "on-primary-container": "#551d00",
+                    "primary-fixed-dim": "#ffb596",
+                    "outline-variant": "#5a4136",
+                    "inverse-on-surface": "#382f20",
+                    "on-tertiary-container": "#003155",
+                    "on-secondary-container": "#d0b085",
+                    "surface-container": "#261e10",
+                    "secondary-fixed-dim": "#e3c195",
+                    "on-primary-fixed-variant": "#7d2d00",
+                    "surface-container-high": "#31291a",
+                    "surface-dim": "#191206",
+                    "surface": "#1C1108",
+                    "inverse-surface": "#f0e0ca",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "background": "#191206",
+                    "outline": "#aa8a7d",
+                    "surface-container-lowest": "#140d03",
+                    "secondary": "#e3c195",
+                    "surface-container-highest": "#3d3324",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "border-glow": "rgba(255, 101, 0, 0.18)",
+                    "tertiary": "#9dcaff",
+                    "surface-variant": "#3d3324",
+                    "card-input": "#2A1A0A",
+                    "on-error-container": "#ffdad6",
+                    "surface-tint": "#ffb596"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "stack-md": "16px",
+                    "gutter-grid": "12px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-md": ["Be Vietnam Pro"],
+                    "display-lg": ["Be Vietnam Pro"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "headline-lg": ["Be Vietnam Pro"],
+                    "label-md": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .border-glow-subtle {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .active-dot::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background-color: #ff6500;
+            border-radius: 50%;
+            margin-top: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-white overflow-x-hidden">
+<!-- Top Hero Header -->
+<header class="relative h-[280px] w-full overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-black/40 z-10"></div>
+<img class="w-full h-full object-cover transform scale-105 transition-transform duration-[20s] ease-linear hover:scale-100" data-alt="A high-angle architectural photograph of a modern, premium university canteen at night. The space features warm chocolate-toned wooden furniture, minimalist industrial lighting, and cozy booth seating. The lighting is low-key and amber-hued, creating a welcoming and sophisticated nocturnal atmosphere for students. High-contrast orange accents in the decor pop against the deep charcoal and earthy brown background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANi0N1Y6CCnLA83PC9nlI3tGsrM_YE_ld93wbSH9F-O-AzD2YcXuEH7fEELgJxCNpL0at_GDYAlWy2nvOQVmoOJf_jniINT9aTFPV_UHEO5j1bXAvnRKQRUXqWb95ZV21w4QXQNbdmdYGh0nZ0YqjecVlGeOlRZ_LO7nkvclpN4KOQHJDYK7icfJfZxyiiuB4h_0dWbWVimACcve7jy06o-zStx8t81lKK_uxMoPMzRaIVT9JqMiIAEbjHuSaf2iAza781blRGwXE"/>
+<!-- Back Button Overlay -->
+<button class="absolute top-6 left-margin-mobile z-20 w-10 h-10 flex items-center justify-center bg-surface/80 backdrop-blur-md rounded-full text-on-surface active:scale-90 transition-all border border-white/10">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="absolute top-6 right-margin-mobile z-20 w-10 h-10 flex items-center justify-center bg-surface/80 backdrop-blur-md rounded-full text-on-surface active:scale-90 transition-all border border-white/10">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</header>
+<!-- Outlet Info Section -->
+<section class="px-margin-mobile -mt-12 relative z-20">
+<div class="bg-surface p-stack-lg rounded-[24px] border-glow-subtle shadow-2xl">
+<div class="flex justify-between items-start mb-base">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Central Canteen</h1>
+<div class="flex items-center bg-accent-rating/10 px-2 py-1 rounded-lg">
+<span class="material-symbols-outlined text-accent-rating text-lg mr-1" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md text-accent-rating">4.8</span>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm text-muted-text">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="font-label-sm text-label-sm">Open until 11 PM</span>
+</div>
+<span class="w-1 h-1 bg-muted-text/30 rounded-full"></span>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">distance</span>
+<span class="font-label-sm text-label-sm">300m Away</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Tabs -->
+<nav class="mt-stack-lg sticky top-0 bg-background/95 backdrop-blur-md z-30 py-base border-b border-outline-variant/10">
+<div class="flex overflow-x-auto hide-scrollbar gap-stack-sm px-margin-mobile">
+<button class="flex-shrink-0 h-8 px-4 rounded-full bg-primary-container text-white font-label-md text-label-md flex items-center justify-center transition-all active:scale-95">All</button>
+<button class="flex-shrink-0 h-8 px-4 rounded-full bg-card-input text-muted-text font-label-md text-label-md flex items-center justify-center transition-all hover:text-primary active:scale-95 border border-white/5">Starters</button>
+<button class="flex-shrink-0 h-8 px-4 rounded-full bg-card-input text-muted-text font-label-md text-label-md flex items-center justify-center transition-all hover:text-primary active:scale-95 border border-white/5">Main Course</button>
+<button class="flex-shrink-0 h-8 px-4 rounded-full bg-card-input text-muted-text font-label-md text-label-md flex items-center justify-center transition-all hover:text-primary active:scale-95 border border-white/5">Beverages</button>
+<button class="flex-shrink-0 h-8 px-4 rounded-full bg-card-input text-muted-text font-label-md text-label-md flex items-center justify-center transition-all hover:text-primary active:scale-95 border border-white/5">Desserts</button>
+</div>
+</nav>
+<!-- Menu List -->
+<main class="mt-stack-md px-margin-mobile space-y-stack-md pb-32">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-sm">Popular Items</h2>
+<!-- Menu Item Card 1 -->
+<div class="bg-card-input p-stack-md rounded-[24px] border-glow-subtle flex items-center gap-stack-md relative group transition-all hover:bg-surface-container">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-3 h-3 border border-green-500 flex items-center justify-center rounded-[2px]"><span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span></span>
+<span class="font-label-sm text-label-sm text-accent-rating">Best Seller</span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface mb-1">Masala Dosa</h3>
+<p class="font-label-md text-label-md text-primary-container font-bold mb-2">₹65</p>
+<p class="font-body-md text-body-md text-muted-text line-clamp-2 pr-2">Crispy fermented crepe filled with spiced potato mash served with coconut chutney and sambar.</p>
+</div>
+<div class="relative flex-shrink-0">
+<img class="w-20 h-20 rounded-xl object-cover border border-white/10" data-alt="A professional culinary close-up of a golden, crispy Masala Dosa served on a traditional steel plate. The dosa has a visible potato filling peeking through the fold. In the background, small bowls of white coconut chutney and red sambar are artistically arranged. The lighting is warm and dramatic, highlighting the texture of the dosa, consistent with a premium dark kitchen aesthetic with rich orange and chocolate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOz2TsR8DfN4NofdV8SugfWdyGkuMdx_OsFabeKBhjvFAc7G8D2vlxG5eQID0nL7XlrwkDO97tJNpC1cknb3n9TluDpw5Ex5A4H8jnK-TkLCiFy5MQ0bB3tF4hMSxfzfpxOvQ3INXz8uIXP6FSIBV88HWr4h3fmtRNM1zke3KR2_kAjSt9Ub9FPTdf7FvLZ-RNZp5arHJBx6hoDXpqOrhejaWlNnNNMp56xFJ8fHNOA-kSVwfDt6rkGEgKTPMF8uwClGjvAK2uT8E"/>
+<!-- Quantity Selector -->
+<div class="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center bg-primary-container text-white rounded-full shadow-lg h-8 px-1 min-w-[72px] justify-between border border-white/20">
+<button class="w-6 h-6 flex items-center justify-center active:scale-90 transition-transform"><span class="material-symbols-outlined text-[18px]">remove</span></button>
+<span class="font-label-md text-label-md">1</span>
+<button class="w-6 h-6 flex items-center justify-center active:scale-90 transition-transform"><span class="material-symbols-outlined text-[18px]">add</span></button>
+</div>
+</div>
+</div>
+<!-- Menu Item Card 2 -->
+<div class="bg-card-input p-stack-md rounded-[24px] border-glow-subtle flex items-center gap-stack-md relative transition-all hover:bg-surface-container">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-3 h-3 border border-green-500 flex items-center justify-center rounded-[2px]"><span class="w-1.5 h-1.5 bg-green-500 rounded-full"></span></span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface mb-1">Paneer Butter Masala</h3>
+<p class="font-label-md text-label-md text-primary-container font-bold mb-2">₹180</p>
+<p class="font-body-md text-body-md text-muted-text line-clamp-2 pr-2">Cottage cheese cubes simmered in a rich tomato and butter based creamy gravy.</p>
+</div>
+<div class="relative flex-shrink-0">
+<img class="w-20 h-20 rounded-xl object-cover border border-white/10" data-alt="A rich and creamy Paneer Butter Masala served in a traditional dark clay bowl. The gravy is a vibrant orange-red color, garnished with a swirl of fresh cream and green coriander leaves. Soft cubes of paneer are visible within the thick sauce. The overall lighting is warm and moody, emphasizing the appetizing colors and premium cafe vibe of the dish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAn1Oe-lKkdd2eTSQLdWRADVM_D_PggldCCLn_nApYmkZPCZ5BZ94FzpwzMTBDCHlTWf_zZUPhsUUu4aqFEcaR6ReKf6hoY681KQZqN1jpYBno_42e6kOK5DxtBjiCvwEO1kRG8bZEKnfqVSIVRC3g18VELbm649_4mwNcillHNg0hzfVNkWUt5jHkiOPfBwxYlFg4FQ866i-w9J2k_ix97LkvjEf3NzvpPe3vJIH67lJaFDzMXASZ8839bUMKB9rxwXbS9mkjAP08"/>
+<button class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-surface border border-primary-container text-primary-container font-bold rounded-full shadow-lg h-8 px-6 min-w-[72px] flex items-center justify-center active:scale-95 transition-all hover:bg-primary-container hover:text-white">
+                    ADD
+                </button>
+</div>
+</div>
+<!-- Menu Item Card 3 -->
+<div class="bg-card-input p-stack-md rounded-[24px] border-glow-subtle flex items-center gap-stack-md relative transition-all hover:bg-surface-container">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-3 h-3 border border-red-500 flex items-center justify-center rounded-[2px]"><span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span></span>
+</div>
+<h3 class="font-body-lg text-body-lg text-on-surface mb-1">Chicken Biryani</h3>
+<p class="font-label-md text-label-md text-primary-container font-bold mb-2">₹220</p>
+<p class="font-body-md text-body-md text-muted-text line-clamp-2 pr-2">Aromatic long-grain basmati rice cooked with succulent chicken pieces and spices.</p>
+</div>
+<div class="relative flex-shrink-0">
+<img class="w-20 h-20 rounded-xl object-cover border border-white/10" data-alt="A platter of aromatic Chicken Biryani with long, white and saffron-colored basmati rice grains. Tender chicken drumsticks are nestled within the rice, garnished with caramelized onions and fresh mint. A side of creamy white raita is partially visible. The scene is set in a dark, warm environment with soft spotlighting, creating a gourmet presentation suitable for a premium campus canteen app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnhoqKVMf4iePh5uQ9gnmiT8A9MyJl8pP-7grL4F8FaiJLKtjqKJhskJJYkITtcBPPmp80FOP6FYnZiAK9IORMqcA5uf_18aUHtnkyCEzP1Kwza5k4RL8FJPh-u9sYS4H34txBNi2dJo8O2WPE8bbbMeXBug-lREQxnnkhLr4oIq9LL22kelw1B5TTDi3Rob7joqizJqBBDp07-ubr1ziypXO8RpK9Tg1CgBtGWcb4mOPg2BDkRPbrUSbB9b9o_Z-2I5t5Sq_cSxE"/>
+<button class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-surface border border-primary-container text-primary-container font-bold rounded-full shadow-lg h-8 px-6 min-w-[72px] flex items-center justify-center active:scale-95 transition-all hover:bg-primary-container hover:text-white">
+                    ADD
+                </button>
+</div>
+</div>
+</main>
+<!-- Cart Bar (Sticky Floating Bar) -->
+<div class="fixed bottom-margin-mobile left-margin-mobile right-margin-mobile z-50 transform translate-y-0 transition-transform duration-300">
+<div class="bg-primary-container text-white p-stack-sm rounded-[20px] flex justify-between items-center shadow-[0_8px_32px_rgba(255,101,0,0.4)] border border-white/20">
+<div class="flex flex-col ml-4">
+<span class="font-label-md text-label-md opacity-90">1 Item | ₹65</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Plus Taxes</span>
+</div>
+<button class="bg-white/10 hover:bg-white/20 px-6 py-3 rounded-xl flex items-center gap-2 font-headline-md text-headline-md transition-all active:scale-95">
+<span>View Cart</span>
+<span class="material-symbols-outlined">shopping_basket</span>
+</button>
+</div>
+</div>
+<!-- Hidden Bottom Nav for top-level destination check (Suppressed as per rules for sub-page) -->
+<!-- But if required, using semantic logic, this is a 'Details' page, so BottomNavBar is suppressed. -->
+<script>
+        // Simple micro-interaction for adding items
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.innerText === 'ADD') {
+                    // Quick feedback transition
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 100);
+                }
+            });
+        });
+
+        // Sticky Bar hide/show on scroll
+        let lastScroll = 0;
+        const cartBar = document.querySelector('.fixed.bottom-margin-mobile');
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll <= 0) {
+                cartBar.style.transform = 'translateY(0)';
+                return;
+            }
+            if (currentScroll > lastScroll && !cartBar.classList.contains('translate-y-32')) {
+                // Scroll down - hide bar slightly for better reading
+                cartBar.style.transform = 'translateY(120%)';
+            } else if (currentScroll < lastScroll) {
+                // Scroll up - show bar
+                cartBar.style.transform = 'translateY(0)';
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body></html>

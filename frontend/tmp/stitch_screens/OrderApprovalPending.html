@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order Status - Campus Cravings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;family=Poppins:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "on-secondary": "#412c0d",
+                        "on-tertiary-container": "#003155",
+                        "on-background": "#f0e0ca",
+                        "surface-container-low": "#221a0d",
+                        "surface": "#1C1108",
+                        "surface-container-high": "#31291a",
+                        "surface-container": "#261e10",
+                        "on-surface-variant": "#e3bfb1",
+                        "tertiary": "#9dcaff",
+                        "inverse-on-surface": "#382f20",
+                        "tertiary-container": "#009bfe",
+                        "primary-fixed": "#ffdbcd",
+                        "on-primary": "#581e00",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#413828",
+                        "primary-container": "#ff6500",
+                        "outline-variant": "#5a4136",
+                        "on-error": "#690005",
+                        "surface-dim": "#191206",
+                        "surface-container-highest": "#3d3324",
+                        "on-secondary-fixed": "#291800",
+                        "on-primary-fixed": "#360f00",
+                        "tertiary-fixed-dim": "#9dcaff",
+                        "on-tertiary-fixed-variant": "#00497c",
+                        "surface-tint": "#ffb596",
+                        "on-tertiary-fixed": "#001d36",
+                        "inverse-primary": "#a33e00",
+                        "tertiary-fixed": "#d1e4ff",
+                        "accent-rating": "#FFB347",
+                        "on-surface": "#f0e0ca",
+                        "background": "#191206",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#5a4321",
+                        "secondary-container": "#5a4321",
+                        "on-tertiary": "#003257",
+                        "primary-fixed-dim": "#ffb596",
+                        "on-secondary-container": "#d0b085",
+                        "on-primary-container": "#551d00",
+                        "secondary-fixed-dim": "#e3c195",
+                        "secondary-fixed": "#ffddb2",
+                        "secondary": "#e3c195",
+                        "on-primary-fixed-variant": "#7d2d00",
+                        "surface-variant": "#3d3324",
+                        "primary": "#ffb596",
+                        "surface-container-lowest": "#140d03",
+                        "muted-text": "#7A6045",
+                        "card-input": "#2A1A0A",
+                        "border-glow": "rgba(255, 101, 0, 0.18)",
+                        "outline": "#aa8a7d",
+                        "inverse-surface": "#f0e0ca"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "24px": "24px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "margin-mobile": "20px",
+                        "stack-md": "16px",
+                        "gutter-grid": "12px",
+                        "base": "4px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Be Vietnam Pro"],
+                        "label-sm": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "display-lg": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "poppins": ["Poppins", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0E0801;
+            color: #f0e0ca;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-overlay {
+            background: rgba(14, 8, 1, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .card-glow {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="font-body-md text-body-md overflow-hidden h-screen w-full flex items-center justify-center">
+<!-- Ambient Background Shader -->
+<div class="fixed inset-0 z-0">
+<!-- STITCH_SHADER_START:ANIMATION_18 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_18" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_18');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+
+void main() {
+    vec2 uv = v_texCoord;
+    float time = u_time * 0.5;
+    
+    // Create a smooth, organic flow
+    vec2 p = uv * 2.0 - 1.0;
+    p.x *= u_resolution.x / u_resolution.y;
+    
+    float wave = sin(p.x * 2.0 + time) * cos(p.y * 2.0 + time);
+    wave += sin(p.y * 3.0 - time * 1.5) * cos(p.x * 1.5 + time);
+    
+    // Brand colors: #FF6500 (orange) and #1C1108 (dark surface)
+    vec3 colorA = vec3(1.0, 0.396, 0.0); // #FF6500
+    vec3 colorB = vec3(0.11, 0.067, 0.031); // #1C1108
+    
+    float mask = smoothstep(-0.5, 0.5, wave);
+    vec3 finalColor = mix(colorB, colorA * 0.15, mask);
+    
+    // Add a slight "glint" or pulse
+    float pulse = sin(u_time) * 0.5 + 0.5;
+    finalColor += colorA * pulse * 0.05 * (1.0 - length(p * 0.5));
+    
+    gl_FragColor = vec4(finalColor, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_18 -->
+<div class="glass-overlay absolute inset-0"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-[390px] px-margin-mobile flex flex-col items-center">
+<!-- Status Modal Card -->
+<div class="w-[340px] bg-surface rounded-24px p-[28px] flex flex-col items-center card-glow animate-in fade-in zoom-in duration-500">
+<!-- Pulsing Request Animation Container -->
+<div class="w-[120px] h-[120px] mb-stack-md flex items-center justify-center relative">
+<!-- STITCH_THREEJS_START:ANIMATION_19 class="absolute inset-0 w-full h-full" -->
+<div class="absolute inset-0 w-full h-full" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_19" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_19');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  const width = container.clientWidth || window.innerWidth;
+const height = container.clientHeight || window.innerHeight;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setSize(width, height);
+renderer.setPixelRatio(window.devicePixelRatio);
+container.appendChild(renderer.domElement);
+
+// Create a premium "Order Pulse" ring
+const geometry = new THREE.TorusGeometry(1, 0.02, 16, 100);
+const material = new THREE.MeshPhongMaterial({ 
+    color: 0xFF6500,
+    emissive: 0xFF6500,
+    emissiveIntensity: 0.5,
+    transparent: true,
+    opacity: 0.8
+});
+
+const rings = [];
+for (let i = 0; i < 3; i++) {
+    const ring = new THREE.Mesh(geometry, material.clone());
+    ring.scale.set(0.1, 0.1, 0.1);
+    scene.add(ring);
+    rings.push(ring);
+}
+
+const light = new THREE.PointLight(0xFF6500, 1, 10);
+light.position.set(2, 2, 2);
+scene.add(light);
+scene.add(new THREE.AmbientLight(0x404040));
+
+camera.position.z = 3;
+
+function animate() {
+    requestAnimationFrame(animate);
+    const time = Date.now() * 0.001;
+    
+    rings.forEach((ring, i) => {
+        const offset = i * (Math.PI * 2 / 3);
+        const progress = (time + offset) % 3;
+        const scale = progress * 1.5;
+        ring.scale.set(scale, scale, scale);
+        ring.material.opacity = 1.0 - (progress / 3);
+        ring.rotation.x = time * 0.5;
+        ring.rotation.y = time * 0.2;
+    });
+    
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+});
+
+animate();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_19 -->
+<!-- Subtle internal shadow/glow for the animation container -->
+<div class="absolute inset-0 rounded-full bg-primary/5 blur-xl"></div>
+</div>
+<!-- Text Content -->
+<h3 class="font-headline-md text-headline-md text-on-surface text-center mb-base">
+                Waiting for Outlet
+            </h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-center mb-stack-lg leading-snug">
+                The manager is reviewing your order request. This usually takes under a minute.
+            </p>
+<!-- Outlet Identity -->
+<div class="text-center mb-stack-md">
+<span class="font-poppins text-[15px] font-semibold text-primary">
+                    Central Canteen
+                </span>
+</div>
+<!-- Compact Summary Pill -->
+<div class="bg-surface-container rounded-full px-stack-md py-stack-sm flex items-center space-x-2 border border-outline-variant/30 mb-stack-lg">
+<span class="material-symbols-outlined text-[18px] text-muted-text">shopping_bag</span>
+<span class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                    2 items • ₹421.00
+                </span>
+</div>
+<!-- Footer Note -->
+<p class="font-label-sm text-label-sm text-muted-text text-center italic opacity-80">
+                Manager can decline if outlet is closing soon
+            </p>
+</div>
+<!-- Secondary Action -->
+<button class="mt-stack-lg py-3 px-8 text-error font-label-md text-label-md uppercase tracking-[0.1em] transition-all hover:opacity-80 active:scale-95 flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">cancel</span>
+            Cancel Request
+        </button>
+</main>
+<!-- Custom Micro-interaction Script -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cancelButton = document.querySelector('button');
+            cancelButton.addEventListener('click', (e) => {
+                // Subtle haptic-like visual feedback
+                cancelButton.classList.add('scale-90');
+                setTimeout(() => {
+                    cancelButton.classList.remove('scale-90');
+                }, 100);
+                
+                // For demo purposes, we log the action
+                console.log('Order cancellation initiated');
+            });
+
+            // Dynamic opacity shift for the footer note to create a "breathing" effect
+            const footerNote = document.querySelector('p.italic');
+            let opacity = 0.8;
+            let direction = -0.005;
+            
+            function animateFooter() {
+                opacity += direction;
+                if (opacity <= 0.4 || opacity >= 0.8) direction *= -1;
+                footerNote.style.opacity = opacity;
+                requestAnimationFrame(animateFooter);
+            }
+            animateFooter();
+        });
+    </script>
+</body></html>

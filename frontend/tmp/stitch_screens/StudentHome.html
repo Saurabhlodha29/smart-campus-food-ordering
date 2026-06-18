@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Smart Campus Food - Student Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#a33e00",
+                    "primary": "#ff6500",
+                    "on-background": "#f0e0ca",
+                    "primary-container": "#ff6500",
+                    "on-surface": "#f0e0ca",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#5a4321",
+                    "primary-fixed": "#ffdbcd",
+                    "muted-text": "#7A6045",
+                    "on-secondary-fixed-variant": "#5a4321",
+                    "secondary-fixed": "#ffddb2",
+                    "on-tertiary-fixed": "#001d36",
+                    "on-error": "#690005",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-secondary-fixed": "#291800",
+                    "on-primary-fixed": "#360f00",
+                    "on-secondary": "#412c0d",
+                    "accent-rating": "#FFB347",
+                    "tertiary-container": "#009bfe",
+                    "surface-container-low": "#221a0d",
+                    "on-surface-variant": "#e3bfb1",
+                    "error-container": "#93000a",
+                    "error": "#ffb4ab",
+                    "surface-bright": "#413828",
+                    "on-tertiary": "#003257",
+                    "on-primary-container": "#ffffff",
+                    "primary-fixed-dim": "#ffb596",
+                    "outline-variant": "#5a4136",
+                    "inverse-on-surface": "#382f20",
+                    "on-tertiary-container": "#003155",
+                    "on-secondary-container": "#d0b085",
+                    "surface-container": "#261e10",
+                    "secondary-fixed-dim": "#e3c195",
+                    "on-primary-fixed-variant": "#7d2d00",
+                    "surface-container-high": "#31291a",
+                    "surface-dim": "#191206",
+                    "surface": "#1C1108",
+                    "inverse-surface": "#f0e0ca",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "background": "#0E0801",
+                    "outline": "#aa8a7d",
+                    "surface-container-lowest": "#140d03",
+                    "secondary": "#e3c195",
+                    "surface-container-highest": "#3d3324",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "border-glow": "rgba(255, 101, 0, 0.12)",
+                    "tertiary": "#9dcaff",
+                    "surface-variant": "#3d3324",
+                    "card-input": "#2A1A0A",
+                    "on-error-container": "#ffdad6",
+                    "surface-tint": "#ffb596"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "stack-md": "16px",
+                    "gutter-grid": "12px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "sans": ["Poppins", "sans-serif"],
+                    "label-sm": ["Be Vietnam Pro"],
+                    "body-md": ["Be Vietnam Pro"],
+                    "headline-md": ["Poppins"],
+                    "display-lg": ["Poppins"],
+                    "body-lg": ["Be Vietnam Pro"],
+                    "headline-lg": ["Poppins"],
+                    "label-md": ["Be Vietnam Pro"]
+            },
+            "fontSize": {
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0E0801;
+            color: #f0e0ca;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+        .custom-glow-border {
+            border: 1px solid rgba(255, 101, 0, 0.12);
+            background-color: #2A1A0A;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .primary-btn-shadow {
+            box-shadow: 0px 4px 20px rgba(255, 101, 0, 0.45);
+        }
+        .nav-item {
+            min-width: 48px;
+            min-height: 48px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased pb-safe">
+<!-- Top App Bar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface flex justify-between items-center w-full px-4 pt-safe h-16 border-b border-outline-variant/10">
+<div class="flex items-center gap-2 active:scale-95 transition-transform min-h-[48px] px-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-muted-text">Deliver to</span>
+<span class="text-label-md font-label-md text-on-surface font-bold">Library, Floor 2</span>
+</div>
+<span class="material-symbols-outlined text-muted-text text-[18px]">expand_more</span>
+</div>
+<div class="relative active:scale-95 transition-transform flex items-center justify-center w-12 h-12">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary-container rounded-full ring-2 ring-surface"></span>
+</div>
+</header>
+<main class="mt-16 pt-stack-md">
+<!-- Search Bar -->
+<section class="px-4 mb-stack-lg">
+<div class="relative flex items-center h-[52px] w-full rounded-xl px-4 custom-glow-border">
+<span class="material-symbols-outlined text-muted-text mr-3">search</span>
+<input class="bg-transparent border-none text-on-surface placeholder:text-muted-text focus:ring-0 w-full font-body-md text-body-md" placeholder="Search for meals, cafes, or snacks" type="text"/>
+<div class="flex items-center justify-center w-10 h-10 -mr-2">
+<span class="material-symbols-outlined text-primary">tune</span>
+</div>
+</div>
+</section>
+<!-- Categories -->
+<section class="mb-stack-lg">
+<div class="flex gap-4 overflow-x-auto hide-scrollbar px-4">
+<div class="flex flex-col items-center gap-2 min-w-[70px] active:scale-95 transition-transform">
+<div class="w-[60px] h-[60px] rounded-full bg-primary-container flex items-center justify-center primary-btn-shadow">
+<span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface text-center">Cafeteria</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[70px] active:scale-95 transition-transform">
+<div class="w-[60px] h-[60px] rounded-full custom-glow-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">nights_stay</span>
+</div>
+<span class="text-label-sm font-label-sm text-muted-text text-center">Night Mess</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[70px] active:scale-95 transition-transform">
+<div class="w-[60px] h-[60px] rounded-full custom-glow-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">local_drink</span>
+</div>
+<span class="text-label-sm font-label-sm text-muted-text text-center">Juice Bar</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[70px] active:scale-95 transition-transform">
+<div class="w-[60px] h-[60px] rounded-full custom-glow-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">bakery_dining</span>
+</div>
+<span class="text-label-sm font-label-sm text-muted-text text-center">Bakery</span>
+</div>
+<div class="flex flex-col items-center gap-2 min-w-[70px] active:scale-95 transition-transform">
+<div class="w-[60px] h-[60px] rounded-full custom-glow-border flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[28px]">icecream</span>
+</div>
+<span class="text-label-sm font-label-sm text-muted-text text-center">Desserts</span>
+</div>
+</div>
+</section>
+<!-- Promos -->
+<section class="mb-stack-lg">
+<div class="flex gap-4 overflow-x-auto hide-scrollbar px-4">
+<!-- Promo Card 1 -->
+<div class="relative min-w-[280px] h-36 rounded-2xl overflow-hidden active:scale-[0.98] transition-transform">
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQtTwCdXw4QBBTCAoHKylC1nKtQR4cB022u61fwWoyCPF3SmM5HTKw28pbZJD7zFQdDRYrfyFiIiEbTMHVpPcVNVvSEatwU7xcGbz2uVq-aPQOJQyVrIaOXc8ud4vl646gfQC_HyJKl8iNBGxOdbMQBcALAjifVRwbpkjbhO3EZE30y2dd84114gPwIgvJXyI6zlwrrdEzrvMTBSRSLq9DMkPFJNYdZwrroJirDeE3MthSu9-HHe0F4xSqsKK5JlBCwNxgcmsFlo4')"></div>
+<div class="relative z-20 p-4 h-full flex flex-col justify-center">
+<span class="text-primary font-bold text-label-md uppercase tracking-widest mb-1">Flash Deal</span>
+<h3 class="text-headline-md text-white max-w-[160px]">Midnight Munchies - 20% OFF</h3>
+<p class="text-label-sm text-white/70 mt-1">Valid 11 PM - 3 AM</p>
+</div>
+</div>
+<!-- Promo Card 2 -->
+<div class="relative min-w-[280px] h-36 rounded-2xl overflow-hidden active:scale-[0.98] transition-transform">
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent z-10"></div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDBFzKPUxZu_IZ24VUexXL0t9A24m0ryLzLLl_SMifM9ZprqW9hmiyIltgmrTsbA4ewsPHQwN0_EZZm2sRijje-i5f_n5IBzIeaXGNDQNvCwKmp3VXe9vbU6tWxSUnPcLhYC2R5GSaptYAKxwOE4ck8mzQF5XKm4edjF9wH6FGW15z_OrLDVHQUyDQt_DlLK1JcM94r-KLPsofX9bsuIW-7XUB8qjP0pUg-QZgta7TbBVf1pMamn_5Ypg4Xxen6jn0ZmNmh-KF0r1c')"></div>
+<div class="relative z-20 p-4 h-full flex flex-col justify-center">
+<span class="text-primary font-bold text-label-md uppercase tracking-widest mb-1">Limited Time</span>
+<h3 class="text-headline-md text-white max-w-[160px]">Exam Season Coffee Deals</h3>
+<p class="text-label-sm text-white/70 mt-1">Free refill with every Latte</p>
+</div>
+</div>
+</div>
+</section>
+<!-- AI Picks for You -->
+<section class="mb-stack-lg">
+<div class="px-4 flex justify-between items-center mb-stack-sm">
+<h2 class="text-headline-md text-on-surface">AI Picks for You</h2>
+<button class="text-primary text-label-md font-bold min-h-[48px] px-2">See All</button>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar px-4">
+<!-- Item 1 -->
+<div class="min-w-[160px] rounded-2xl p-3 custom-glow-border active:scale-[0.97] transition-all">
+<div class="w-full h-28 rounded-xl overflow-hidden mb-3">
+<img alt="Paneer Tikka Roll" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyQ4uJeJhd6yhjj8RtoPUCcIs4zpUY8rgcALW53vfTHVvwUj10Z1cFkz-OO_6Ytf1c5Ll-3_m_DAd9P695U9ro_HNTwvLyy8_B1KQdELeOW-lSllilUTObLXbgQ3MFmmxyWvnkoDiHAOmUozRz-_W6iT8s2QwSxNEClzxcNdM3F_cqYrWgwBnnpOBpm-Bd1FnidDVjlB25ndqVOG2xWUeK_MsG4g9O34gaUZzGBvSnTzjbgNldbBnmzYpST78chxmh3GttTYfW76c"/>
+</div>
+<h4 class="text-body-lg text-on-surface font-semibold line-clamp-1">Paneer Tikka Roll</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-primary font-bold">₹120</span>
+<button class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center active:scale-90 transition-transform primary-btn-shadow">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="min-w-[160px] rounded-2xl p-3 custom-glow-border active:scale-[0.97] transition-all">
+<div class="w-full h-28 rounded-xl overflow-hidden mb-3">
+<img alt="Schezwan Noodles" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVVVXxQ-ukaiSaKFScSJF3Sy4dBinoLSOwGbtGI_a34H2qnEMzA6ZloaGPEhn3iPK69dSMPANTBEW1gW7iM3cdwxJRWnE0kMn4BsWToklMUNQxYiZfqBgKLbO6itumCVjcNmzsB1qO_CdlePkI8isiKbf4JetI-Xdh2XZRblIu41eBrf5QqhylRMRlmKjoYx26_yEDL_q8slbjCPJaw2uiGhe47nRKEcTYDwAS7Q0Lkvmi-tdNK8NyTuDOHJ0coabLJyTJh1A2mrE"/>
+</div>
+<h4 class="text-body-lg text-on-surface font-semibold line-clamp-1">Schezwan Noodles</h4>
+<div class="flex justify-between items-center mt-2">
+<span class="text-primary font-bold">₹145</span>
+<button class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center active:scale-90 transition-transform primary-btn-shadow">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Food Outlets -->
+<section class="px-4 mb-24">
+<h2 class="text-headline-md text-on-surface mb-stack-sm">Food Outlets</h2>
+<div class="flex flex-col gap-4">
+<!-- Outlet 1 -->
+<div class="rounded-3xl overflow-hidden custom-glow-border active:scale-[0.98] transition-all">
+<div class="relative h-44 w-full">
+<img alt="Central Canteen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLKMj-BzzQrCvLWwDT9v2rthYerxZurhu5MelsVAK1rrUYCyad3EHn4AvhSrT930kS_biiIE_a7dVTGgDw26R_RbEmYzQnVLJ3bUNUnn9twS3BlLXqkztKMEA5iTSB3n03-7pYdJPgZTTSp_pLOxIT_XgMfWKbGRDa8Wsx9E582YqgiN1zkfh1-ZA2Q9rH60w0TEfYL68DUNSKQVdBkezXsI2iVrT8-B2-eZbNtdjuRa9S2Mw9A7gmFMD6vKuRZVf_WKhiSP9bdns"/>
+<div class="absolute top-4 right-4 bg-primary-container text-white px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1 shadow-lg">
+<span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                            ACTIVE
+                        </div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-headline-lg text-on-surface">Central Canteen</h3>
+<p class="text-body-md text-muted-text">Indian, Chinese, North Indian</p>
+</div>
+<div class="flex items-center bg-surface px-2 py-1 rounded-lg custom-glow-border">
+<span class="material-symbols-outlined text-accent-rating text-[16px] mr-1" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface font-bold text-label-md">4.5</span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-label-md text-on-surface-variant pt-2 border-t border-outline-variant/10">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>15-20 mins</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+<span>0.8 km</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+<span>₹200 for two</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Outlet 2 -->
+<div class="rounded-3xl overflow-hidden custom-glow-border active:scale-[0.98] transition-all opacity-80">
+<div class="relative h-44 w-full">
+<img alt="The Juice Hub" class="w-full h-full object-cover grayscale-[0.2]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDzJKXwpR2KLW_qP4fRgXoIKdQMDQe7Ecv91mczuGmJSrhf82Pxb4k1IVbfE7foQrKu7cZuR2G52SWAJsQ57eP3pthSguKb1KYsQEWAoQC4GoY0jZkxOMF26mz6WkGK7XzXnkziLvvQC-l9kwAVP0aDz7DyJI3ZLYMWre3JDPR7Mq4bLjJ6-D-A1eFDn9ukcHAoUjDgJ2bQrl-OAeOx5XQN8Sd57FFD3SgB2WN6KHzT0KRZ5VHMXerDOI14OfbJhv2otf3QeXNJBXI"/>
+<div class="absolute top-4 right-4 bg-muted-text/50 backdrop-blur-md text-white px-3 py-1 rounded-full text-label-sm font-bold flex items-center gap-1 shadow-lg">
+                            BUSY
+                        </div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h3 class="text-headline-lg text-on-surface">The Juice Hub</h3>
+<p class="text-body-md text-muted-text">Fresh Juices, Smoothies, Shakes</p>
+</div>
+<div class="flex items-center bg-surface px-2 py-1 rounded-lg custom-glow-border">
+<span class="material-symbols-outlined text-accent-rating text-[16px] mr-1" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-on-surface font-bold text-label-md">4.8</span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-label-md text-on-surface-variant pt-2 border-t border-outline-variant/10">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span>25-30 mins</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+<span>1.2 km</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center h-20 bg-surface border-t border-outline-variant/10 pb-safe">
+<a class="flex flex-col items-center justify-center text-primary nav-item active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-label-md font-bold mt-0.5">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-text nav-item hover:text-primary active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-label-md mt-0.5">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-text nav-item hover:text-primary active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="text-label-md mt-0.5">Inbox</span>
+</a>
+<a class="flex flex-col items-center justify-center text-muted-text nav-item hover:text-primary active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-md mt-0.5">Profile</span>
+</a>
+</nav>
+<!-- Micro-interaction Script -->
+<script>
+        document.querySelectorAll('.active\\:scale-90, .active\\:scale-95').forEach(button => {
+            button.addEventListener('touchstart', () => {
+                const scale = button.classList.contains('active:scale-90') ? 'scale-90' : 'scale-95';
+                button.classList.add(scale);
+            });
+            button.addEventListener('touchend', () => {
+                button.classList.remove('scale-90', 'scale-95');
+            });
+        });
+    </script>
+</body></html>

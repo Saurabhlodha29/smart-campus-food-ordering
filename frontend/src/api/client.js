@@ -1,28 +1,30 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
-
 const client = axios.create({
-  baseURL: BASE_URL,
-  timeout: 10000,
+  baseURL: import.meta.env.VITE_API_BASE_URL || "",
+  timeout: 15000,
   headers: { "Content-Type": "application/json" },
 });
 
 client.interceptors.request.use((config) => {
-  const token = localStorage.getItem("jwt_token");
+  const persisted = localStorage.getItem("scf_auth");
+  const token = persisted ? JSON.parse(persisted)?.state?.token : null;
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
 client.interceptors.response.use(
-  (res) => res,
-  (err) => {
-    if (err.response?.status === 401) {
-      localStorage.clear();
-      window.location.href = "/login";
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem("scf_auth");
+      if (window.location.pathname !== "/login") window.location.assign("/login");
     }
-    return Promise.reject(err);
-  }
+    return Promise.reject(error);
+  },
 );
+
+export const apiErrorMessage = (error) =>
+  error.response?.data?.message || error.response?.data?.error || error.message || "Something went wrong";
 
 export default client;

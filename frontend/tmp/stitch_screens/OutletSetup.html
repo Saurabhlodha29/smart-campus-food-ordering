@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Outlet Setup | Outlet Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background-color: #0E0801;
+      color: #f0e0ca;
+      -webkit-font-smoothing: antialiased;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .step-content {
+      display: none;
+    }
+    .step-content.active {
+      display: block;
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .border-glow {
+      border: 1px solid rgba(255, 101, 0, 0.18);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #2A1A0A;
+      border-radius: 10px;
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary": "#003257",
+            "outline-variant": "#5a4136",
+            "inverse-on-surface": "#382f20",
+            "primary-fixed-dim": "#ffb596",
+            "on-primary-container": "#551d00",
+            "on-tertiary-container": "#003155",
+            "surface-container": "#261e10",
+            "secondary-fixed-dim": "#e3c195",
+            "on-secondary-container": "#d0b085",
+            "background": "#191206",
+            "surface": "#1C1108",
+            "on-tertiary-fixed-variant": "#00497c",
+            "inverse-surface": "#f0e0ca",
+            "outline": "#aa8a7d",
+            "surface-dim": "#191206",
+            "surface-container-high": "#31291a",
+            "on-primary-fixed-variant": "#7d2d00",
+            "secondary": "#e3c195",
+            "surface-container-lowest": "#140d03",
+            "tertiary-fixed-dim": "#9dcaff",
+            "surface-container-highest": "#3d3324",
+            "on-error-container": "#ffdad6",
+            "card-input": "#2A1A0A",
+            "surface-tint": "#ffb596",
+            "tertiary": "#9dcaff",
+            "surface-variant": "#3d3324",
+            "border-glow": "rgba(255, 101, 0, 0.18)",
+            "inverse-primary": "#a33e00",
+            "primary-container": "#ff6500",
+            "on-surface": "#f0e0ca",
+            "on-background": "#f0e0ca",
+            "primary": "#ffb596",
+            "primary-fixed": "#ffdbcd",
+            "secondary-container": "#5a4321",
+            "on-primary": "#581e00",
+            "on-secondary-fixed-variant": "#5a4321",
+            "muted-text": "#7A6045",
+            "tertiary-fixed": "#d1e4ff",
+            "on-error": "#690005",
+            "secondary-fixed": "#ffddb2",
+            "on-tertiary-fixed": "#001d36",
+            "on-secondary": "#412c0d",
+            "on-secondary-fixed": "#291800",
+            "on-primary-fixed": "#360f00",
+            "tertiary-container": "#009bfe",
+            "accent-rating": "#FFB347",
+            "surface-container-low": "#221a0d",
+            "surface-bright": "#413828",
+            "error-container": "#93000a",
+            "error": "#ffb4ab",
+            "on-surface-variant": "#e3bfb1"
+          },
+          "spacing": {
+            "stack-sm": "8px",
+            "stack-md": "16px",
+            "gutter-grid": "12px",
+            "base": "4px",
+            "stack-lg": "24px",
+            "margin-mobile": "20px"
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen flex flex-col">
+<!-- Setup Header -->
+<header class="bg-surface sticky top-0 z-50 w-full border-b border-outline-variant flex flex-col">
+<div class="flex justify-between items-center px-margin-mobile h-[64px]">
+<h1 class="font-headline-md text-headline-md text-on-surface">Setup Your Outlet</h1>
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[20px]">person</span>
+</div>
+</div>
+<!-- Progress Indicator -->
+<div class="w-full bg-surface-container-low h-1 relative">
+<div class="absolute left-0 top-0 h-full bg-primary-container transition-all duration-500 ease-in-out" id="progress-bar" style="width: 25%;"></div>
+</div>
+<div class="px-margin-mobile py-base flex justify-between">
+<span class="font-label-sm text-label-sm text-muted-text uppercase tracking-wider" id="step-indicator">Step 1 of 4</span>
+<span class="font-label-sm text-label-sm text-primary">Basic Info</span>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile py-stack-lg max-w-[390px] mx-auto w-full pb-32">
+<!-- Step 1: Basic Info -->
+<section class="step-content active" id="step-1">
+<div class="space-y-stack-lg">
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">Outlet Name</label>
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-surface-container-high border-glow text-on-surface-variant font-body-md focus:outline-none" readonly="" type="text" value="Midnight Cravings Hub"/>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">Outlet Description</label>
+<textarea class="w-full p-stack-md h-32 rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:border-primary-container focus:ring-0 transition-all resize-none" placeholder="Tell students what makes your kitchen special..."></textarea>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">Cuisines Offered</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-stack-md py-2 rounded-full border-glow bg-card-input text-on-surface-variant font-label-md transition-colors" onclick="this.classList.toggle('bg-primary-container'); this.classList.toggle('text-white')">Indian</button>
+<button class="px-stack-md py-2 rounded-full border-glow bg-card-input text-on-surface-variant font-label-md transition-colors" onclick="this.classList.toggle('bg-primary-container'); this.classList.toggle('text-white')">Chinese</button>
+<button class="px-stack-md py-2 rounded-full border-glow bg-card-input text-on-surface-variant font-label-md transition-colors" onclick="this.classList.toggle('bg-primary-container'); this.classList.toggle('text-white')">Continental</button>
+<button class="px-stack-md py-2 rounded-full border-glow bg-card-input text-on-surface-variant font-label-md transition-colors" onclick="this.classList.toggle('bg-primary-container'); this.classList.toggle('text-white')">Desserts</button>
+<button class="px-stack-md py-2 rounded-full border-glow bg-card-input text-on-surface-variant font-label-md transition-colors" onclick="this.classList.toggle('bg-primary-container'); this.classList.toggle('text-white')">Beverages</button>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-gutter-grid">
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">From</label>
+<div class="relative">
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0 appearance-none" type="time" value="18:00"/>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">To</label>
+<div class="relative">
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0 appearance-none" type="time" value="04:00"/>
+</div>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">Avg. Prep Time (mins)</label>
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0" placeholder="20" type="number"/>
+</div>
+</div>
+</section>
+<!-- Step 2: Photo -->
+<section class="step-content" id="step-2">
+<div class="space-y-stack-lg">
+<div class="text-center space-y-stack-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface">Storefront Presence</h2>
+<p class="font-body-md text-body-md text-muted-text px-4">Upload a high-quality photo of your outlet or kitchen.</p>
+</div>
+<div class="w-full h-[200px] border-2 border-dashed border-outline-variant rounded-2xl flex flex-col items-center justify-center bg-surface-container-low group hover:border-primary-container transition-all cursor-pointer relative overflow-hidden">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">add_a_photo</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Tap to upload photo</span>
+<span class="text-[10px] text-muted-text mt-1">JPEG or PNG, Max 5MB</span>
+<img class="absolute inset-0 w-full h-full object-cover opacity-0 hover:opacity-20 transition-opacity" data-alt="A professional, appetizing interior shot of a high-end modern commercial kitchen with warm ambient lighting, polished steel surfaces, and a cozy Indian cafe atmosphere. The lighting is sophisticated, focusing on a wooden serving counter with warm amber highlights, creating a premium and trustworthy food brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO2ID1BX-Cua9I1TVemm8of9u8btjNofTJBxsTh_3uDFPxC1CAJQmbvpzKZCY4ecbF-NtnPjnDbYnlph2FB5roK_GFFubGiIq4WWCDgS7Jl6-ZgFzdw4o8KIk5cM2KEw7PY7qWuA0PWJzkDSltdC0uVI0BZuOtHHtHek0ev1U3jiqknR2BDmC5EJbe210ZiWiJpcVpel1JJF6LgdZEXhooP2xnVMFdyn4oZtnjrBvMBviEdZyVHF9pth6jxdcSv8fvBJMoWCYyBK4"/>
+</div>
+<div class="bg-secondary-container/30 border border-secondary/20 p-stack-md rounded-xl flex items-start gap-3">
+<span class="material-symbols-outlined text-accent-rating text-[20px]">lightbulb</span>
+<p class="font-body-md text-body-md text-secondary">
+<span class="font-bold">Pro Tip:</span> A great photo gets 40% more orders. Use natural lighting and show your best workspace.
+          </p>
+</div>
+</div>
+</section>
+<!-- Step 3: Bank Details -->
+<section class="step-content" id="step-3">
+<div class="space-y-stack-lg">
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">Account Holder Name</label>
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">Account Number</label>
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0 tracking-widest" type="password" value="987654321012"/>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">IFSC Code</label>
+<div class="flex gap-2">
+<input class="flex-1 h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0 uppercase" placeholder="HDFC0001234" type="text"/>
+<button class="px-6 h-[52px] rounded-xl bg-primary-container text-white font-label-md active:scale-95 transition-all" onclick="this.innerHTML='Verified'; this.classList.add('bg-emerald-500/20', 'text-emerald-400')">Verify</button>
+</div>
+</div>
+<div class="space-y-stack-sm">
+<label class="font-label-md text-label-md text-muted-text">UPI ID (Optional)</label>
+<input class="w-full h-[52px] px-stack-md rounded-xl bg-card-input border-glow text-on-surface font-body-md focus:ring-0" placeholder="outlet@upi" type="text"/>
+</div>
+</div>
+</section>
+<!-- Step 4: Launch -->
+<section class="step-content" id="step-4">
+<div class="space-y-stack-lg">
+<div class="text-center mb-6">
+<div class="inline-block p-4 rounded-full bg-primary-container/10 mb-4">
+<span class="material-symbols-outlined text-primary text-[48px]" data-weight="fill">verified</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Ready for Launch!</h2>
+<p class="font-body-md text-body-md text-muted-text">Everything looks great. Review your summary below.</p>
+</div>
+<div class="bg-surface-container border-glow rounded-2xl p-stack-md space-y-stack-md">
+<div class="flex items-center gap-4">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A macro close-up of a steaming hot artisanal paneer tikka dish, garnished with fresh cilantro and vibrant red spices. The lighting is cinematic, highlighting the texture and steam, perfectly representing a high-end food outlet's hero product." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAooWs_wZdJ5lfN3LFrEkTYv671RSFJMj7a7uZmYX80sCJdRZyG_LmWZ3hIZCplQcBW-75wwwe5Xz0S9YlofFTu83BrK29OkBzfiMMS8Q2Qbc1_IwORxt28OsLmMFLAejTd9ulUlO0d8MAcypgGTBPbyMZkpWo4cDOR_EuSz2z3u5AGsW5GCmWfhGFKo5Qv_aVlSNR5LwJ7pDviL5SmBmEKEvg1OycfUXPAxWnZ2DnjsUxiv-DT9CE1Nsaw95sJUEUQFmjF1Fh1ewY"/>
+</div>
+<div>
+<h3 class="font-headline-md text-[18px] text-on-surface">Midnight Cravings</h3>
+<p class="font-label-sm text-muted-text">Indian • Chinese • Open 6PM-4AM</p>
+</div>
+</div>
+<hr class="border-outline-variant opacity-30"/>
+<div class="space-y-2">
+<div class="flex justify-between">
+<span class="font-body-md text-muted-text">Verification</span>
+<span class="font-body-md text-emerald-400">Complete</span>
+</div>
+<div class="flex justify-between">
+<span class="font-body-md text-muted-text">Settlement</span>
+<span class="font-body-md text-on-surface">Weekly (Mon)</span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3 mt-6">
+<div class="pt-1">
+<input class="w-5 h-5 rounded border-outline-variant bg-card-input text-primary-container focus:ring-0 focus:ring-offset-0" id="policy" type="checkbox"/>
+</div>
+<label class="font-label-sm text-body-md text-on-surface-variant" for="policy">
+            I agree to the <a class="text-primary underline" href="#">Merchant Policy</a> and confirm that all information provided is accurate to the best of my knowledge.
+          </label>
+</div>
+</div>
+</section>
+</main>
+<!-- Navigation Buttons -->
+<footer class="fixed bottom-0 w-full bg-surface/80 backdrop-blur-lg border-t border-outline-variant p-margin-mobile flex gap-stack-md z-50">
+<button class="hidden flex-1 h-[52px] rounded-full border border-primary-container text-primary-container font-bold transition-all active:scale-95" id="btn-back" onclick="changeStep(-1)">
+      Back
+    </button>
+<button class="flex-1 h-[52px] rounded-full bg-primary-container text-on-primary font-bold transition-all active:scale-95 shadow-[0_4px_20px_rgba(255,101,0,0.3)]" id="btn-next" onclick="changeStep(1)">
+      Next Step
+    </button>
+</footer>
+<script>
+    let currentStep = 1;
+    const totalSteps = 4;
+    const stepNames = ["Basic Info", "Photo", "Bank Details", "Launch"];
+
+    function changeStep(delta) {
+      if (currentStep + delta > totalSteps || currentStep + delta < 1) return;
+      
+      const currentSection = document.getElementById(`step-${currentStep}`);
+      currentSection.classList.remove('active');
+      
+      currentStep += delta;
+      
+      const nextSection = document.getElementById(`step-${currentStep}`);
+      nextSection.classList.add('active');
+      
+      updateUI();
+    }
+
+    function updateUI() {
+      // Progress Bar
+      const progress = (currentStep / totalSteps) * 100;
+      document.getElementById('progress-bar').style.width = `${progress}%`;
+      
+      // Step Text
+      document.getElementById('step-indicator').innerText = `Step ${currentStep} of ${totalSteps}`;
+      document.querySelector('header span.text-primary').innerText = stepNames[currentStep - 1];
+      
+      // Buttons
+      const btnBack = document.getElementById('btn-back');
+      const btnNext = document.getElementById('btn-next');
+      
+      if (currentStep === 1) {
+        btnBack.classList.add('hidden');
+      } else {
+        btnBack.classList.remove('hidden');
+      }
+      
+      if (currentStep === totalSteps) {
+        btnNext.innerText = 'Launch My Outlet';
+        btnNext.onclick = () => {
+          if(document.getElementById('policy').checked) {
+            alert('Congratulations! Your outlet is now live.');
+            window.location.reload();
+          } else {
+            alert('Please accept the Merchant Policy to proceed.');
+          }
+        };
+      } else {
+        btnNext.innerText = 'Next Step';
+        btnNext.onclick = () => changeStep(1);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body></html>

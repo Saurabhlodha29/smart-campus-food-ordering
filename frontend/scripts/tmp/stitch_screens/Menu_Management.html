@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=390, height=844, initial-scale=1.0" name="viewport"/>
+<title>Menu Management - Smart Campus Food</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #0E0801;
+            color: #f0e0ca;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .custom-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .border-glow {
+            border: 1px solid rgba(255, 101, 0, 0.18);
+        }
+        .bottom-sheet-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#aa8a7d",
+                    "on-secondary-fixed": "#291800",
+                    "secondary-container": "#5a4321",
+                    "on-error": "#690005",
+                    "tertiary-container": "#009bfe",
+                    "secondary": "#e3c195",
+                    "background": "#191206",
+                    "border-glow": "rgba(255, 101, 0, 0.18)",
+                    "on-primary": "#581e00",
+                    "on-background": "#f0e0ca",
+                    "primary": "#ffb596",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed": "#ffdbcd",
+                    "primary-fixed-dim": "#ffb596",
+                    "on-surface-variant": "#e3bfb1",
+                    "on-secondary-container": "#d0b085",
+                    "surface-dim": "#191206",
+                    "on-surface": "#f0e0ca",
+                    "surface-container-highest": "#3d3324",
+                    "error-container": "#93000a",
+                    "on-tertiary-container": "#003155",
+                    "surface-tint": "#ffb596",
+                    "surface-container-high": "#31291a",
+                    "card-input": "#2A1A0A",
+                    "outline-variant": "#5a4136",
+                    "on-secondary": "#412c0d",
+                    "on-tertiary-fixed-variant": "#00497c",
+                    "on-secondary-fixed-variant": "#5a4321",
+                    "primary-container": "#ff6500",
+                    "on-primary-fixed": "#360f00",
+                    "secondary-fixed-dim": "#e3c195",
+                    "inverse-surface": "#f0e0ca",
+                    "tertiary-fixed-dim": "#9dcaff",
+                    "surface-container-low": "#221a0d",
+                    "secondary-fixed": "#ffddb2",
+                    "surface-container": "#261e10",
+                    "on-primary-fixed-variant": "#7d2d00",
+                    "surface-variant": "#3d3324",
+                    "muted-text": "#7A6045",
+                    "on-tertiary-fixed": "#001d36",
+                    "inverse-on-surface": "#382f20",
+                    "tertiary-fixed": "#d1e4ff",
+                    "on-tertiary": "#003257",
+                    "tertiary": "#9dcaff",
+                    "on-primary-container": "#551d00",
+                    "error": "#ffb4ab",
+                    "surface": "#1C1108",
+                    "surface-container-lowest": "#140d03",
+                    "inverse-primary": "#a33e00",
+                    "surface-bright": "#413828",
+                    "accent-rating": "#FFB347"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "gutter-grid": "12px",
+                    "base": "4px",
+                    "stack-lg": "24px",
+                    "margin-mobile": "20px"
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-surface border-b border-outline-variant flex justify-between items-center px-margin-mobile h-[64px]">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of an Indian restaurant manager with a friendly expression, wearing a warm charcoal-colored uniform. The background is a soft-focus high-end kitchen with warm amber lighting and dark wood accents, matching the premium brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMfktnsEpQKWQc8X-P0MzXgKJui48kgcDa612X9eBneoB-BIA5jBDjSh_9RUSnIJveOfFcVyAnrNcoqc5ISEMy-HDWdpUbAOqM6NURQp0Jq5o6T8VWoeY0KawKZWCLtx8184j2ZqsJztfE56xqSPDDGgZ5AzExqMROB5EAY0M5SHtryvkbP90lIwTnaQCPGXsjQ71ycVXHNxdwotklhyx4-4GhzkDd3XFoL5TFwMXhXTt8qqoO-busYp2FLpb2ETRc59IbCTMsaOY"/>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Menu Management</h1>
+</div>
+<button class="bg-primary-container text-on-primary-container h-10 px-4 rounded-full font-label-md flex items-center gap-1 active:scale-95 transition-transform" onclick="toggleBottomSheet(true)">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Add Item</span>
+</button>
+</header>
+<main class="flex-1 pb-[100px] overflow-y-auto px-margin-mobile">
+<!-- Stats Row -->
+<section class="flex gap-stack-sm py-stack-lg overflow-x-auto custom-scrollbar">
+<div class="bg-surface-container border-glow px-4 py-2 rounded-full whitespace-nowrap">
+<span class="text-muted-text font-label-md">Total Items: </span>
+<span class="text-on-surface font-label-md">48</span>
+</div>
+<div class="bg-surface-container border-glow px-4 py-2 rounded-full whitespace-nowrap">
+<span class="text-muted-text font-label-md">Available: </span>
+<span class="text-primary font-label-md">42</span>
+</div>
+<div class="bg-surface-container border-glow px-4 py-2 rounded-full whitespace-nowrap">
+<span class="text-muted-text font-label-md">Out of Stock: </span>
+<span class="text-error font-label-md">06</span>
+</div>
+</section>
+<!-- Search & Filter -->
+<div class="space-y-stack-md">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-muted-text">search</span>
+<input class="w-full h-[52px] bg-card-input border-none rounded-xl pl-12 pr-4 text-on-surface placeholder:text-muted-text focus:ring-1 focus:ring-primary-container transition-all" placeholder="Search menu items..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto custom-scrollbar">
+<button class="h-8 px-5 rounded-full bg-primary-container text-on-primary-container font-label-md">All</button>
+<button class="h-8 px-5 rounded-full bg-surface-container-high text-on-surface font-label-md">Meals</button>
+<button class="h-8 px-5 rounded-full bg-surface-container-high text-on-surface font-label-md">Snacks</button>
+<button class="h-8 px-5 rounded-full bg-surface-container-high text-on-surface font-label-md">Beverages</button>
+<button class="h-8 px-5 rounded-full bg-surface-container-high text-on-surface font-label-md">Specials</button>
+</div>
+</div>
+<!-- Menu List -->
+<section class="mt-stack-lg space-y-stack-md">
+<!-- Item 1 -->
+<div class="bg-card-input border-glow rounded-[14px] p-stack-md flex gap-4 relative overflow-hidden">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A gourmet presentation of Paneer Butter Masala in a dark ceramic bowl, garnished with fresh cream and coriander. The setting is a dimly lit, high-end restaurant table with a dark chocolate and orange color palette. The steam is visible, suggesting warmth and freshness." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWHGW215ROV_e6C7dwxYdN1NrbpP6Zi-ZibSYO630ryGhPEw9u7GNH86QKCAoG0BUxTnMEVa3L1tP_VYxY384xRIqMywH05DPqAow4UOGX1hps80wVWpPCuuNVgHYG1L8SxcwBTN0m8WHQ1FGL2TBJM6Pajgp3GB-DKki5NNf6SdnSp3rN0SZ_EKOc6b2KTo9TY7KbZZjWU1L4IL4cGD47zpK_VHxr2IzhJj2Pfe1J4LHEbOSi5YQLH90N9KYVSF56LPBTjUdCjes"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[16px] text-on-surface">Paneer Butter Masala</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[20px] text-muted-text hover:text-primary cursor-pointer transition-colors">edit</span>
+<span class="material-symbols-outlined text-[20px] text-error hover:opacity-80 cursor-pointer transition-colors">delete</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-primary font-bold">₹180</span>
+<span class="text-muted-text text-[12px]">• ⏱ 15 min</span>
+<span class="bg-[#1b2b1b] text-[#81c784] text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Veg</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-muted-text font-label-sm">Available</span>
+<!-- Toggle Switch -->
+<div class="w-10 h-5 bg-primary-container rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-card-input border-glow rounded-[14px] p-stack-md flex gap-4 relative overflow-hidden">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A steaming plate of Chicken Biryani served on a dark slate platter with a side of raita. The colors are rich and warm, highlighting the saffron and roasted chicken. The lighting is focused and moody, reflecting a premium nighttime dining experience at a campus cafe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8v14HGjr7adZyUDRr-BqmTJgA_kzmrAlB75W_r4cgPmYGUJ6XFCHcSunDsCZDnPVEedZg80xvpFD-5ecHuiG1dgXGgqojoLemPSUMCbw_wXzZ3QDHxQW_W7VmQ0RD-h0kwx91s9Xz5UA0WK5mCBK1f-OciwAGqrctZa0LEpcAtY8L9BeHOEFfpwY_2-rr4KqAjuaPP7bRP2cV3bFBtFv1fs8YjB01GrWuQPM_p5iBFDHyFD9Qll85gHCY-8cYqt-Z-FDToYgbBsY"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[16px] text-on-surface">Chicken Biryani</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[20px] text-muted-text">edit</span>
+<span class="material-symbols-outlined text-[20px] text-error">delete</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-primary font-bold">₹220</span>
+<span class="text-muted-text text-[12px]">• ⏱ 20 min</span>
+<span class="bg-[#2b1b1b] text-[#e57373] text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Non-Veg</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-muted-text font-label-sm">Available</span>
+<div class="w-10 h-5 bg-primary-container rounded-full relative cursor-pointer">
+<div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-card-input border-glow rounded-[14px] p-stack-md flex gap-4 relative overflow-hidden opacity-80">
+<div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 grayscale">
+<img class="w-full h-full object-cover" data-alt="A tall glass of frothy cold coffee with chocolate drizzle, presented on a dark wooden surface. The atmosphere is cozy and nocturnal, illuminated by warm amber lights that cast soft glows on the condensation of the glass." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADccoPWWXQiaDaJ8SzliCsyAtOaBWt4jv0Bm_IPVE3QGyNXQGvAYAhdgj-6z4_XBd3c7IZxvWa8NW4jy5wAtkPh0JZO2Ap05Q_IqOhDD9DxcGCDsL43VdXtgxM5UDomMKbAN5gzQeYwQgy3Tqw-ZbHKemX7qkRxwcdkOFrhDOmDr_oovlYbltTie9uRSHRe_2sGSHlJV756kS4gUVA--4Fw1u7Ua_dXdBMJjnOsIKmEi6oGtCSXOrD_zHMNJ1KjaUfUYr0kbaeVSQ"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-[16px] text-on-surface">Cold Coffee</h3>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-[20px] text-muted-text">edit</span>
+<span class="material-symbols-outlined text-[20px] text-error">delete</span>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-primary font-bold">₹80</span>
+<span class="text-muted-text text-[12px]">• ⏱ 5 min</span>
+<span class="bg-[#1b2b1b] text-[#81c784] text-[10px] px-2 py-0.5 rounded font-bold uppercase tracking-wider">Veg</span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-error font-label-sm">Out of Stock</span>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative cursor-pointer">
+<div class="absolute left-0.5 top-0.5 w-4 h-4 bg-muted-text rounded-full transition-all"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ML Insights Section -->
+<section class="mt-stack-lg bg-surface-container-low border-glow rounded-2xl overflow-hidden">
+<div class="p-4 flex justify-between items-center bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h4 class="font-label-md text-on-surface">ML Menu Insights</h4>
+</div>
+<span class="material-symbols-outlined text-muted-text">expand_more</span>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex justify-between items-center">
+<div>
+<p class="text-on-surface text-[14px] font-medium">Paneer Butter Masala</p>
+<p class="text-accent-rating text-[11px] uppercase font-bold">Bestseller</p>
+</div>
+<div class="w-24 h-8 flex items-end gap-1">
+<!-- Sparkline mock -->
+<div class="flex-1 bg-primary h-[40%] rounded-t-sm opacity-40"></div>
+<div class="flex-1 bg-primary h-[60%] rounded-t-sm opacity-60"></div>
+<div class="flex-1 bg-primary h-[50%] rounded-t-sm opacity-50"></div>
+<div class="flex-1 bg-primary h-[90%] rounded-t-sm opacity-100"></div>
+<div class="flex-1 bg-primary h-[80%] rounded-t-sm opacity-80"></div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div>
+<p class="text-on-surface text-[14px] font-medium">Masala Tea</p>
+<p class="text-error text-[11px] uppercase font-bold">Low Demand</p>
+</div>
+<div class="text-right">
+<p class="text-muted-text text-[11px] italic leading-tight">"Consider a combo offer for Masala Tea to boost sales."</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 w-full z-50 h-[80px] bg-surface border-t border-outline-variant flex justify-around items-center px-base pb-safe">
+<div class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-primary relative after:content-[''] after:w-1 after:h-1 after:bg-primary after:rounded-full after:mt-1 hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-label-md text-label-md">Menu</span>
+</div>
+<div class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-label-md text-label-md">Slots</span>
+</div>
+<div class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-md text-label-md">Ledger</span>
+</div>
+<div class="flex flex-col items-center justify-center text-muted-text hover:bg-surface-container-low transition-all active:scale-90 duration-150">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-label-md text-label-md">Alerts</span>
+</div>
+</nav>
+<!-- Bottom Sheet Overlay -->
+<div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden transition-opacity" id="bottom-sheet-overlay" onclick="toggleBottomSheet(false)"></div>
+<!-- Add Item Bottom Sheet -->
+<div class="fixed bottom-0 left-0 right-0 z-[70] bg-surface rounded-t-[32px] bottom-sheet-transition translate-y-full px-margin-mobile pt-4 pb-8 max-h-[795px] overflow-y-auto custom-scrollbar border-t border-glow" id="bottom-sheet">
+<div class="w-12 h-1 bg-surface-container-highest rounded-full mx-auto mb-6"></div>
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Add Menu Item</h2>
+<button class="text-muted-text material-symbols-outlined" onclick="toggleBottomSheet(false)">close</button>
+</div>
+<form class="space-y-stack-lg">
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Item Name</label>
+<input class="w-full bg-card-input border-glow rounded-xl p-4 text-on-surface focus:ring-1 focus:ring-primary-container outline-none" placeholder="e.g. Garlic Naan" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Price (₹)</label>
+<input class="w-full bg-card-input border-glow rounded-xl p-4 text-on-surface focus:ring-1 focus:ring-primary-container outline-none" placeholder="0.00" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Prep Time (min)</label>
+<input class="w-full bg-card-input border-glow rounded-xl p-4 text-on-surface focus:ring-1 focus:ring-primary-container outline-none" placeholder="15" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Category</label>
+<select class="w-full bg-card-input border-glow rounded-xl p-4 text-on-surface focus:ring-1 focus:ring-primary-container outline-none appearance-none">
+<option>Meals</option>
+<option>Snacks</option>
+<option>Beverages</option>
+<option>Specials</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Dietary Type</label>
+<div class="flex p-1 bg-surface-container-low rounded-xl">
+<button class="flex-1 py-3 rounded-lg bg-primary-container text-on-primary-container font-bold" type="button">Veg</button>
+<button class="flex-1 py-3 rounded-lg text-muted-text font-bold" type="button">Non-Veg</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Item Photo</label>
+<div class="w-full aspect-video bg-card-input border-2 border-dashed border-outline-variant rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[32px] text-muted-text">add_a_photo</span>
+<p class="text-muted-text text-[12px]">Tap to upload food image</p>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-md text-muted-text uppercase">Description</label>
+<textarea class="w-full bg-card-input border-glow rounded-xl p-4 text-on-surface focus:ring-1 focus:ring-primary-container outline-none resize-none" placeholder="Tell us more about this dish..." rows="3"></textarea>
+</div>
+<div class="flex flex-col gap-4 pt-4">
+<button class="w-full h-[52px] bg-primary-container text-white font-bold rounded-full shadow-lg shadow-primary-container/20 active:scale-95 transition-transform" type="button">Save Item</button>
+<button class="w-full text-primary font-bold text-center py-2" onclick="toggleBottomSheet(false)" type="button">Cancel</button>
+</div>
+</form>
+</div>
+<script>
+        function toggleBottomSheet(show) {
+            const sheet = document.getElementById('bottom-sheet');
+            const overlay = document.getElementById('bottom-sheet-overlay');
+            if (show) {
+                sheet.classList.remove('translate-y-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sheet.classList.add('translate-y-full');
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
+</body></html>
