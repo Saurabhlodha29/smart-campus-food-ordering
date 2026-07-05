@@ -97,14 +97,8 @@ public class OutletApplicationController {
 
         String managerEmail = req.getManagerEmail().toLowerCase().trim();
 
-        // Manager email must belong to the campus email domain
-        String emailDomain = managerEmail.substring(managerEmail.indexOf('@') + 1);
-        if (!emailDomain.equalsIgnoreCase(campus.getEmailDomain())) {
-            throw new ApiException(
-                    "Your email domain (" + emailDomain + ") does not match the campus domain ("
-                            + campus.getEmailDomain() + ")",
-                    400);
-        }
+        // NOTE: Outlet managers are NOT required to use the campus email domain —
+        // outlet staff commonly use personal email addresses (Gmail, etc.).
 
         // Enforce max 3 attempts per manager email
         long previousAttempts = outletAppRepo.countByManagerEmail(managerEmail);

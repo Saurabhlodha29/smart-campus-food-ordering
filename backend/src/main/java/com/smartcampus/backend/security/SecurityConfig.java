@@ -41,6 +41,8 @@ public class SecurityConfig {
                         // ── Public ──────────────────────────────────────────────────
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/admin-applications").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/admin-applications/send-otp").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/admin-applications/verify-otp").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/outlet-applications").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/payments/webhook/razorpay").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/payments/order/**").permitAll()
@@ -72,7 +74,7 @@ public class SecurityConfig {
                         .hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/outlet-applications/*/approve").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/api/outlet-applications/*/reject").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/outlets/campus/*/all").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/outlets/campus/*/all").hasAnyRole("ADMIN", "SUPERADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/outlets/*/suspend").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/outlets/*/reactivate").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/outlets/*").hasRole("ADMIN")

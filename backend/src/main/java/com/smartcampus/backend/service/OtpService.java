@@ -82,4 +82,14 @@ public class OtpService {
         token.markUsed();
         otpTokenRepo.save(token);
     }
+
+    /**
+     * True if this email has at least one OTP token that was successfully
+     * verified. Used by public application flows (e.g. Campus Admin
+     * application) to confirm the applicant actually owns the email
+     * before accepting their submission.
+     */
+    public boolean isEmailVerified(String email) {
+        return otpTokenRepo.existsByEmailAndUsedTrue(email);
+    }
 }

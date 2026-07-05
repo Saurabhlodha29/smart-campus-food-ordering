@@ -40,12 +40,12 @@ public class OutletApplicationRequest {
      * URL of the uploaded license document image (FSSAI certificate photo,
      * trade license scan). Store via Supabase Storage or any CDN before submitting.
      */
-    @NotBlank(message = "License/legal document photo URL is required")
-    @Size(max = 500)
+    @NotBlank(message = "License/legal document photo is required")
+    @Size(max = 4_000_000, message = "Document photo is too large — please use a smaller image")
     private String licenseDocUrl;
 
     /** Optional photo of the outlet premises. */
-    @Size(max = 500)
+    @Size(max = 4_000_000, message = "Outlet photo is too large — please use a smaller image")
     private String outletPhotoUrl;
 
     // ── Document verification fields ──────────────────────────────────────────

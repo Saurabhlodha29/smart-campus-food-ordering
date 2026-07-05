@@ -2,6 +2,9 @@
 **/.env
 !.env.example
 *.env.local
+backend/.env
+ml-service/.env
+frontend/.env
 target/
 *.joblib
 __pycache__/

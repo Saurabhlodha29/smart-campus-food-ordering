@@ -39,6 +39,8 @@ spring:
 
 server:
   port: 8080
+  tomcat:
+    max-swallow-size: 15MB
 
 otp:
   expiry-minutes: ${OTP_EXPIRY_MINUTES:10}

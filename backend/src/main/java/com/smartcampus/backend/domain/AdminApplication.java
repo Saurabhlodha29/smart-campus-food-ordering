@@ -43,8 +43,8 @@ public class AdminApplication {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String designation;
 
-    /** URL of uploaded campus ID card photo (client uploads to cloud, sends URL). */
-    @Column(nullable = false, length = 500)
+    /** Base64 data-URI of the uploaded campus ID card photo (compressed client-side). */
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String idCardPhotoUrl;
 
     // ── Campus info being claimed ─────────────────────────────────────────────

@@ -1,0 +1,13 @@
+{
+  "name": "Smart Campus Food",
+  "short_name": "Campus Food",
+  "description": "Order food from your campus outlets",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0E0801",
+  "theme_color": "#FF6500",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

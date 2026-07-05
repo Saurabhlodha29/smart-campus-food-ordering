@@ -52,6 +52,8 @@ export const API = {
   NOTIFICATION_READ: (id) => `/api/notifications/${id}/read`,
   NOTIFICATIONS_READ_ALL: "/api/notifications/read-all",
   APPLY_ADMIN: "/api/admin-applications",
+  ADMIN_APP_SEND_OTP: "/api/admin-applications/send-otp",
+  ADMIN_APP_VERIFY_OTP: "/api/admin-applications/verify-otp",
   ADMIN_APPLICATIONS: "/api/admin-applications",
   ADMIN_APPLICATIONS_ALL: "/api/admin-applications/all",
   ADMIN_APPLICATION_APPROVE: (id) => `/api/admin-applications/${id}/approve`,
@@ -61,4 +63,6 @@ export const API = {
   OUTLET_APPLICATIONS_ALL: "/api/outlet-applications/all",
   OUTLET_APPLICATION_APPROVE: (id) => `/api/outlet-applications/${id}/approve`,
   OUTLET_APPLICATION_REJECT: (id) => `/api/outlet-applications/${id}/reject`,
+  OUTLET_APPLICATION_VERIFICATION_REPORT: (id) => `/api/outlet-applications/${id}/verification-report`,
+  CAMPUS_USERS: (campusId) => `/api/users/campus/${campusId}`,
 };

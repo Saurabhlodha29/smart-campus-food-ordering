@@ -51,10 +51,10 @@ public class OutletApplication {
     @Column(nullable = false)
     private int avgPrepTime;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String licenseDocUrl;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String outletPhotoUrl;
 
     // ── Document verification fields ──────────────────────────────────────────

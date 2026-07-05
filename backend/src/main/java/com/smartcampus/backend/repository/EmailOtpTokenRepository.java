@@ -40,4 +40,11 @@ public interface EmailOtpTokenRepository extends JpaRepository<EmailOtpToken, Lo
     @Transactional
     @Query("DELETE FROM EmailOtpToken t WHERE t.email = :email")
     void deleteAllByEmail(String email);
+
+    /**
+     * True if this email has at least one OTP token that was successfully
+     * verified (used = true). Used to confirm email ownership before a
+     * public application (e.g. Campus Admin application) is accepted.
+     */
+    boolean existsByEmailAndUsedTrue(String email);
 }

@@ -53,7 +53,7 @@ public class Outlet {
     @Column(nullable = false)
     private int avgPrepTime;
 
-    @Column(length = 500)
+    @Column(columnDefinition = "TEXT")
     private String photoUrl;
 
     @Column
