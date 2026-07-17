@@ -68,8 +68,14 @@ def create_app() -> FastAPI:
     # ── Routers ────────────────────────────────────────────────────────────────
     # Auth module router — /api/auth/* (all public per SecurityConfig §9 "public").
     from app.routers.auth import router as auth_router
+    # Application module routers — /api/admin-applications/* + /api/outlet-applications/*
+    # (per spec §9: public submit + SUPERADMIN/ADMIN review — see migration-notes/03-applications.md)
+    from app.routers.admin_application import router as admin_app_router
+    from app.routers.outlet_application import router as outlet_app_router
 
     application.include_router(auth_router)
+    application.include_router(admin_app_router)
+    application.include_router(outlet_app_router)
 
     return application
 
