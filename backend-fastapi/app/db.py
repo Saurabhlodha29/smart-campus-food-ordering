@@ -22,6 +22,7 @@ engine = create_async_engine(
     max_overflow=10,
     pool_timeout=30,
     pool_recycle=1800,
+    connect_args=settings.asyncpg_connect_args,
 )
 
 AsyncSessionLocal: async_sessionmaker[AsyncSession] = async_sessionmaker(

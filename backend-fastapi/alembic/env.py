@@ -83,8 +83,12 @@ def do_run_migrations(connection: object) -> None:
 
 
 async def run_migrations_online() -> None:
+    from app.config import settings
+
     url = get_url()
-    connectable = create_async_engine(url, echo=False)
+    connectable = create_async_engine(
+        url, echo=False, connect_args=settings.asyncpg_connect_args
+    )
     async with connectable.connect() as connection:
         await connection.run_sync(do_run_migrations)
     await connectable.dispose()

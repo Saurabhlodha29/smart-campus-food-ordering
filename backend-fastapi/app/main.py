@@ -4,25 +4,39 @@ FastAPI application factory.
 Foundation stage: app boots, exception handlers registered, DB + lifespan wired.
 No routers are mounted yet — those are added module-by-module per §22 migration order.
 """
+import logging
 from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.db import AsyncSessionLocal
 from app.exceptions import ApiException, api_exception_handler, runtime_exception_handler
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    """
-    Startup / shutdown lifecycle.
+    """Startup / shutdown lifecycle.
 
     On startup: seed roles + SuperAdmin (DataInitializer equivalent).
-    This hook is intentionally idempotent — existence-check before every insert.
-    The actual seeding logic will be added in the Auth module (migration step 2).
+    This hook is intentionally idempotent — existence-check before every insert,
+    so re-running on every boot is safe and produces zero duplicate rows.
+
+    Must NOT crash the app if seeding fails against a live DB the app doesn't
+    own (e.g. if migrations haven't been run yet). We log the failure and
+    continue serving traffic — JWT validation still works, routes that depend
+    on seeded roles will fail loudly on demand with a clean 500.
     """
-    # TODO (Auth module): call seed_roles_and_superadmin() here
+    try:
+        from app.services.seeding import seed_roles_and_superadmin
+
+        async with AsyncSessionLocal() as db:
+            await seed_roles_and_superadmin(db)
+    except Exception:
+        logger.exception("Seeding failed at startup — continuing (run alembic upgrade head)")
     yield
     # TODO (cleanup): dispose engine, close Redis pool
 
@@ -52,8 +66,10 @@ def create_app() -> FastAPI:
     application.add_exception_handler(Exception, runtime_exception_handler)
 
     # ── Routers ────────────────────────────────────────────────────────────────
-    # Routers are added here, one per migration module, after review sign-off.
-    # DO NOT add routers here until the corresponding module is approved.
+    # Auth module router — /api/auth/* (all public per SecurityConfig §9 "public").
+    from app.routers.auth import router as auth_router
+
+    application.include_router(auth_router)
 
     return application
 
