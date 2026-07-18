@@ -72,10 +72,17 @@ def create_app() -> FastAPI:
     # (per spec §9: public submit + SUPERADMIN/ADMIN review — see migration-notes/03-applications.md)
     from app.routers.admin_application import router as admin_app_router
     from app.routers.outlet_application import router as outlet_app_router
+    # Menu & Slot module routers — /api/menu-items/* + /api/slots/*
+    # (per spec §9: GET available=any auth, GET all=MANAGER/ADMIN,
+    #  mutations=MANAGER, slot reads=any auth, slot writes=MANAGER)
+    from app.routers.menu_item import router as menu_router
+    from app.routers.pickup_slot import router as slot_router
 
     application.include_router(auth_router)
     application.include_router(admin_app_router)
     application.include_router(outlet_app_router)
+    application.include_router(menu_router)
+    application.include_router(slot_router)
 
     return application
 

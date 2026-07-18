@@ -36,9 +36,15 @@ class PickupSlot(Base):
     # Hibernate @Version → SQLAlchemy version_id_col (BigInteger matches Java Long)
     version: Mapped[int] = mapped_column(BigInteger, nullable=False, default=0)
 
+    # Hibernate's @Version initialises the field to 0L and the JPA provider
+    # persists that 0 on INSERT, then bumps to 1 on the first UPDATE. SQLAlchemy's
+    # default ``version_id_generator`` returns 1 for ``None`` (new instance),
+    # which would make freshly-inserted rows start at version=1 — diverging
+    # from the Java wire format. The custom generator below reproduces Hibernate
+    # behaviour exactly: INSERT → 0, UPDATE → 1, UPDATE → 2, ...
     __mapper_args__ = {
         "version_id_col": version,
-        # Default version_id_generator increments by 1, matching Hibernate @Version
+        "version_id_generator": lambda v: 0 if v is None else v + 1,
     }
 
     # Relationships
